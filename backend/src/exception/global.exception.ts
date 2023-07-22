@@ -1,6 +1,5 @@
 import { ExceptionFilter, Catch, ArgumentsHost, HttpException, HttpStatus } from '@nestjs/common';
 import { Request, Response } from 'express';
-import moment from 'moment';
 import { QueryFailedError } from "typeorm";
 
 @Catch() 
@@ -32,7 +31,6 @@ export class GlobalExceptionFilter implements ExceptionFilter {
       .json({
         statusCode: status,
         message: (exception as any).message,
-        timestamp: new Date().toISOString(),
         path: request.url,
       });
   }

@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { UserService } from '../user.service';
 import { JwtService } from '@nestjs/jwt';
@@ -6,8 +6,9 @@ import { User } from '../user.entity';
 import { LoginUserDto } from '../dto/login-user.dto';
 import { UserRepository } from '../user.repository';
 import * as bcrypt from 'bcrypt';
+import { RefreshTokenDto } from '../dto/refresh-token.dto';
 
-interface Payload {
+export interface Payload {
   id: number;
   user_email: string;
   user_name: string;
@@ -51,10 +52,31 @@ export class AuthService {
       user_email: user.user_email,
       user_name: user.user_name,
     }
-    return this.jwtService.signAsync({id: payload.id}, {
+    return this.jwtService.signAsync({ id: payload.id }, {
       secret: this.configService.get<string>('JWT_REFRESH_SECRET'),
       expiresIn: this.configService.get<string>('JWT_REFRESH_EXPIRATION_TIME'),
     });
   }
 
+  async refresh(refreshTokenDto: RefreshTokenDto): Promise<{ access_token: string }> {
+    const { refresh_token } = refreshTokenDto;
+
+    // Verify refresh token
+    // JWT Refresh Token 검증 로직
+    const decodedRefreshToken = this.jwtService.verify(refresh_token, { secret: process.env.JWT_REFRESH_SECRET }) as Payload;
+
+    // Check if user exists
+    const userId = decodedRefreshToken.id;
+    const user = await this.userService.getUserIfRefreshTokenMatches(refresh_token, userId);
+    if (!user) {
+      throw new UnauthorizedException('Invalid user!');
+    }
+
+    // Generate new access token
+    const access_token = await this.generateAccessToken(user);
+
+    return {
+      access_token,
+    };
+  }
 }
