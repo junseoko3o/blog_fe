@@ -11,21 +11,13 @@ export class UserRepository extends Repository<User> {
   }
 
   async findAllUser() {
-    try {
-      return await this.find();
-    } catch (err) {
-      throw new InternalServerErrorException(err);
-    }
+    return await this.find();
   }
 
   async findOneUser(username: string) {
-    try {
-      return await this.findOne({
-        where: { username },
-      });
-    } catch (err) {
-      throw new InternalServerErrorException(err);
-    } 
+    return await this.findOne({
+      where: { username },
+    });
   }
   
   async createUser(createData: CreateUserDto) {
