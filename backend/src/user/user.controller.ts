@@ -45,13 +45,12 @@ export class UserController {
 
     @Post('login')
     @Public()
-    async login(
-      @Body() loginDto: LoginUserDto, @Res({ passthrough: true }) res: Response) {
+    async login(@Body() loginDto: LoginUserDto, @Res({ passthrough: true }) res: Response) {
       const user = await this.authService.validateUser(loginDto);
       const accessToken = await this.authService.generateAccessToken(user);
       const refreshToken = await this.authService.generateRefreshToken(user);
     
-      await this.userService.setCurrentRefreshToken(refreshToken,user.id);
+      await this.userService.setCurrentRefreshToken(user.id, refreshToken);
   
       res.setHeader('Authorization', 'Bearer ' + [accessToken, refreshToken]);
       res.cookie('access_token', accessToken, {
@@ -66,6 +65,7 @@ export class UserController {
         user_name: user.user_name,
         access_token: accessToken,
         refresh_token: refreshToken,
+        login_at: user.login_at
       };
     }
 

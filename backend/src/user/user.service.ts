@@ -61,10 +61,10 @@ export class UserService {
     return 'success delete user!';
   }
 
-  async setCurrentRefreshToken(refresh_token: string, userId: number) {
+  async setCurrentRefreshToken( id: number, refresh_token: string) {
     const currentRefreshToken = await this.getCurrentHashedRefreshToken(refresh_token);
     const currentRefreshTokenExp = await this.getCurrentRefreshTokenExp();
-    await this.userRepository.update(userId, {
+    const a =await this.userRepository.update(id, {
       refresh_token: currentRefreshToken,
       refresh_token_expired_at: currentRefreshTokenExp,
       login_at: new Date().toISOString(),
