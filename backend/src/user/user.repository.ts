@@ -3,11 +3,12 @@ import { User } from "./user.entity";
 import { DataSource, Repository } from "typeorm";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
+import { CustomRepository } from "src/common/custom/custom-typeorm.decorator";
 
-@Injectable()
+@CustomRepository(User)
 export class UserRepository extends Repository<User> {
   constructor(private dataSource: DataSource) {
-    super(User, dataSource.createEntityManager());
+    super(User, dataSource.manager)
   }
 
   async findAllUser() {

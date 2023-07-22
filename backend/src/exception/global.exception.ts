@@ -32,7 +32,7 @@ export class GlobalExceptionFilter implements ExceptionFilter {
       .json({
         statusCode: status,
         message: (exception as any).message,
-        timestamp: moment().format('YYYY-MM-DD HH:mm:ss'),
+        timestamp: new Date().toISOString(),
         path: request.url,
       });
   }
