@@ -5,8 +5,8 @@ import { JwtService } from '@nestjs/jwt';
 import { User } from '../user.entity';
 import { LoginUserDto } from '../dto/login-user.dto';
 import { UserRepository } from '../user.repository';
-import * as bcrypt from 'bcrypt';
 import { RefreshTokenDto } from '../dto/refresh-token.dto';
+import * as bcrypt from 'bcrypt';
 
 export interface Payload {
   id: number;

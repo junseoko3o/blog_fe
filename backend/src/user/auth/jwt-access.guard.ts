@@ -6,9 +6,7 @@ export class JwtAccessAuthGuard implements CanActivate {
   constructor(
     private jwtService: JwtService,
   ) {}
-  async canActivate(
-    context: ExecutionContext,
-  ): Promise<any> {
+  async canActivate(context: ExecutionContext): Promise<any> {
     try {
       const request = context.switchToHttp().getRequest();
       const access_token = request.cookies['access_token'];

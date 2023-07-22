@@ -9,6 +9,7 @@ import { AuthService } from './auth/auth.service';
 import { JwtRefreshGuard } from './auth/jwt-refresh.guard';
 import { JwtAccessAuthGuard } from './auth/jwt-access.guard';
 import { User } from './user.entity';
+import { Public } from './auth/public.decorator';
 
 @Controller('user')
 export class UserController {
@@ -43,6 +44,7 @@ export class UserController {
     }
 
     @Post('login')
+    @Public()
     async login(
       @Body() loginDto: LoginUserDto, @Res({ passthrough: true }) res: Response) {
       const user = await this.authService.validateUser(loginDto);
@@ -80,12 +82,14 @@ export class UserController {
 
     @Post('refresh')
     async regenerateRefreshToken(@Body() refreshTokenDto: RefreshTokenDto, @Res({ passthrough: true }) res: Response) {
-        const newAccessToken = (await this.authService.refresh(refreshTokenDto)).access_token;
-        res.setHeader('Authorization', 'Bearer ' + newAccessToken);
-        res.cookie('access_token', newAccessToken, {
-          httpOnly: true,
-        });
-        res.send({newAccessToken});
+      const newAccessToken = (await this.authService.refresh(refreshTokenDto)).access_token;
+      res.setHeader('Authorization', 'Bearer ' + newAccessToken);
+      res.cookie('access_token', newAccessToken, {
+        httpOnly: true,
+      });
+      res.send({
+        access_token: newAccessToken,
+      });
     }
 
     @Get('authenticate')
