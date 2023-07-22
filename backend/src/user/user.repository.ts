@@ -1,4 +1,4 @@
-import { Injectable, InternalServerErrorException } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import { User } from "./user.entity";
 import { DataSource, Repository } from "typeorm";
 import { CreateUserDto } from "./dto/create-user.dto";
@@ -14,12 +14,18 @@ export class UserRepository extends Repository<User> {
     return await this.find();
   }
 
-  async findOneUser(username: string) {
+  async findOneUser(id: number) {
     return await this.findOne({
-      where: { username },
+      where: { id },
     });
   }
-  
+
+  async findOneUserEmail(user_email: string) {
+    return await this.findOne({
+      where: { user_email },
+    });
+  }
+
   async createUser(createData: CreateUserDto) {
     const queryRunner = this.dataSource.createQueryRunner();
     
