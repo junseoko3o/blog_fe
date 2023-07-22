@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Req, Res, UseGuards, Get } from '@nestjs/common';
+import { Body, Controller, Post, Req, Res, UseGuards, Get, Param } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -17,9 +17,29 @@ export class UserController {
     private readonly authService: AuthService,
     ) {}
 
+    @Get('list')
+    async findAllUser() {
+      return await this.userService.findAllUser();
+    }
+
+    @Get('find/:id')
+    async findOneUser(@Param('id') id: number) {
+      return await this.findOneUser(id);
+    }
+
     @Post('signup')
-    async UserSignUp(@Body() createData: CreateUserDto) {
+    async userSignUp(@Body() createData: CreateUserDto) {
       return await this.userService.signUpUser(createData);
+    }
+
+    @Post('update/:id')
+    async userUpdate(@Param('id') id: number, @Body() updateData: UpdateUserDto) {
+      return await this.userService.updateUser(id, updateData);
+    }
+
+    @Post('delete/:id')
+    async deleteUser(@Param('id') id: number) {
+      return await this.userService.deleteUser(id);
     }
 
     @Post('login')

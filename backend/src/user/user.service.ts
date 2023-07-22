@@ -38,6 +38,29 @@ export class UserService {
     return user;
   }
 
+  async updateUser(id: number, updateData: UpdateUserDto) {
+    const findUser = await this.userRepository.findOneUser(id);
+    if (!findUser) {
+      throw new BadRequestException('user is not found.');
+    }
+
+    const user = new User();
+    user.user_name = updateData.user_name;
+    user.password = updateData.password;
+
+    await this.userRepository.updateUser(id, user);
+    return user;
+  }
+
+  async deleteUser(id: number) {
+    const findUser = await this.userRepository.findOneUser(id);
+    if (!findUser) {
+      throw new BadRequestException('user is not found.');
+    }
+    await this.userRepository.deleteUser(id);
+    return 'success delete user!';
+  }
+
   async setCurrentRefreshToken(refresh_token: string, userId: number) {
     const currentRefreshToken = await this.getCurrentHashedRefreshToken(refresh_token);
     const currentRefreshTokenExp = await this.getCurrentRefreshTokenExp();
