@@ -23,9 +23,9 @@ export class UserController {
       return await this.userService.findAllUser();
     }
 
-    @Get('find/:id')
+    @Get('list/:id')
     async findOneUser(@Param('id') id: number) {
-      return await this.findOneUser(id);
+      return await this.userService.findOneUser(id);
     }
 
     @Post('signup')
@@ -51,7 +51,6 @@ export class UserController {
       const refreshToken = await this.authService.generateRefreshToken(user);
     
       await this.userService.setCurrentRefreshToken(user.id, refreshToken);
-  
       res.setHeader('Authorization', 'Bearer ' + [accessToken, refreshToken]);
       res.cookie('access_token', accessToken, {
         httpOnly: true,
@@ -64,7 +63,6 @@ export class UserController {
         email: user.user_email,
         user_name: user.user_name,
         access_token: accessToken,
-        refresh_token: refreshToken,
         login_at: user.login_at
       };
     }

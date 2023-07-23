@@ -3,29 +3,24 @@ import * as Crypto from 'crypto';
 import { Buffer } from 'buffer';
 
 @Injectable()
-export default class CryptoAes128Gcm {
-  encryptAes256Gcm(text) {
+export default class CryptoAes256Gcm {
+  encryptAes256Gcm(text: string) {
     const key = process.env.CRYPTO_KEY;
-    const iv = Crypto.randomBytes(12);
-    const cipher = Crypto.createCipheriv('aes-256-gcm', key, iv);
-    const encrypted = Buffer.concat([cipher.update(text), cipher.final()]);
-    const tag = cipher.getAuthTag();
-    return Buffer.concat([iv, encrypted, tag]).toString('base64');
+    const secretKey: Buffer = Buffer.from(key, 'utf-8');
+    const ivParameter: Buffer = Buffer.from(key.slice(0, 16));
+    const cipher: Crypto.Cipher = Crypto.createCipheriv('aes-256-gcm', secretKey, ivParameter);
+    let encryptedValue: string = cipher.update(text, 'utf-8', 'base64');
+    encryptedValue += cipher.final('base64');
+    return encryptedValue;
   }
 
-  decryptAes256Gcm(encdata) {
-    if (!encdata) {
-      return '';
-    }
-
+  decryptAes256Gcm(encdata: string) {
     const key = process.env.CRYPTO_KEY;
-    const bData = Buffer.from(encdata, 'base64');
-    const iv = bData.subarray(0, 12);
-    const text = bData.subarray(12, bData.length - 16); 
-    const tag = bData.subarray(bData.length - 16);
-
-    const decipher = Crypto.createDecipheriv('aes-256-gcm', key, iv);
-    decipher.setAuthTag(tag);
-    return decipher.update(text) + decipher.final('utf8');
+    const secretKey: Buffer = Buffer.from(key, 'utf-8');
+    const ivParameter: Buffer = Buffer.from(key.slice(0, 16));
+    const cipher: Crypto.Cipher = Crypto.createCipheriv('aes-256-gcm', secretKey, ivParameter);
+    let decryptedValue: string = cipher.update(encdata, 'base64', 'utf-8');
+    decryptedValue += cipher.final('utf-8');
+    return decryptedValue;
   }
 }

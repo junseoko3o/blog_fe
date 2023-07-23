@@ -10,6 +10,7 @@ import { JwtAccessAuthGuard } from './auth/jwt-access.guard';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './user.entity';
 import { UserRepository } from './user.repository';
+import CryptoAes256Gcm from 'src/common/crypto/crypto';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { UserRepository } from './user.repository';
     JwtModule,
     JwtRefreshStrategy,
     JwtAccessAuthGuard,
+    CryptoAes256Gcm,
   ]
 })
 export class UserModule {}

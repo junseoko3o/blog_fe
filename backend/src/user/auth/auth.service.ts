@@ -7,6 +7,7 @@ import { LoginUserDto } from '../dto/login-user.dto';
 import { UserRepository } from '../user.repository';
 import { RefreshTokenDto } from '../dto/refresh-token.dto';
 import * as bcrypt from 'bcrypt';
+import CryptoAes256Gcm from 'src/common/crypto/crypto';
 
 export interface Payload {
   id: number;
@@ -21,6 +22,7 @@ export class AuthService {
     private readonly userRepository: UserRepository,
     private readonly jwtService: JwtService,  
     private readonly configService: ConfigService,
+    private readonly crypto: CryptoAes256Gcm,
   ) {}
   
   async validateUser(loginData: LoginUserDto): Promise<User> {
@@ -59,22 +61,15 @@ export class AuthService {
   }
 
   async refresh(refreshTokenDto: RefreshTokenDto): Promise<{ access_token: string }> {
-    const { refresh_token } = refreshTokenDto;
-
-    // Verify refresh token
-    // JWT Refresh Token 검증 로직
-    const decodedRefreshToken = this.jwtService.verify(refresh_token, { secret: process.env.JWT_REFRESH_SECRET }) as Payload;
-
-    // Check if user exists
-    const userId = decodedRefreshToken.id;
-    const user = await this.userService.getUserIfRefreshTokenMatches(refresh_token, userId);
+    const decryptedRefreshToken = await this.crypto.decryptAes256Gcm(refreshTokenDto.refresh_token);
+    const verifyRefreshToken = await this.jwtService.verify(decryptedRefreshToken, { secret: process.env.JWT_REFRESH_SECRET }) as Payload;
+    const userId = verifyRefreshToken.id;
+    const user = await this.userService.getUserIfRefreshTokenMatches(refreshTokenDto.refresh_token, userId);
     if (!user) {
       throw new UnauthorizedException('Invalid user!');
     }
 
-    // Generate new access token
     const access_token = await this.generateAccessToken(user);
-
     return {
       access_token,
     };
