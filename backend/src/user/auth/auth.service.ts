@@ -1,12 +1,12 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { UserService } from '../user.service';
 import { JwtService } from '@nestjs/jwt';
 import { User } from '../user.entity';
 import { LoginUserDto } from '../dto/login-user.dto';
 import { UserRepository } from '../user.repository';
+import { RedisCacheService } from '../../common/redis/redis-cache.service';
 import * as bcrypt from 'bcrypt';
-import CryptoAes256Gcm from 'src/common/crypto/crypto';
 
 export interface Payload {
   id: number;
@@ -21,7 +21,7 @@ export class AuthService {
     private readonly userRepository: UserRepository,
     private readonly jwtService: JwtService,  
     private readonly configService: ConfigService,
-    private readonly crypto: CryptoAes256Gcm,
+    private readonly redisCacheService: RedisCacheService,
   ) {}
   
   async validateUser(loginData: LoginUserDto): Promise<User> {
@@ -58,10 +58,15 @@ export class AuthService {
   }
 
   async refresh(user: User) : Promise<string>{
-    if (!user.refresh_token) {
-      return null;
-    }
+    const findOneUser = await this.userService.findOneUser(user.id);
+    const getKeyInRedis = await this.redisCacheService.getKey(user.id);
     const accessToken = await this.generateAccessToken(user);
+    if (!findOneUser) {
+      throw new UnauthorizedException('User is not found.');
+    }
+    if (!getKeyInRedis) {
+      throw new UnauthorizedException('RefreshToken is not found.');
+    }
     return accessToken;
   }
 }

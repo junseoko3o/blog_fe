@@ -3,16 +3,14 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserRepository } from './user.repository';
 import { User } from './user.entity';
-import { ConfigService } from '@nestjs/config';
-import CryptoAes256Gcm from 'src/common/crypto/crypto';
 import * as bcrypt from 'bcrypt';
+import { RedisCacheService } from 'src/common/redis/redis-cache.service';
 
 @Injectable()
 export class UserService {
   constructor(
     private readonly userRepository: UserRepository,
-    private readonly configService: ConfigService,
-    private readonly crypto: CryptoAes256Gcm,
+    private readonly redisCacheService: RedisCacheService,
   ) {}
 
   async findAllUser() {
@@ -64,11 +62,9 @@ export class UserService {
   }
 
   async setCurrentRefreshToken(id: number, refresh_token: string) {
-    const currentRefreshToken = await this.getCurrentHashedRefreshToken(refresh_token);
-    const currentRefreshTokenExp = await this.getCurrentRefreshTokenExp();
+    const hashedToken = await this.getCurrentHashedRefreshToken(refresh_token);
+    await this.redisCacheService.setKeyValue(id, hashedToken, 'PX', parseInt(process.env.JWT_REFRESH_EXPIRATION_TIME));
     await this.userRepository.update(id, {
-      refresh_token: currentRefreshToken,
-      refresh_token_expired_at: currentRefreshTokenExp,
       login_at: new Date().toISOString(),
     });
   }
@@ -77,18 +73,13 @@ export class UserService {
     const currentRefreshToken = await bcrypt.hash(refresh_token, 10);
     return currentRefreshToken;
   }
-
-  async getCurrentRefreshTokenExp(): Promise<Date> {
-    const currentDate = new Date();
-    const currentRefreshTokenExp = new Date(currentDate.getTime() + parseInt(this.configService.get<string>('JWT_REFRESH_EXPIRATION_TIME')));
-    return currentRefreshTokenExp;
-  }
   
   async getUserIfRefreshTokenMatches(refresh_token: string, id: number): Promise<User> {
     const user: User = await this.findOneUser(id);
+    const getRefreshTokenInRedis = await this.redisCacheService.getKey(id);
     const isRefreshTokenMatching = await bcrypt.compare(
       refresh_token,
-      user.refresh_token
+      getRefreshTokenInRedis
     );
     if (isRefreshTokenMatching) {
       return user;
@@ -96,9 +87,6 @@ export class UserService {
   }
 
   async removeRefreshToken(id: number) {
-    return await this.userRepository.update(id, {
-      refresh_token: null,
-      refresh_token_expired_at: null,
-    });
+    return await this.redisCacheService.deleteKeyValue(id);
   }
 }
