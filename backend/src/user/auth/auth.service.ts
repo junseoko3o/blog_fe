@@ -6,7 +6,6 @@ import { User } from '../user.entity';
 import { LoginUserDto } from '../dto/login-user.dto';
 import { UserRepository } from '../user.repository';
 import * as bcrypt from 'bcrypt';
-import CryptoAes256Gcm from 'src/common/crypto/crypto';
 
 export interface Payload {
   id: number;
@@ -21,7 +20,6 @@ export class AuthService {
     private readonly userRepository: UserRepository,
     private readonly jwtService: JwtService,  
     private readonly configService: ConfigService,
-    private readonly crypto: CryptoAes256Gcm,
   ) {}
   
   async validateUser(loginData: LoginUserDto): Promise<User> {

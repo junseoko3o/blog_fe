@@ -4,7 +4,6 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { UserRepository } from './user.repository';
 import { User } from './user.entity';
 import { ConfigService } from '@nestjs/config';
-import CryptoAes256Gcm from 'src/common/crypto/crypto';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
@@ -12,7 +11,6 @@ export class UserService {
   constructor(
     private readonly userRepository: UserRepository,
     private readonly configService: ConfigService,
-    private readonly crypto: CryptoAes256Gcm,
   ) {}
 
   async findAllUser() {
