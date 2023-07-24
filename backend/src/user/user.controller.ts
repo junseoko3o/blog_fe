@@ -4,7 +4,6 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
 import { Response } from 'express';
-import { RefreshTokenDto } from './dto/refresh-token.dto';
 import { AuthService } from './auth/auth.service';
 import { JwtRefreshGuard } from './auth/jwt-refresh.guard';
 import { JwtAccessAuthGuard } from './auth/jwt-access.guard';
@@ -78,14 +77,19 @@ export class UserController {
       });
     }
 
-    @Post('refresh')
-    async regenerateRefreshToken(@Body() refreshTokenDto: RefreshTokenDto, @Res({ passthrough: true }) res: Response) {
-      const newAccessToken = (await this.authService.refresh(refreshTokenDto)).access_token;
+    @Get('refresh')
+    @UseGuards(JwtRefreshGuard)
+    async regenerateRefreshToken(@Req() req, @Res({ passthrough: true }) res: Response) {
+      const user = req.user;
+      const newAccessToken = await this.authService.refresh(user);
       res.setHeader('Authorization', 'Bearer ' + newAccessToken);
       res.cookie('access_token', newAccessToken, {
         httpOnly: true,
       });
       res.send({
+        id: user.id,
+        user_email: user.user_email,
+        user_name: user.user_name,
         access_token: newAccessToken,
       });
     }

@@ -3,9 +3,9 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserRepository } from './user.repository';
 import { User } from './user.entity';
-import * as bcrypt from 'bcrypt';
 import { ConfigService } from '@nestjs/config';
 import CryptoAes256Gcm from 'src/common/crypto/crypto';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
@@ -63,7 +63,7 @@ export class UserService {
     return 'success delete user!';
   }
 
-  async setCurrentRefreshToken( id: number, refresh_token: string) {
+  async setCurrentRefreshToken(id: number, refresh_token: string) {
     const currentRefreshToken = await this.getCurrentHashedRefreshToken(refresh_token);
     const currentRefreshTokenExp = await this.getCurrentRefreshTokenExp();
     await this.userRepository.update(id, {
@@ -74,7 +74,7 @@ export class UserService {
   }
 
   async getCurrentHashedRefreshToken(refresh_token: string) {
-    const currentRefreshToken = await this.crypto.encryptAes256Gcm(refresh_token);
+    const currentRefreshToken = await bcrypt.hash(refresh_token, 10);
     return currentRefreshToken;
   }
 
@@ -86,10 +86,10 @@ export class UserService {
   
   async getUserIfRefreshTokenMatches(refresh_token: string, id: number): Promise<User> {
     const user: User = await this.findOneUser(id);
-    if (!user.refresh_token) {
-      return null;
-    }
-    const isRefreshTokenMatching = refresh_token === user.refresh_token || this.crypto.decryptAes256Gcm(user.refresh_token);
+    const isRefreshTokenMatching = await bcrypt.compare(
+      refresh_token,
+      user.refresh_token
+    );
     if (isRefreshTokenMatching) {
       return user;
     } 

@@ -1,11 +1,10 @@
-import { BadRequestException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { UserService } from '../user.service';
 import { JwtService } from '@nestjs/jwt';
 import { User } from '../user.entity';
 import { LoginUserDto } from '../dto/login-user.dto';
 import { UserRepository } from '../user.repository';
-import { RefreshTokenDto } from '../dto/refresh-token.dto';
 import * as bcrypt from 'bcrypt';
 import CryptoAes256Gcm from 'src/common/crypto/crypto';
 
@@ -58,18 +57,11 @@ export class AuthService {
     });
   }
 
-  async refresh(refreshTokenDto: RefreshTokenDto): Promise<{ access_token: string }> {
-    const decryptedRefreshToken = await this.crypto.decryptAes256Gcm(refreshTokenDto.refresh_token);
-    const verifyRefreshToken = await this.jwtService.verify(decryptedRefreshToken, { secret: process.env.JWT_REFRESH_SECRET }) as Payload;
-    const userId = verifyRefreshToken.id;
-    const user = await this.userService.getUserIfRefreshTokenMatches(refreshTokenDto.refresh_token, userId);
-    if (!user) {
-      throw new UnauthorizedException('Invalid user!');
+  async refresh(user: User) : Promise<string>{
+    if (!user.refresh_token) {
+      return null;
     }
-
-    const access_token = await this.generateAccessToken(user);
-    return {
-      access_token,
-    };
+    const accessToken = await this.generateAccessToken(user);
+    return accessToken;
   }
 }
