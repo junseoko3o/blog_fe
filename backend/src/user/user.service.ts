@@ -10,8 +10,8 @@ import CryptoAes256Gcm from 'src/common/crypto/crypto';
 @Injectable()
 export class UserService {
   constructor(
-    private userRepository: UserRepository,
-    private configService: ConfigService,
+    private readonly userRepository: UserRepository,
+    private readonly configService: ConfigService,
     private readonly crypto: CryptoAes256Gcm,
   ) {}
 
