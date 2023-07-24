@@ -27,15 +27,13 @@ export class AuthService {
   
   async validateUser(loginData: LoginUserDto): Promise<User> {
     const user = await this.userRepository.findOneUserEmail(loginData.user_email);
-
+    const matchPassword = await bcrypt.compare(loginData.password, user.password);
     if (!user) {
       throw new NotFoundException('User not found!')
     }
-
-    if (!await bcrypt.compare(loginData.password, user.password)) {
-      throw new BadRequestException('Invalid credentials!');
+    if (!matchPassword) {
+      throw new BadRequestException('Invalid credentials.');
     }
-
     return user;
   } 
 

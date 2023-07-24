@@ -4,9 +4,9 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { UserModule } from './user/user.module';
-import { GlobalExceptionFilter } from './exception/global.exception';
 import { APP_FILTER } from '@nestjs/core';
 import { LoggerMiddleware } from './logger.middleware';
+import { HttpExceptionFilter } from './exception/exception.filter';
 
 @Module({
   imports: [
@@ -31,7 +31,7 @@ import { LoggerMiddleware } from './logger.middleware';
     AppService,
     {
       provide: APP_FILTER,
-      useClass: GlobalExceptionFilter,
+      useClass: HttpExceptionFilter,
     }
   ],
 })
