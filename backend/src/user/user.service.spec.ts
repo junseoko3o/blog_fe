@@ -104,7 +104,7 @@ describe('UserService', () => {
 
       jest.spyOn(bcrypt, 'hash').mockResolvedValue(currentRefreshTokenHash);
       jest.spyOn(userService, 'getCurrentRefreshTokenExp').mockResolvedValue(currentRefreshTokenExp);
-      jest.spyOn(userRepository, 'update').mockResolvedValue(undefined);
+       jest.spyOn(userRepository, 'update').mockResolvedValue(undefined);
       // When
       await userService.setCurrentRefreshToken(userId, refreshToken);
 
