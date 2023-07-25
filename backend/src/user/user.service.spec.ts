@@ -4,11 +4,14 @@ import { UserRepository } from './user.repository';
 import { DataSource, QueryRunner } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { ConfigService } from '@nestjs/config';
+import * as bcrypt from 'bcrypt';
+import { User } from './user.entity';
 
 describe('UserService', () => {
   let userService: UserService;
   let userRepository: UserRepository;
   let configService: ConfigService;
+  let createdUser: User; // 테스트에 사용할 유저 객체
   
   const qr = {
     manager: {},
@@ -40,6 +43,13 @@ describe('UserService', () => {
               leftJoinAndSelect: jest.fn().mockReturnThis(),
               getOne: jest.fn().mockReturnThis(),
             })),
+            createQueryRunner: jest.fn(() => ({
+              connect: jest.fn(),
+              startTransaction: jest.fn(),
+              commitTransaction: jest.fn(),
+              rollbackTransaction: jest.fn(),
+              release: jest.fn(),
+            })),
           },
         }
       ],
@@ -48,24 +58,121 @@ describe('UserService', () => {
     userService = module.get<UserService>(UserService);
     userRepository = module.get<UserRepository>(UserRepository);
     configService = module.get<ConfigService>(ConfigService);
+
+    createdUser = new User();
+    createdUser.user_name = 'junseok';
+    createdUser.user_email = 'junseok@gmail.com';
+    createdUser.password = 'hashedPassword';
+
+    jest.spyOn(bcrypt, 'hash').mockResolvedValue(createdUser.password);
+    jest.spyOn(userRepository, 'findOneUserEmail').mockResolvedValue(null);
   });
 
   describe('createUser', () => {
     it('signUp User.', async () => {
-      const createDto: CreateUserDto = {
-        user_name: 'junseok',
-        user_email: 'junseok@gmail.com',
-        password: '12345',
-      };
-      jest.spyOn(qr.manager, 'save').mockReturnValue(undefined)
-      jest.spyOn(userRepository, 'findOneUserEmail');
-      const result = async () => {
-        await userService.signUpUser(createDto);
-      };
-      expect(result).toBeDefined();
+         // Given
+         const createDto: CreateUserDto = {
+          user_name: 'junseok',
+          user_email: 'junseok@gmail.com',
+          password: '12345',
+        };
+        const hashedPassword = 'hashedPassword';
+        const findUser = null;
+  
+        jest.spyOn(bcrypt, 'hash').mockResolvedValue(hashedPassword);
+        jest.spyOn(userRepository, 'findOneUserEmail').mockResolvedValue(findUser);
+  
+        // When
+        const result: User = await userService.signUpUser(createDto);
+  
+        // Then
+        expect(result).toBeInstanceOf(User);
+        expect(result.user_name).toEqual(createDto.user_name);
+        expect(result.user_email).toEqual(createDto.user_email);
+        expect(result.password).toEqual(hashedPassword);
+  
+        expect(userRepository.findOneUserEmail).toHaveBeenCalledWith(createDto.user_email);
     });
-    it('should be 4', () => {
-      expect(2+2).toEqual(4);
-    })
+  });
+  describe('setCurrentRefreshToken', () => {
+    it('should update the user with the provided refresh token', async () => {
+      // Given
+      const userId = 1;
+      const refreshToken = 'refreshTokenValue';
+      const currentRefreshTokenHash = 'currentRefreshTokenHash';
+      const currentRefreshTokenExp = new Date();
+
+      jest.spyOn(bcrypt, 'hash').mockResolvedValue(currentRefreshTokenHash);
+      jest.spyOn(userService, 'getCurrentRefreshTokenExp').mockResolvedValue(currentRefreshTokenExp);
+      jest.spyOn(userRepository, 'update').mockResolvedValue(undefined);
+      // When
+      await userService.setCurrentRefreshToken(userId, refreshToken);
+
+      // Then
+      expect(userRepository.update).toHaveBeenCalledWith(userId, {
+        refresh_token: currentRefreshTokenHash,
+        refresh_token_expired_at: currentRefreshTokenExp,
+        login_at: expect.any(String),
+      });
+    });
+  });
+  describe('getUserIfRefreshTokenMatches', () => {
+    it('should return the user if the provided refresh token matches the stored hashed token', async () => {
+      // Given
+      const userId = 1;
+      const refreshToken = 'refreshTokenValue';
+      const hashedRefreshToken = 'hashedRefreshToken';
+
+      const user = new User();
+      user.refresh_token = hashedRefreshToken;
+
+      jest.spyOn(userService, 'findOneUser').mockResolvedValue(user);
+      jest.spyOn(bcrypt, 'compare').mockResolvedValue(true);
+
+      // When
+      const result = await userService.getUserIfRefreshTokenMatches(refreshToken, userId);
+
+      // Then
+      expect(userService.findOneUser).toHaveBeenCalledWith(userId);
+      expect(bcrypt.compare).toHaveBeenCalledWith(refreshToken, hashedRefreshToken);
+      expect(result).toBe(user);
+    });
+
+    it('should return undefined if the provided refresh token does not match the stored hashed token', async () => {
+      // Given
+      const userId = 1;
+      const refreshToken = 'refreshTokenValue';
+      const hashedRefreshToken = 'hashedRefreshToken';
+
+      const user = new User();
+      user.refresh_token = hashedRefreshToken;
+
+      jest.spyOn(userService, 'findOneUser').mockResolvedValue(user);
+      jest.spyOn(bcrypt, 'compare').mockResolvedValue(false);
+
+      // When
+      const result = await userService.getUserIfRefreshTokenMatches(refreshToken, userId);
+
+      // Then
+      expect(userService.findOneUser).toHaveBeenCalledWith(userId);
+      expect(bcrypt.compare).toHaveBeenCalledWith(refreshToken, hashedRefreshToken);
+      expect(result).toBeUndefined();
+    });
+  });
+
+  describe('removeRefreshToken', () => {
+    it('should remove the refresh token and token expiration for the given user', async () => {
+      // Given
+      const userId = 1;
+      jest.spyOn(userRepository, 'update').mockResolvedValue(undefined);
+      // When
+      await userService.removeRefreshToken(userId);
+
+      // Then
+      expect(userRepository.update).toHaveBeenCalledWith(userId, {
+        refresh_token: null,
+        refresh_token_expired_at: null,
+      });
+    });
   });
 })
