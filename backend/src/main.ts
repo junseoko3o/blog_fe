@@ -1,15 +1,14 @@
 import { NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
-import * as cookieParser from 'cookie-parser';
 import { AuthGuard } from './user/auth/jwt-auth.guard';
 import { HttpExceptionFilter } from './exception/exception.filter';
+import * as cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     logger: ['error', 'log', 'debug'],
   });
-
   const reflector = app.get(Reflector);  
   app.useGlobalGuards(
     new AuthGuard(reflector),
@@ -25,7 +24,7 @@ async function bootstrap() {
   app.use(cookieParser()); 
   app.enableCors({
     origin: true,
-    methods: 'GET,HEAD,POST,PUT,DELETE',
+    methods: 'GET,HEAD,POST',
     credentials: true,
   });
 

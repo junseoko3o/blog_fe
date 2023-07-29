@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import * as Crypto from 'crypto';
 import { Buffer } from 'buffer';
-
+import * as Crypto from 'crypto';
 @Injectable()
 export default class CryptoAes256Gcm {
   encryptAes256Gcm(text: string) {
