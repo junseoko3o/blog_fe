@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Content } from "src/contents/content.entity";
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
 export class User {
@@ -28,4 +29,7 @@ export class User {
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  @OneToMany(() => Content, (content) => content.user, { cascade: true })
+  content: Content[];
 }
