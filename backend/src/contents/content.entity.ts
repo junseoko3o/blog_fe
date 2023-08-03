@@ -5,6 +5,12 @@ export class Content {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Column()
+  title: string;
+
+  @Column()
+  contents: string;
+
   @Column({ nullable: true })
   created_user_id: number;
 
