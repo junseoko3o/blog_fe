@@ -8,8 +8,12 @@ export class ContentsService {
   constructor(
     private readonly contentsRepository: ContentsRepository
   ) {}
-  
+
   async findAllContents() {
     return await this.contentsRepository.findAllContents();
+  }
+
+  async findOneContent(id: number) {
+    return await this.contentsRepository.findOneContent(id);
   }
 }

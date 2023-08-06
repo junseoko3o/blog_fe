@@ -11,4 +11,10 @@ export class ContentsRepository extends Repository<Content> {
   async findAllContents() {
     return await this.find();
   }
+
+  async findOneContent(id: number) {
+    return await this.findOne({
+      where: { id },
+    });
+  }
 }
