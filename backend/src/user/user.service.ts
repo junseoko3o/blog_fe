@@ -5,6 +5,7 @@ import { UserRepository } from './user.repository';
 import { User } from './user.entity';
 import { ConfigService } from '@nestjs/config';
 import * as bcrypt from 'bcrypt';
+import { RefreshUserDto } from './dto/refresh-user.dto';
 
 @Injectable()
 export class UserService {
@@ -61,14 +62,14 @@ export class UserService {
     return 'success delete user!';
   }
 
-  async setCurrentRefreshToken(id: number, refresh_token: string) {
-    const currentRefreshToken = await this.getCurrentHashedRefreshToken(refresh_token);
+  async setCurrentRefreshToken(id: number, updateData: RefreshUserDto) {
+    const currentRefreshToken = await this.getCurrentHashedRefreshToken(updateData.refresh_token);
     const currentRefreshTokenExp = await this.getCurrentRefreshTokenExp();
-    await this.userRepository.update(id, {
-      refresh_token: currentRefreshToken,
-      refresh_token_expired_at: currentRefreshTokenExp,
-      login_at: new Date().toISOString(),
-    });
+    updateData.refresh_token = currentRefreshToken;
+    updateData.refresh_token_expired_at = currentRefreshTokenExp;
+    updateData.login_at = new Date().toISOString();
+  
+    await this.userRepository.updateRefreshUser(id, updateData);
   }
 
   async getCurrentHashedRefreshToken(refresh_token: string) {
@@ -93,10 +94,9 @@ export class UserService {
     } 
   }
 
-  async removeRefreshToken(id: number) {
-    return await this.userRepository.update(id, {
-      refresh_token: null,
-      refresh_token_expired_at: null,
-    });
+  async removeRefreshToken(id: number, updateData: RefreshUserDto) {
+    updateData.refresh_token = null;
+    updateData.refresh_token_expired_at = null;
+    return await this.userRepository.updateRefreshUser(id, updateData);
   }
 }

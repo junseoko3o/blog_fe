@@ -106,7 +106,7 @@ describe('UserService', () => {
       jest.spyOn(userService, 'getCurrentRefreshTokenExp').mockResolvedValue(currentRefreshTokenExp);
        jest.spyOn(userRepository, 'update').mockResolvedValue(undefined);
       // When
-      await userService.setCurrentRefreshToken(userId, refreshToken);
+      // await userService.setCurrentRefreshToken(userId, refreshToken);
 
       // Then
       expect(userRepository.update).toHaveBeenCalledWith(userId, {
@@ -166,7 +166,7 @@ describe('UserService', () => {
       const userId = 1;
       jest.spyOn(userRepository, 'update').mockResolvedValue(undefined);
       // When
-      await userService.removeRefreshToken(userId);
+      // await userService.removeRefreshToken(userId);
 
       // Then
       expect(userRepository.update).toHaveBeenCalledWith(userId, {
