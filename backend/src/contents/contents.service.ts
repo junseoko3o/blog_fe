@@ -24,10 +24,10 @@ export class ContentsService {
       throw new BadRequestException('user is not found.');
     }
     const content = new Content();
-      content.title = createData.title;
-      content.contents = createData.contents;
-      content.user_name = findUser.user_name;
-      content.created_user_id = createData.created_user_id;
+    content.title = createData.title;
+    content.contents = createData.contents;
+    content.user_name = findUser.user_name;
+    content.created_user_id = createData.created_user_id;
     
     await this.contentsRepository.createContent(content);
     return content;
