@@ -11,7 +11,7 @@ describe('UserService', () => {
   let userService: UserService;
   let userRepository: UserRepository;
   let configService: ConfigService;
-  let createdUser: User; // 테스트에 사용할 유저 객체
+  let createdUser: User; 
   
   const qr = {
     manager: {},
