@@ -23,4 +23,9 @@ export class ContentsController {
   async createContent(@Body() createData: CreateContentDto) {
     return await this.contentsService.createContent(createData);
   }
+
+  @Post(':id')
+  async updateContent(@Param('id') id: number, @Body() updateData: UpdateContentDto) {
+    return await this.contentsService.updateContent(id, updateData);
+  }
 }

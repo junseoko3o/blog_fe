@@ -32,4 +32,21 @@ export class ContentsService {
     await this.contentsRepository.createContent(content);
     return content;
   }
+
+  async updateContent(id: number, updateData: UpdateContentDto) {
+    const findUser = await this.contentsRepository.findOneContent(updateData.updated_user_id);
+    const findContent = await this.findOneContent(id);
+    if (!findUser && findUser.id !== updateData.updated_user_id) {
+      throw new BadRequestException('user is not found.');
+    } else if (!findContent) {
+      throw new BadRequestException('content is not found.');
+    }
+    const content = new Content();
+    content.title = updateData.title;
+    content.contents = updateData.contents;
+    content.updated_user_id = updateData.updated_user_id;
+
+    await this.contentsRepository.updateContent(id, content);
+    return content;
+  }
 }
