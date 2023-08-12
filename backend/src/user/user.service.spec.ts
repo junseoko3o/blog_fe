@@ -130,7 +130,7 @@ describe('UserService', () => {
       jest.spyOn(bcrypt, 'compare').mockResolvedValue(true);
 
       // When
-      const result = await userService.getUserIfRefreshTokenMatches(refreshToken, userId);
+      const result = await userService.getUserIfRefreshTokenMatches(userId, refreshToken);
 
       // Then
       expect(userService.findOneUser).toHaveBeenCalledWith(userId);
@@ -151,7 +151,7 @@ describe('UserService', () => {
       jest.spyOn(bcrypt, 'compare').mockResolvedValue(false);
 
       // When
-      const result = await userService.getUserIfRefreshTokenMatches(refreshToken, userId);
+      const result = await userService.getUserIfRefreshTokenMatches(userId, refreshToken);
 
       // Then
       expect(userService.findOneUser).toHaveBeenCalledWith(userId);

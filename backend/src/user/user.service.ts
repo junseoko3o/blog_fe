@@ -5,7 +5,6 @@ import { UserRepository } from './user.repository';
 import { User } from './user.entity';
 import { ConfigService } from '@nestjs/config';
 import * as bcrypt from 'bcrypt';
-import { RefreshUserDto } from './dto/refresh-user.dto';
 
 @Injectable()
 export class UserService {
@@ -69,7 +68,6 @@ export class UserService {
     await this.userRepository.updateRefreshUser(id, {
       refresh_token: currentRefreshToken,
       refresh_token_expired_at: currentRefreshTokenExp,
-      login_at: new Date(),
     });
   }
 
@@ -84,8 +82,8 @@ export class UserService {
     return currentRefreshTokenExp;
   }
   
-  async getUserIfRefreshTokenMatches(refresh_token: string, id: number): Promise<User> {
-    const user: User = await this.findOneUser(id);
+  async getUserIfRefreshTokenMatches(id: number, refresh_token: string): Promise<User> {
+    const user: User = await this.userRepository.findOneUser(id);
     const isRefreshTokenMatching = await bcrypt.compare(
       refresh_token,
       user.refresh_token
@@ -95,9 +93,10 @@ export class UserService {
     } 
   }
 
-  async removeRefreshToken(id: number, updateData: RefreshUserDto) {
-    updateData.refresh_token = null;
-    updateData.refresh_token_expired_at = null;
-    return await this.userRepository.updateRefreshUser(id, updateData);
+  async removeRefreshToken(id: number) {
+    return await this.userRepository.updateRefreshUser(id, {
+      refresh_token: null,
+      refresh_token_expired_at: null,
+    });
   }
 }

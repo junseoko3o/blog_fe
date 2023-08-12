@@ -62,14 +62,14 @@ export class UserController {
         email: user.user_email,
         user_name: user.user_name,
         access_token: accessToken,
-        login_at: user.login_at
+        login_at: new Date(),
       };
     }
 
     @Post('logout')
     @UseGuards(JwtRefreshGuard)
     async logout(@Req() req: any, @Res() res: Response) {
-      await this.userService.removeRefreshToken(req.user.id, req.user.refresh_token);
+      await this.userService.removeRefreshToken(req.user.id);
       res.clearCookie('access_token');
       res.clearCookie('refresh_token');
       return res.send({
