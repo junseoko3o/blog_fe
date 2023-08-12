@@ -9,7 +9,6 @@ import { JwtRefreshGuard } from './auth/jwt-refresh.guard';
 import { JwtAccessAuthGuard } from './auth/jwt-access.guard';
 import { User } from './user.entity';
 import { Public } from './auth/public.decorator';
-import { RefreshUserDto } from './dto/refresh-user.dto';
 
 @Controller('user')
 export class UserController {
