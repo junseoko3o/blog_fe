@@ -9,6 +9,7 @@ import { JwtRefreshGuard } from './auth/jwt-refresh.guard';
 import { JwtAccessAuthGuard } from './auth/jwt-access.guard';
 import { User } from './user.entity';
 import { Public } from './auth/public.decorator';
+import { RefreshUserDto } from './dto/refresh-user.dto';
 
 @Controller('user')
 export class UserController {
@@ -49,7 +50,11 @@ export class UserController {
       const accessToken = await this.authService.generateAccessToken(user);
       const refreshToken = await this.authService.generateRefreshToken(user);
     
-      await this.userService.setCurrentRefreshToken(user.id, refreshToken);
+      await this.userService.setCurrentRefreshToken(user.id, {
+        refresh_token: user.refresh_token,
+        refresh_token_expired_at: user.refresh_token_expired_at,
+        login_at: user.login_at.toISOString(),
+      });
       res.setHeader('Authorization', 'Bearer ' + [accessToken, refreshToken]);
       res.cookie('access_token', accessToken, {
         httpOnly: true,
@@ -69,7 +74,7 @@ export class UserController {
     @Post('logout')
     @UseGuards(JwtRefreshGuard)
     async logout(@Req() req: any, @Res() res: Response) {
-      await this.userService.removeRefreshToken(req.user.id);
+      await this.userService.removeRefreshToken(req.user.id, req.user.refresh_token);
       res.clearCookie('access_token');
       res.clearCookie('refresh_token');
       return res.send({
