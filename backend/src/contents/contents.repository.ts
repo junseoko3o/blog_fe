@@ -57,4 +57,26 @@ export class ContentsRepository extends Repository<Content> {
       await queryRunner.release();
     }
   }
+
+  async deleteContent(id: number) {
+    const queryRunner = this.dataSource.createQueryRunner();
+
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+
+    try {
+      await queryRunner.manager
+      .createQueryBuilder(Content, 'content')
+      .delete()
+      .from(Content)
+      .where("id = :id", { id })
+      .execute()
+      
+      await queryRunner.commitTransaction();
+    } catch (err) {
+      await queryRunner.rollbackTransaction();
+    } finally {
+      await queryRunner.release();
+    }
+  }
 }
