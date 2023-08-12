@@ -11,6 +11,9 @@ export class Content {
   @Column()
   contents: string;
 
+  @Column()
+  user_name: string;
+
   @Column({ nullable: true })
   created_user_id: number;
 

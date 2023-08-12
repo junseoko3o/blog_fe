@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ContentsService } from './contents.service';
 import { CreateContentDto } from './dto/create-content.dto';
 import { UpdateContentDto } from './dto/update-content.dto';
@@ -17,5 +17,10 @@ export class ContentsController {
   @Get(':id')
   async findOneContent(@Param('id') id: number) {
     return await this.contentsService.findOneContent(id);
+  }
+
+  @Post()
+  async createContent(@Body() createData: CreateContentDto) {
+    return await this.contentsService.createContent(createData);
   }
 }
