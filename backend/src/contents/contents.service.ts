@@ -49,4 +49,13 @@ export class ContentsService {
     await this.contentsRepository.updateContent(id, content);
     return content;
   }
+
+  async deleteContent(id: number) {
+    const findContent = await this.findOneContent(id);
+    if (!findContent) {
+      throw new BadRequestException('content is not found.');
+    }
+    await this.contentsRepository.deleteContent(id);
+    return 'delete success!';
+  }
 }
