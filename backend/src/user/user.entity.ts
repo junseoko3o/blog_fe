@@ -1,4 +1,4 @@
-import { Content } from "src/contents/content.entity";
+import { Content } from "src/content/content.entity";
 import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()

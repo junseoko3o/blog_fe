@@ -5,7 +5,7 @@ import { CreateContentDto } from "./dto/create-content.dto";
 import { UpdateContentDto } from "./dto/update-content.dto";
 
 @Injectable()
-export class ContentsRepository extends Repository<Content> {
+export class ContentRepository extends Repository<Content> {
   constructor(private dataSource: DataSource) {
     super(Content, dataSource.createEntityManager());
   }
