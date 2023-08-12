@@ -3,7 +3,7 @@ import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
-import { Response } from 'express';
+import { Request, Response } from 'express';
 import { AuthService } from './auth/auth.service';
 import { JwtRefreshGuard } from './auth/jwt-refresh.guard';
 import { JwtAccessAuthGuard } from './auth/jwt-access.guard';
@@ -68,7 +68,7 @@ export class UserController {
 
     @Post('logout')
     @UseGuards(JwtRefreshGuard)
-    async logout(@Req() req: any, @Res() res: Response) {
+    async logout(@Req() req: Request, @Res() res: Response) {
       await this.userService.removeRefreshToken(req.user.id);
       res.clearCookie('access_token');
       res.clearCookie('refresh_token');
@@ -79,7 +79,7 @@ export class UserController {
 
     @Get('refresh')
     @UseGuards(JwtRefreshGuard)
-    async regenerateRefreshToken(@Req() req, @Res({ passthrough: true }) res: Response) {
+    async regenerateRefreshToken(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
       const user = req.user;
       const newAccessToken = await this.authService.refresh(user);
       res.setHeader('Authorization', 'Bearer ' + newAccessToken);
@@ -96,7 +96,7 @@ export class UserController {
 
     @Get('authenticate')
     @UseGuards(JwtAccessAuthGuard)
-    async user(@Req() req: any, @Res() res: Response) {
+    async user(@Req() req: Request, @Res() res: Response) {
       const id: number = req.user.id; 
       const verifiedUser: User = await this.userService.findOneUser(id);
       const { password, ...result } = verifiedUser; 
