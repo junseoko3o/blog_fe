@@ -49,11 +49,7 @@ export class UserController {
       const accessToken = await this.authService.generateAccessToken(user);
       const refreshToken = await this.authService.generateRefreshToken(user);
     
-      await this.userService.setCurrentRefreshToken(user.id, {
-        refresh_token: user.refresh_token,
-        refresh_token_expired_at: user.refresh_token_expired_at,
-        login_at: user.login_at.toISOString(),
-      });
+      await this.userService.setCurrentRefreshToken(user.id, refreshToken);
       res.setHeader('Authorization', 'Bearer ' + [accessToken, refreshToken]);
       res.cookie('access_token', accessToken, {
         httpOnly: true,

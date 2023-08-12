@@ -8,7 +8,7 @@ export class RefreshUserDto {
   @IsOptional()
   refresh_token_expired_at: Date;
 
-  @IsString()
+  @IsDate()
   @IsOptional()
-  login_at: string;
+  login_at: Date;
 }
