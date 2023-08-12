@@ -2,6 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { Content } from "./content.entity";
 import { DataSource, Repository } from "typeorm";
 import { CreateContentDto } from "./dto/create-content.dto";
+import { UpdateContentDto } from "./dto/update-content.dto";
 
 @Injectable()
 export class ContentsRepository extends Repository<Content> {
@@ -33,6 +34,22 @@ export class ContentsRepository extends Repository<Content> {
 
     try {
       await queryRunner.manager.save(createData); 
+      await queryRunner.commitTransaction();
+    } catch (err) {
+      await queryRunner.rollbackTransaction();
+    } finally {
+      await queryRunner.release();
+    }
+  }
+
+  async updateContent(id: number, updateData: UpdateContentDto) {
+    const queryRunner = this.dataSource.createQueryRunner();
+
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+
+    try {
+      await queryRunner.manager.update(Content, id, updateData); 
       await queryRunner.commitTransaction();
     } catch (err) {
       await queryRunner.rollbackTransaction();
