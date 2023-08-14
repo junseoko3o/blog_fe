@@ -23,7 +23,7 @@ ARG ARG_API_SERVER_ENDPOINT
 
 ENV API_SERVER_ENDPOINT=${ARG_API_SERVER_ENDPOINT}
 
-COPY --from=builder --chown=nestjs:nodejs /app/build ./build
+COPY --from=builder --chown=reactjs:nodejs /app/build ./build
 COPY --from=deps /app/node_modules ./node_modules
 
 USER reactjs
