@@ -10,15 +10,15 @@ export class ContentService {
     private readonly contentRepository: ContentRepository
   ) {}
 
-  async findAllContents() {
+  async findAllContents(): Promise<Content[]> {
     return await this.contentRepository.findAllContents();
   }
 
-  async findOneContent(id: number) {
+  async findOneContent(id: number): Promise<Content> {
     return await this.contentRepository.findOneContent(id);
   }
 
-  async createContent(createData: CreateContentDto) {
+  async createContent(createData: CreateContentDto): Promise<Content> {
     const findUser = await this.contentRepository.findOneContent(createData.created_user_id);
     if (!findUser && findUser.id !== createData.created_user_id) {
       throw new BadRequestException('user is not found.');
@@ -33,7 +33,7 @@ export class ContentService {
     return content;
   }
 
-  async updateContent(id: number, updateData: UpdateContentDto) {
+  async updateContent(id: number, updateData: UpdateContentDto): Promise<Content> {
     const findUser = await this.contentRepository.findOneContent(updateData.updated_user_id);
     const findContent = await this.findOneContent(id);
     if (!findUser && findUser.id !== updateData.updated_user_id) {
@@ -50,7 +50,7 @@ export class ContentService {
     return content;
   }
 
-  async deleteContent(id: number) {
+  async deleteContent(id: number): Promise<string> {
     const findContent = await this.findOneContent(id);
     if (!findContent) {
       throw new BadRequestException('content is not found.');

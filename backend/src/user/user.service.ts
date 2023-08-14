@@ -13,11 +13,11 @@ export class UserService {
     private readonly configService: ConfigService,
   ) {}
 
-  async findAllUser() {
+  async findAllUser(): Promise<User[]> {
     return await this.userRepository.findAllUser();
   }
 
-  async findOneUser(id: number) {
+  async findOneUser(id: number): Promise<User> {
     return await this.userRepository.findOneUser(id);
   }
 
@@ -38,7 +38,7 @@ export class UserService {
     return user;
   }
 
-  async updateUser(id: number, updateData: UpdateUserDto) {
+  async updateUser(id: number, updateData: UpdateUserDto): Promise<User> {
     const findUser = await this.userRepository.findOneUser(id);
     if (!findUser) {
       throw new BadRequestException('user is not found.');
@@ -52,7 +52,7 @@ export class UserService {
     return user;
   }
 
-  async deleteUser(id: number) {
+  async deleteUser(id: number): Promise<string> {
     const findUser = await this.userRepository.findOneUser(id);
     if (!findUser) {
       throw new BadRequestException('user is not found.');
@@ -61,7 +61,7 @@ export class UserService {
     return 'success delete user!';
   }
 
-  async setCurrentRefreshToken(id: number, refresh_token: string) {
+  async setCurrentRefreshToken(id: number, refresh_token: string): Promise<User> {
     const currentRefreshToken = await this.getCurrentHashedRefreshToken(refresh_token);
     const currentRefreshTokenExp = await this.getCurrentRefreshTokenExp();
   
@@ -69,9 +69,11 @@ export class UserService {
       refresh_token: currentRefreshToken,
       refresh_token_expired_at: currentRefreshTokenExp,
     });
+    const user = await this.userRepository.findOneUser(id);
+    return user;
   }
 
-  async getCurrentHashedRefreshToken(refresh_token: string) {
+  async getCurrentHashedRefreshToken(refresh_token: string): Promise<string> {
     const currentRefreshToken = await bcrypt.hash(refresh_token, 10);
     return currentRefreshToken;
   }
@@ -93,10 +95,12 @@ export class UserService {
     } 
   }
 
-  async removeRefreshToken(id: number) {
-    return await this.userRepository.updateRefreshUser(id, {
+  async removeRefreshToken(id: number): Promise<User> {
+    await this.userRepository.updateRefreshUser(id, {
       refresh_token: null,
       refresh_token_expired_at: null,
     });
+    const user = await this.userRepository.findOneUser(id);
+    return user;
   }
 }

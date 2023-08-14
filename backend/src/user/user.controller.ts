@@ -18,27 +18,27 @@ export class UserController {
     ) {}
 
     @Get('list')
-    async findAllUser() {
+    async findAllUser(): Promise<User[]> {
       return await this.userService.findAllUser();
     }
 
     @Get('list/:id')
-    async findOneUser(@Param('id') id: number) {
+    async findOneUser(@Param('id') id: number): Promise<User> {
       return await this.userService.findOneUser(id);
     }
 
     @Post('signup')
-    async userSignUp(@Body() createData: CreateUserDto) {
+    async userSignUp(@Body() createData: CreateUserDto): Promise<User> {
       return await this.userService.signUpUser(createData);
     }
 
     @Post('update/:id')
-    async userUpdate(@Param('id') id: number, @Body() updateData: UpdateUserDto) {
+    async userUpdate(@Param('id') id: number, @Body() updateData: UpdateUserDto): Promise<User> {
       return await this.userService.updateUser(id, updateData);
     }
 
     @Post('delete/:id')
-    async deleteUser(@Param('id') id: number) {
+    async deleteUser(@Param('id') id: number): Promise<string> {
       return await this.userService.deleteUser(id);
     }
 
