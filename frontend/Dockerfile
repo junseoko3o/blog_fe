@@ -1,21 +1,23 @@
-FROM node:18-alpine as deps
+FROM node:18-alpine AS deps
 
 WORKDIR /app
 
-COPY package.json yarn.lock ./
+COPY yarn.lock package.json /app/
+
 RUN apk add --no-cache libc6-compat && yarn install --frozen-lockfile
 
-FROM node:18-alpine as builder
+FROM node:18-alpine AS builder
+
 WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
+
+COPY --from=deps /app/node_modules /app/node_modules
 COPY . .
+
+RUN yarn build
 
 ARG ARG_API_SERVER_ENDPOINT
 
-ENV NODE_ENV production
 ENV API_SERVER_ENDPOINT=${ARG_API_SERVER_ENDPOINT}
-
-RUN yarn build
 
 FROM node:18-alpine AS runner
 WORKDIR /app
@@ -26,6 +28,4 @@ USER reactjs
 
 EXPOSE 3000
 
-ENV PORT 3000 
-
-CMD ["yarn", "start"]
+CMD ["node", "server.js"]
