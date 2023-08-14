@@ -10,16 +10,22 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
+ARG ARG_API_SERVER_ENDPOINT
+
+ENV NODE_ENV production
+ENV API_SERVER_ENDPOINT=${ARG_API_SERVER_ENDPOINT}
+
 RUN yarn build
 
 FROM node:18-alpine AS runner
 WORKDIR /app
 
-ARG ARG_API_SERVER_ENDPOINT
-ENV API_SERVER_ENDPOINT=${ARG_API_SERVER_ENDPOINT}
-
 RUN addgroup --system --gid 1001 nodejs && adduser --system --uid 1001 reactjs
+
+USER reactjs
 
 EXPOSE 3000
 
-CMD [ "yarn", "start" ]
+ENV PORT 3000 
+
+CMD ["yarn", "start"]
