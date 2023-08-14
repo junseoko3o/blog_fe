@@ -11,7 +11,7 @@ describe('UserService', () => {
   let userService: UserService;
   let userRepository: UserRepository;
   let configService: ConfigService;
-  let createdUser: User; // 테스트에 사용할 유저 객체
+  let createdUser: User; 
   
   const qr = {
     manager: {},
@@ -130,7 +130,7 @@ describe('UserService', () => {
       jest.spyOn(bcrypt, 'compare').mockResolvedValue(true);
 
       // When
-      const result = await userService.getUserIfRefreshTokenMatches(refreshToken, userId);
+      const result = await userService.getUserIfRefreshTokenMatches(userId, refreshToken);
 
       // Then
       expect(userService.findOneUser).toHaveBeenCalledWith(userId);
@@ -151,7 +151,7 @@ describe('UserService', () => {
       jest.spyOn(bcrypt, 'compare').mockResolvedValue(false);
 
       // When
-      const result = await userService.getUserIfRefreshTokenMatches(refreshToken, userId);
+      const result = await userService.getUserIfRefreshTokenMatches(userId, refreshToken);
 
       // Then
       expect(userService.findOneUser).toHaveBeenCalledWith(userId);

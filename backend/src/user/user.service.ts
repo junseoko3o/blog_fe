@@ -5,7 +5,6 @@ import { UserRepository } from './user.repository';
 import { User } from './user.entity';
 import { ConfigService } from '@nestjs/config';
 import * as bcrypt from 'bcrypt';
-import { RefreshUserDto } from './dto/refresh-user.dto';
 
 @Injectable()
 export class UserService {
@@ -14,11 +13,11 @@ export class UserService {
     private readonly configService: ConfigService,
   ) {}
 
-  async findAllUser() {
+  async findAllUser(): Promise<User[]> {
     return await this.userRepository.findAllUser();
   }
 
-  async findOneUser(id: number) {
+  async findOneUser(id: number): Promise<User> {
     return await this.userRepository.findOneUser(id);
   }
 
@@ -39,7 +38,7 @@ export class UserService {
     return user;
   }
 
-  async updateUser(id: number, updateData: UpdateUserDto) {
+  async updateUser(id: number, updateData: UpdateUserDto): Promise<User> {
     const findUser = await this.userRepository.findOneUser(id);
     if (!findUser) {
       throw new BadRequestException('user is not found.');
@@ -53,7 +52,7 @@ export class UserService {
     return user;
   }
 
-  async deleteUser(id: number) {
+  async deleteUser(id: number): Promise<string> {
     const findUser = await this.userRepository.findOneUser(id);
     if (!findUser) {
       throw new BadRequestException('user is not found.');
@@ -62,17 +61,19 @@ export class UserService {
     return 'success delete user!';
   }
 
-  async setCurrentRefreshToken(id: number, updateData: RefreshUserDto) {
-    const currentRefreshToken = await this.getCurrentHashedRefreshToken(updateData.refresh_token);
+  async setCurrentRefreshToken(id: number, refresh_token: string): Promise<User> {
+    const currentRefreshToken = await this.getCurrentHashedRefreshToken(refresh_token);
     const currentRefreshTokenExp = await this.getCurrentRefreshTokenExp();
-    updateData.refresh_token = currentRefreshToken;
-    updateData.refresh_token_expired_at = currentRefreshTokenExp;
-    updateData.login_at = new Date().toISOString();
   
-    await this.userRepository.updateRefreshUser(id, updateData);
+    await this.userRepository.updateRefreshUser(id, {
+      refresh_token: currentRefreshToken,
+      refresh_token_expired_at: currentRefreshTokenExp,
+    });
+    const user = await this.userRepository.findOneUser(id);
+    return user;
   }
 
-  async getCurrentHashedRefreshToken(refresh_token: string) {
+  async getCurrentHashedRefreshToken(refresh_token: string): Promise<string> {
     const currentRefreshToken = await bcrypt.hash(refresh_token, 10);
     return currentRefreshToken;
   }
@@ -83,8 +84,8 @@ export class UserService {
     return currentRefreshTokenExp;
   }
   
-  async getUserIfRefreshTokenMatches(refresh_token: string, id: number): Promise<User> {
-    const user: User = await this.findOneUser(id);
+  async getUserIfRefreshTokenMatches(id: number, refresh_token: string): Promise<User> {
+    const user: User = await this.userRepository.findOneUser(id);
     const isRefreshTokenMatching = await bcrypt.compare(
       refresh_token,
       user.refresh_token
@@ -94,9 +95,12 @@ export class UserService {
     } 
   }
 
-  async removeRefreshToken(id: number, updateData: RefreshUserDto) {
-    updateData.refresh_token = null;
-    updateData.refresh_token_expired_at = null;
-    return await this.userRepository.updateRefreshUser(id, updateData);
+  async removeRefreshToken(id: number): Promise<User> {
+    await this.userRepository.updateRefreshUser(id, {
+      refresh_token: null,
+      refresh_token_expired_at: null,
+    });
+    const user = await this.userRepository.findOneUser(id);
+    return user;
   }
 }

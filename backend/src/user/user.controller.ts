@@ -3,13 +3,12 @@ import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
-import { Response } from 'express';
+import { Request, Response } from 'express';
 import { AuthService } from './auth/auth.service';
 import { JwtRefreshGuard } from './auth/jwt-refresh.guard';
 import { JwtAccessAuthGuard } from './auth/jwt-access.guard';
 import { User } from './user.entity';
 import { Public } from './auth/public.decorator';
-import { RefreshUserDto } from './dto/refresh-user.dto';
 
 @Controller('user')
 export class UserController {
@@ -19,27 +18,27 @@ export class UserController {
     ) {}
 
     @Get('list')
-    async findAllUser() {
+    async findAllUser(): Promise<User[]> {
       return await this.userService.findAllUser();
     }
 
     @Get('list/:id')
-    async findOneUser(@Param('id') id: number) {
+    async findOneUser(@Param('id') id: number): Promise<User> {
       return await this.userService.findOneUser(id);
     }
 
     @Post('signup')
-    async userSignUp(@Body() createData: CreateUserDto) {
+    async userSignUp(@Body() createData: CreateUserDto): Promise<User> {
       return await this.userService.signUpUser(createData);
     }
 
     @Post('update/:id')
-    async userUpdate(@Param('id') id: number, @Body() updateData: UpdateUserDto) {
+    async userUpdate(@Param('id') id: number, @Body() updateData: UpdateUserDto): Promise<User> {
       return await this.userService.updateUser(id, updateData);
     }
 
     @Post('delete/:id')
-    async deleteUser(@Param('id') id: number) {
+    async deleteUser(@Param('id') id: number): Promise<string> {
       return await this.userService.deleteUser(id);
     }
 
@@ -50,11 +49,7 @@ export class UserController {
       const accessToken = await this.authService.generateAccessToken(user);
       const refreshToken = await this.authService.generateRefreshToken(user);
     
-      await this.userService.setCurrentRefreshToken(user.id, {
-        refresh_token: user.refresh_token,
-        refresh_token_expired_at: user.refresh_token_expired_at,
-        login_at: user.login_at.toISOString(),
-      });
+      await this.userService.setCurrentRefreshToken(user.id, refreshToken);
       res.setHeader('Authorization', 'Bearer ' + [accessToken, refreshToken]);
       res.cookie('access_token', accessToken, {
         httpOnly: true,
@@ -67,14 +62,14 @@ export class UserController {
         email: user.user_email,
         user_name: user.user_name,
         access_token: accessToken,
-        login_at: user.login_at
+        login_at: new Date(),
       };
     }
 
     @Post('logout')
     @UseGuards(JwtRefreshGuard)
-    async logout(@Req() req: any, @Res() res: Response) {
-      await this.userService.removeRefreshToken(req.user.id, req.user.refresh_token);
+    async logout(@Req() req: Request, @Res() res: Response) {
+      await this.userService.removeRefreshToken(req.user.id);
       res.clearCookie('access_token');
       res.clearCookie('refresh_token');
       return res.send({
@@ -84,7 +79,7 @@ export class UserController {
 
     @Get('refresh')
     @UseGuards(JwtRefreshGuard)
-    async regenerateRefreshToken(@Req() req, @Res({ passthrough: true }) res: Response) {
+    async regenerateRefreshToken(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
       const user = req.user;
       const newAccessToken = await this.authService.refresh(user);
       res.setHeader('Authorization', 'Bearer ' + newAccessToken);
@@ -101,7 +96,7 @@ export class UserController {
 
     @Get('authenticate')
     @UseGuards(JwtAccessAuthGuard)
-    async user(@Req() req: any, @Res() res: Response) {
+    async user(@Req() req: Request, @Res() res: Response) {
       const id: number = req.user.id; 
       const verifiedUser: User = await this.userService.findOneUser(id);
       const { password, ...result } = verifiedUser; 
