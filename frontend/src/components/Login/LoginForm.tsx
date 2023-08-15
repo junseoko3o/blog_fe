@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useLogin } from '../../hooks/login/useLogin';
 import { useNavigate } from 'react-router-dom';
 
-const LoginForm: React.FC = () => {
+const LoginForm = () => {
   const { handleLogin } = useLogin();
   const [email, setEmail] = useState('');
    const [password, setPassword] = useState('');

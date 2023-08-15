@@ -1,11 +1,11 @@
 import React from 'react';
-import { UserProfile } from '../../hooks/login/useLogin';
+import { UserProfile } from '../../hooks/login/interface';
 
 interface ProfileProps {
   user: UserProfile;
 }
 
-const Profile: React.FC<ProfileProps> = ({ user }) => {
+const Profile = ({ user }: ProfileProps) => {
   return (
     <div>
       <h2>Profile</h2>

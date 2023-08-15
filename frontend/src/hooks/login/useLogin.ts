@@ -1,13 +1,6 @@
 import { useState, useEffect } from 'react';
 import api from '../../api/api';
-
-export interface UserProfile {
-  id: number;
-  email: string;
-  user_name: string;
-  access_token?: string;
-  refresh_token?: string;
-}
+import { UserProfile } from './interface';
 
 export const useLogin = () => {
   const [user, setUser] = useState<UserProfile | null>(null);
@@ -26,10 +19,12 @@ export const useLogin = () => {
         });
         if (response.status === 200) {
           setUser(response.data);
+          return response;
         } else {
           console.error('Access token invalid, trying to refresh');
           refreshAccessToken();
         }
+        return response;
       } catch (error) {
         console.error('Error checking access token:', error);
       }
@@ -49,6 +44,7 @@ export const useLogin = () => {
           const data: UserProfile = response.data;
           setAccessToken(data.access_token || '');
           setUser(data);
+          return data;
         } else {
           console.error('Refresh token invalid');
         }

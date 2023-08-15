@@ -9,7 +9,7 @@ interface UserProfile {
   access_token?: string;
 }
 
-const Home: React.FC = () => {
+const Home = () => {
   const location = useLocation();
   const user: UserProfile = location.state?.user;
   return (
