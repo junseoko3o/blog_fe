@@ -59,7 +59,7 @@ export class UserController {
       });
       return {
         id: user.id,
-        email: user.user_email,
+        user_email: user.user_email,
         user_name: user.user_name,
         access_token: accessToken,
         login_at: new Date(),
