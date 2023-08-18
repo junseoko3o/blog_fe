@@ -10,7 +10,7 @@ export class Content {
   title: string;
 
   @Column()
-  contents: string;
+  content: string;
 
   @Column()
   user_name: string;
