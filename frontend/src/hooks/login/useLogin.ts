@@ -1,78 +1,28 @@
-import { useState, useEffect } from 'react';
+import { useRecoilState } from 'recoil';
+import { userState } from '../store/store';
 import api from '../../api/api';
-import { UserProfile } from './interface';
 
 export const useLogin = () => {
-  const [user, setUser] = useState<UserProfile | null>(null);
-  const [accessToken, setAccessToken] = useState<string>('');
-  const [refreshToken, setRefreshToken] = useState<string>('');
+  const [user, setUser] = useRecoilState(userState);
 
-  useEffect(() => {
-    const checkAccessToken = async () => {
-      if (!accessToken) {
-        return;
-      }
-
-      try {
-        const response = await api.get('/user/authenticate', {
-          headers: { Authorization: `Bearer ${accessToken}` },
-        });
-        if (response.status === 200) {
-          setUser(response.data);
-          return response;
-        } else {
-          console.error('Access token invalid, trying to refresh');
-          refreshAccessToken();
-        }
-        return response;
-      } catch (error) {
-        console.error('Error checking access token:', error);
-      }
-    };
-
-    const refreshAccessToken = async () => {
-      if (!refreshToken) {
-        return;
-      }
-
-      try {
-        const response = await api.get('/user/refresh', {
-          headers: { Authorization: `Bearer ${refreshToken}` },
-        });
-
-        if (response.status === 200) {
-          const data: UserProfile = response.data;
-          setAccessToken(data.access_token || '');
-          setUser(data);
-          return data;
-        } else {
-          console.error('Refresh token invalid');
-        }
-      } catch (error) {
-        console.error('Error refreshing access token:', error);
-      }
-    };
-
-    checkAccessToken();
-  }, [accessToken, refreshToken]);
-
-  const handleLogin = async (email: string, password: string) => {
+  const login = async (email: string, password: string) => {
     try {
-      const response = await api.post('/user/login', { email, password: password });
+      const response = await api.post('/user/login', { user_email: email, password });
 
       if (response.status === 201) {
-        const data: UserProfile = response.data;
-        setAccessToken(data.access_token || '');
-        setRefreshToken(data.refresh_token || '');
+        const data = response.data;
         setUser(data);
+        console.log(data);
         return data;
-      } else {
-        console.error('Login failed');
       }
     } catch (error) {
-      console.error('Error during login:', error);
+      console.error('로그인에 실패했습니다.', error);
     }
-  };
 
-  return { user, accessToken, handleLogin };
-};
+    return null;
+  }
+
+  return { login };
+}
+
+export default useLogin;

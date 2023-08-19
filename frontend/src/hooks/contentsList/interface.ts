@@ -7,4 +7,4 @@ export interface ContentList {
   updated_user_id: number,
   created_at: Date,
   updated_at: Date,
-}[]
+}
