@@ -3,7 +3,6 @@ import { User } from "./user.entity";
 import { DataSource, Repository } from "typeorm";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
-import { RefreshUserDto } from "./dto/refresh-user.dto";
 @Injectable()
 export class UserRepository extends Repository<User> {
   constructor(private dataSource: DataSource) {
@@ -43,22 +42,6 @@ export class UserRepository extends Repository<User> {
   }
 
   async updateUser(id: number, updateData: UpdateUserDto) {
-    const queryRunner = this.dataSource.createQueryRunner();
-    
-    await queryRunner.connect();
-    await queryRunner.startTransaction();
-
-    try {
-      await queryRunner.manager.update(User, id, updateData);
-      await queryRunner.commitTransaction();
-    } catch (err){
-      await queryRunner.rollbackTransaction();
-    } finally {
-      await queryRunner.release();
-    }
-  }
-
-  async updateRefreshUser(id: number, updateData: RefreshUserDto) {
     const queryRunner = this.dataSource.createQueryRunner();
     
     await queryRunner.connect();

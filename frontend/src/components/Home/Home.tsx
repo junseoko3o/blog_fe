@@ -1,21 +1,12 @@
 import React from 'react';
-import Profile from '../Profile/Profile';
 import { useLocation } from 'react-router-dom';
+import Content from '../Content/Content';
 
-interface UserProfile {
-  id: number;
-  email: string;
-  user_name: string;
-  access_token?: string;
-}
-
-const Home: React.FC = () => {
-  const location = useLocation();
-  const user: UserProfile = location.state?.user;
+const Home = () => {
   return (
     <div>
       <h2>Home</h2>
-      <Profile user={user} />
+      <Content></Content>
     </div>
   );
 };

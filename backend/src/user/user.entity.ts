@@ -15,12 +15,6 @@ export class User {
   @Column()
   password: string;
 
-  @Column({ nullable: true })
-  refresh_token: string;
-
-  @Column({ type:'timestamp', precision: 6 , nullable: true })
-  refresh_token_expired_at: Date;
-
   @Column({ type:'timestamp', precision: 6 , nullable: true })
   login_at: Date;
 

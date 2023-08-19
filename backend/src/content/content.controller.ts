@@ -3,6 +3,7 @@ import { ContentService } from './content.service';
 import { CreateContentDto } from './dto/create-content.dto';
 import { UpdateContentDto } from './dto/update-content.dto';
 import { Content } from './content.entity';
+import { Public } from 'src/user/auth/public.decorator';
 
 @Controller('content')
 export class ContentController {
@@ -11,6 +12,7 @@ export class ContentController {
   ) {}
 
   @Get('list')
+  @Public()
   async findAllContents(): Promise<Content[]> {
     return await this.contentService.findAllContents();
   }

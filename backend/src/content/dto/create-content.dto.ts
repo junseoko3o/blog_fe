@@ -5,11 +5,7 @@ export class CreateContentDto {
   title: string;
 
   @IsString()
-  contents: string;
-
-  @IsString()
-  @IsOptional()
-  user_name: string;
+  content: string;
 
   @IsNumber()
   created_user_id: number;

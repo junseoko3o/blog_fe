@@ -9,7 +9,7 @@ export class UpdateContentDto extends PartialType(CreateContentDto) {
 
   @IsString()
   @IsOptional()
-  contents: string;
+  content: string;
 
   @IsNumber()
   updated_user_id: number;

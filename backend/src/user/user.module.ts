@@ -11,6 +11,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './user.entity';
 import { UserRepository } from './user.repository';
 import CryptoAes256Gcm from 'src/common/crypto/crypto';
+import { RedisCacheService } from 'src/common/redis/redis-cache.service';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import CryptoAes256Gcm from 'src/common/crypto/crypto';
     JwtRefreshStrategy,
     JwtAccessAuthGuard,
     CryptoAes256Gcm,
+    RedisCacheService,
   ]
 })
 export class UserModule {}
