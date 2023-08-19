@@ -74,7 +74,7 @@ export class UserService {
     return currentRefreshToken;
   }
   
-  async getUserIfRefreshTokenMatches(refresh_token: string, id: number): Promise<User> {
+  async getUserIfRefreshTokenMatches( id: number, refresh_token: string): Promise<User> {
     const user: User = await this.findOneUser(id);
     const getRefreshTokenInRedis = await this.redisCacheService.getKey(id);
     const isRefreshTokenMatching = await bcrypt.compare(
