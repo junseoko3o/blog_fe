@@ -61,9 +61,8 @@ export class UserService {
     return 'success delete user!';
   }
 
-  async setCurrentRefreshToken(id: number) {
-    const getRefreshTokenInRedis = await this.redisCacheService.getKey(id);
-    const hashedToken = await this.getCurrentHashedRefreshToken(getRefreshTokenInRedis);
+  async setCurrentRefreshToken(id: number, refresh_token: string) {
+    const hashedToken = await this.getCurrentHashedRefreshToken(refresh_token);
     await this.redisCacheService.setKeyValue(id, hashedToken, 'PX', parseInt(process.env.JWT_REFRESH_EXPIRATION_TIME));
     await this.userRepository.update(id, {
       login_at: new Date().toISOString(),
