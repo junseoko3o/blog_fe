@@ -7,7 +7,7 @@ import { UserModule } from './user/user.module';
 import { APP_FILTER } from '@nestjs/core';
 import { LoggerMiddleware } from './logger.middleware';
 import { HttpExceptionFilter } from './exception/exception.filter';
-import { ContentModule } from './content/content.module';
+import { RedisCacheModule } from './common/redis/redis-cache.module';
 
 @Module({
   imports: [
@@ -26,7 +26,7 @@ import { ContentModule } from './content/content.module';
       timezone: 'Z',
     }),
     UserModule,
-    ContentModule,
+    RedisCacheModule,
   ],
   controllers: [AppController],
   providers: [
