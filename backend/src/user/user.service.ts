@@ -65,7 +65,7 @@ export class UserService {
     const hashedToken = await this.getCurrentHashedRefreshToken(refresh_token);
     await this.redisCacheService.setKeyValue(id, hashedToken, 'PX', parseInt(process.env.JWT_REFRESH_EXPIRATION_TIME));
     await this.userRepository.update(id, {
-      login_at: new Date().toISOString(),
+      login_at: new Date(),
     });
   }
 
