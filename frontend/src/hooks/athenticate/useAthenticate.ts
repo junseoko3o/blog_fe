@@ -1,10 +1,8 @@
-// useAuthenticate.js
-
 import { useState, useEffect } from 'react';
 import api from '../../api/api';
 
-function useAuthenticate(access_token: string) {
-  const [user, setUser] = useState(null);
+export const useAuthenticate= (access_token: string) => {
+  const [user, setUser] = useState();
 
   useEffect(() => {
     const authenticateUser = async () => {
@@ -19,13 +17,10 @@ function useAuthenticate(access_token: string) {
           setUser(response.data);
         }
       } catch (error) {
-        alert('인증 실패');
+        console.error('인증 실패', error);
       }
     };
-
-    if (access_token) {
       authenticateUser();
-    }
   }, [access_token]);
 
   return user;

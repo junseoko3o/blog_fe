@@ -12,13 +12,12 @@ export const useLogin = () => {
       if (response.status === 201) {
         const data = response.data;
         setUser(data);
-        console.log(data);
-        return data;
+        return user;
       }
     } catch (error) {
-      console.error('로그인에 실패했습니다.', error);
+      console.error('로그인에 실패했습니다.');
     }
-
+    
     return null;
   }
 

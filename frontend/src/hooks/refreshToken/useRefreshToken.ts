@@ -2,18 +2,15 @@
 
 import { useState, useEffect } from 'react';
 import api from '../../api/api';
+import { NewAccessToken } from './interface';
 
-function useTokenRefresh(refresh_token: string) {
+export const useRefreshToken = (props: NewAccessToken) => {
   const [newAccessToken, setNewAccessToken] = useState(null);
 
   useEffect(() => {
     const refreshAccessToken = async () => {
       try {
-        const response = await api.get('/user/refresh', {
-          headers: {
-            Authorization: `Bearer ${refresh_token}`,
-          },
-        });
+        const response = await api.get('/user/refresh');
 
         if (response.status === 200) {
           setNewAccessToken(response.data.access_token);
@@ -23,12 +20,10 @@ function useTokenRefresh(refresh_token: string) {
       }
     };
 
-    if (refresh_token) {
-      refreshAccessToken();
-    }
-  }, [refresh_token]);
+    refreshAccessToken();
+  }, [props]);
 
   return newAccessToken;
 }
 
-export default useTokenRefresh;
+export default useRefreshToken;
