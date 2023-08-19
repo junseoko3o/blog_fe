@@ -10,7 +10,7 @@ import { ConfigModule } from '@nestjs/config';
       readyLog: true,
       config: {
         host: process.env.REDIS_HOST,
-        port: parseInt(process.env.REDIS_PORT, 10),
+        port: parseInt(process.env.REDIS_PORT),
         password: process.env.REDIS_PASSWORD
       }
     }),
