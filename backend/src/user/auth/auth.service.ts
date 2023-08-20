@@ -59,7 +59,7 @@ export class AuthService {
 
   async refresh(user: User) : Promise<string>{
     const findOneUser = await this.userService.findOneUser(user.id);
-    const getKeyInRedis = await this.redisCacheService.getKey(user.id);
+    const getKeyInRedis = await this.redisCacheService.getKey(user.user_email);
     const accessToken = await this.generateAccessToken(user);
     if (!findOneUser) {
       throw new UnauthorizedException('User is not found.');
