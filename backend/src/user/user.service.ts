@@ -84,7 +84,6 @@ export class UserService {
       refresh_token,
       getRefreshTokenInRedis
     );
-    console.log(getRefreshTokenInRedis)
     if (isRefreshTokenMatching) {
       return user;
     } 
