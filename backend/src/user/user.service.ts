@@ -61,10 +61,13 @@ export class UserService {
     return 'success delete user!';
   }
 
-  async setCurrentRefreshToken(id: number, refresh_token: string) {
+  async setCurrentRefreshToken(user_email: string, refresh_token: string) {
+    const user = await this.userRepository.findOneUserEmail(user_email);
     const hashedToken = await this.getCurrentHashedRefreshToken(refresh_token);
-    await this.redisCacheService.setKeyValue(id, hashedToken, 'PX', parseInt(process.env.JWT_REFRESH_EXPIRATION_TIME));
-    await this.userRepository.update(id, {
+    await this.redisCacheService.setKeyValue(user_email, hashedToken, 'PX', parseInt(process.env.JWT_REFRESH_EXPIRATION_TIME));
+    await this.userRepository.updateUser(user.id, {
+      user_name: user.user_name,
+      password: user.password,
       login_at: new Date(),
     });
   }
@@ -76,7 +79,7 @@ export class UserService {
   
   async getUserIfRefreshTokenMatches( id: number, refresh_token: string): Promise<User> {
     const user: User = await this.findOneUser(id);
-    const getRefreshTokenInRedis = await this.redisCacheService.getKey(id);
+    const getRefreshTokenInRedis = await this.redisCacheService.getKey(user.user_email);
     const isRefreshTokenMatching = await bcrypt.compare(
       refresh_token,
       getRefreshTokenInRedis
@@ -84,6 +87,7 @@ export class UserService {
     if (isRefreshTokenMatching) {
       return user;
     } 
+    return user;
   }
 
   async removeRefreshToken(id: number) {
