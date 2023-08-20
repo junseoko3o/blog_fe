@@ -51,7 +51,7 @@ export class AuthService {
       user_email: user.user_email,
       user_name: user.user_name,
     }
-    return this.jwtService.signAsync({ id: payload.id }, {
+    return this.jwtService.signAsync({ id: payload.id, user_email: payload.user_email }, {
       secret: this.configService.get<string>('JWT_REFRESH_SECRET'),
       expiresIn: this.configService.get<string>('JWT_REFRESH_EXPIRATION_TIME'),
     });
