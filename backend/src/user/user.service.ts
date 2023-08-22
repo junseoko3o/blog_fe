@@ -64,7 +64,7 @@ export class UserService {
   async setCurrentRefreshToken(user_email: string, refresh_token: string) {
     const user = await this.userRepository.findOneUserEmail(user_email);
     const hashedToken = await this.getCurrentHashedRefreshToken(refresh_token);
-    await this.redisCacheService.setKeyValue(user_email, hashedToken, 'PX', parseInt(process.env.JWT_REFRESH_EXPIRATION_TIME));
+    await this.redisCacheService.setKeyValue(user_email, hashedToken, 'EX', parseInt(process.env.JWT_REFRESH_EXPIRATION_TIME));
     await this.userRepository.updateUser(user.id, {
       user_name: user.user_name,
       password: user.password,
