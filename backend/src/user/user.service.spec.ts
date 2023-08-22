@@ -109,11 +109,11 @@ describe('UserService', () => {
       // await userService.setCurrentRefreshToken(userId, refreshToken);
 
       // Then
-      // expect(userRepository.update).toHaveBeenCalledWith(userId, {
-      //   refresh_token: currentRefreshTokenHash,
-      //   refresh_token_expired_at: currentRefreshTokenExp,
-      //   login_at: expect.any(String),
-      // });
+      expect(userRepository.update).toHaveBeenCalledWith(userId, {
+        refresh_token: currentRefreshTokenHash,
+        refresh_token_expired_at: currentRefreshTokenExp,
+        login_at: expect.any(String),
+      });
     });
   });
   describe('getUserIfRefreshTokenMatches', () => {
@@ -159,20 +159,4 @@ describe('UserService', () => {
       // expect(result).toBeUndefined();
     });
   });
-
-  // describe('removeRefreshToken', () => {
-  //   it('should remove the refresh token and token expiration for the given user', async () => {
-  //     // Given
-  //     const userId = 1;
-  //     jest.spyOn(userRepository, 'update').mockResolvedValue(undefined);
-  //     // When
-  //     // await userService.removeRefreshToken(userId);
-
-  //     // Then
-  //     expect(userRepository.update).toHaveBeenCalledWith(userId, {
-  //       refresh_token: null,
-  //       refresh_token_expired_at: null,
-  //     });
-  //   });
-  // });
 })
