@@ -28,6 +28,7 @@ export class UserController {
     }
 
     @Post('signup')
+    @Public()
     async userSignUp(@Body() createData: CreateUserDto): Promise<User> {
       return await this.userService.signUpUser(createData);
     }
