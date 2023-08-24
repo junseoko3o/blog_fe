@@ -1,15 +1,15 @@
-import { BadRequestException, Injectable } from "@nestjs/common";
+import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import { Content } from "./content.entity";
 import { UpdateContentDto } from "./dto/update-content.dto";
 import { CreateContentDto } from "./dto/create-content.dto";
 import { ContentRepository } from "./content.repository";
-import { UserRepository } from "src/user/user.repository";
+import { UserService } from "src/user/user.service";
 
 @Injectable()
 export class ContentService {
   constructor(
     private readonly contentRepository: ContentRepository,
-    private readonly userRepository: UserRepository,
+    private readonly userService: UserService,
   ) {}
 
   async findAllContents(): Promise<Content[]> {
@@ -17,14 +17,15 @@ export class ContentService {
   }
 
   async findOneContent(id: number): Promise<Content> {
-    return await this.contentRepository.findOneContent(id);
+    const content = await this.contentRepository.findOneContent(id);
+    if (!content) {
+      throw new NotFoundException('Content is not found.');
+    }
+    return content;
   }
 
   async createContent(createData: CreateContentDto): Promise<Content> {
-    const findUser = await this.userRepository.findOneUser(createData.created_user_id);
-    if (!findUser && findUser.id !== createData.created_user_id) {
-      throw new BadRequestException('user is not found.');
-    }
+    const findUser = await this.userService.findOneUser(createData.created_user_id);
     const content = new Content();
     content.title = createData.title;
     content.content = createData.content;
@@ -36,13 +37,8 @@ export class ContentService {
   }
 
   async updateContent(id: number, updateData: UpdateContentDto): Promise<Content> {
-    const findUser = await this.contentRepository.findOneContent(updateData.updated_user_id);
-    const findContent = await this.findOneContent(id);
-    if (!findUser && findUser.id !== updateData.updated_user_id) {
-      throw new BadRequestException('user is not found.');
-    } else if (!findContent) {
-      throw new BadRequestException('content is not found.');
-    }
+    await this.contentRepository.findOneContent(updateData.updated_user_id);
+    await this.findOneContent(id);
     const content = new Content();
     content.title = updateData.title;
     content.content = updateData.content;
