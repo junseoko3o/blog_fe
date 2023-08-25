@@ -10,20 +10,28 @@ export class ContentRepository extends Repository<Content> {
     super(Content, dataSource.createEntityManager());
   }
 
-  async findAllContents() {
+  async findAllContents(): Promise<Content[]> {
     return await this.find();
   }
 
-  async findOneContent(id: number) {
+  async findOneContent(id: number): Promise<Content> {
     return await this.findOne({
       where: { id },
     });
   }
 
-  async findOneContentOfUserName(user_name: string) {
+  async findOneContentOfUserName(user_name: string): Promise<Content> {
     return await this.findOne({
       where: { user_name },
     });
+  }
+
+  async searchTitleContent(searchKeyword: string): Promise<Content[]> {
+    const searchTitle = await this.dataSource
+    .createQueryBuilder(Content, 'content')
+    .where('content.title LIKE :searchKeyword', { searchKeyword: `%${searchKeyword}%` })
+    .getMany();
+    return searchTitle;
   }
 
   async createContent(createData: CreateContentDto) {
@@ -70,7 +78,7 @@ export class ContentRepository extends Repository<Content> {
       .delete()
       .from(Content)
       .where("id = :id", { id })
-      .execute()
+      .execute();
       
       await queryRunner.commitTransaction();
     } catch (err) {

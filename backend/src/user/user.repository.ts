@@ -9,17 +9,17 @@ export class UserRepository extends Repository<User> {
     super(User, dataSource.createEntityManager());
   }
 
-  async findAllUser() {
+  async findAllUser(): Promise<User[]> {
     return await this.find();
   }
 
-  async findOneUser(id: number) {
+  async findOneUser(id: number): Promise<User> {
     return await this.findOne({
       where: { id },
     });
   }
 
-  async findOneUserEmail(user_email: string) {
+  async findOneUserEmail(user_email: string): Promise<User> {
     return await this.findOne({
       where: { user_email },
     });

@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Query } from '@nestjs/common';
 import { ContentService } from './content.service';
 import { CreateContentDto } from './dto/create-content.dto';
 import { UpdateContentDto } from './dto/update-content.dto';
@@ -20,6 +20,11 @@ export class ContentController {
   @Get(':id')
   async findOneContent(@Param('id') id: number): Promise<Content> {
     return await this.contentService.findOneContent(id);
+  }
+
+  @Get('search')
+  async searchTitleContent(@Query('search') searchKeyword: string): Promise<Content[]> {
+    return await this.contentService.searchTitleContent(searchKeyword);
   }
 
   @Post()
