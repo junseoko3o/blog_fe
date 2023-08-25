@@ -38,6 +38,10 @@ import { RedisCacheService } from 'src/common/redis/redis-cache.service';
     JwtAccessAuthGuard,
     CryptoAes256Gcm,
     RedisCacheService,
+  ],
+  exports: [
+    UserService,
+    UserRepository,
   ]
 })
 export class UserModule {}
