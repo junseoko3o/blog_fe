@@ -23,6 +23,14 @@ export class ContentService {
     }
     return content;
   }
+  
+  async findOneConentUserName(user_name: string) {
+    const content = await this.contentRepository.findOneContentOfUserName(user_name);
+    if (!content) {
+      throw new NotFoundException('Content is not found.');
+    }
+    return content;
+  }
 
   async createContent(createData: CreateContentDto): Promise<Content> {
     const findUser = await this.userService.findOneUser(createData.created_user_id);
