@@ -8,6 +8,7 @@ import { APP_FILTER } from '@nestjs/core';
 import { LoggerMiddleware } from './logger.middleware';
 import { HttpExceptionFilter } from './exception/exception.filter';
 import { RedisCacheModule } from './common/redis/redis-cache.module';
+import { CommentModule } from './comment/comment.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { RedisCacheModule } from './common/redis/redis-cache.module';
     }),
     UserModule,
     RedisCacheModule,
+    CommentModule,
   ],
   controllers: [AppController],
   providers: [

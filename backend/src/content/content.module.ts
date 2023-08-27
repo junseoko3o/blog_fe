@@ -15,6 +15,10 @@ import { UserModule } from 'src/user/user.module';
   providers: [
     ContentService,
     ContentRepository,
+  ],
+  exports: [
+    ContentService,
+    ContentRepository,
   ]
 })
 export class ContentModule {}
