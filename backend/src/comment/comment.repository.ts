@@ -11,4 +11,10 @@ export class CommentRepository extends Repository<Comment> {
   async findAllComment() {
     return await this.find();
   }
+
+  async findOneComment(id: number) {
+    return await this.findOne({
+      where: { id },
+    });
+  }
 }

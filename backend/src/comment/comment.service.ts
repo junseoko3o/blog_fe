@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
 import { CommentRepository } from './comment.repository';
@@ -15,5 +15,13 @@ export class CommentService {
 
   async findAllComment() {
     return await this.commentRepository.findAllComment();
+  }
+
+  async findOneComment(id: number) {
+    const comment = await this.commentRepository.findOneComment(id);
+    if (!comment) {
+      throw new NotFoundException('Comment is not found.');
+    }
+    return comment;
   }
 }
