@@ -11,5 +11,9 @@ export class CommentService {
     private readonly commentRepository: CommentRepository,
     private readonly userService: UserService,
     private readonly contentService: ContentService,
-  ) {} 
+  ) {}
+
+  async findAllComment() {
+    return await this.commentRepository.findAllComment();
+  }
 }

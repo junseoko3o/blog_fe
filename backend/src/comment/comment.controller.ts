@@ -6,4 +6,9 @@ import { UpdateCommentDto } from './dto/update-comment.dto';
 @Controller('comment')
 export class CommentController {
   constructor(private readonly commentService: CommentService) {}
+
+  @Get('list')
+  async findAllComment() {
+    return await this.commentService.findAllComment();
+  }
 }
