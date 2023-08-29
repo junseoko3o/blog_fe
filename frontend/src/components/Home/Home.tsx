@@ -1,11 +1,11 @@
 import React from 'react';
-import Content from '../Content/Content';
+import ContentList from '../ContentList/ContentList';
 
 const Home = () => {
   return (
     <div>
       <h2>Home</h2>
-      <Content></Content>
+      <ContentList></ContentList>
     </div>
   );
 };

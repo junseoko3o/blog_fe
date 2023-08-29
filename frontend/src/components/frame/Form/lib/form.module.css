@@ -1,0 +1,18 @@
+.directionRowForm fieldset{
+  display: flex;
+  flex-direction: row;
+}
+
+.directionColumnForm fieldset{
+  display: flex;
+  flex-direction: column;
+}
+
+.fieldset{
+  border:1px solid #eee;
+  padding:20px;
+}
+
+.legend{
+  font-size:16px
+}

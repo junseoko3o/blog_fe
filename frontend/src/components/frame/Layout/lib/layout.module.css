@@ -1,0 +1,10 @@
+.asideContainer{
+    width:300px;
+    height:100%;
+    position: fixed;
+    border-right: 1px solid #dedede;
+}
+
+.bodyContainer{
+    margin-left:300px;
+}
