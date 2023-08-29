@@ -4,7 +4,11 @@ const useNav = (): MenuData[] => {
   return [
     {
       title: '처음으로',
-      link: '/',
+      link: '/home',
+    },
+    {
+      title: '작성하기',
+      link: '/write',
     }
   ];
 };

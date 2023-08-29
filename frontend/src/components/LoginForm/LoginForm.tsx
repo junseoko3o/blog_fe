@@ -30,7 +30,7 @@ const LoginForm = () => {
       <h2>Login</h2>
       <form onSubmit={handleSubmit} className={Styles.LoginForm}>
         <div>
-          <label>Email:</label>
+          <label>Email</label>
           <input
             className={Styles.loginForm}
             type="email"
@@ -39,7 +39,7 @@ const LoginForm = () => {
           />
         </div>
         <div>
-          <label>Password:</label>
+          <label>Password</label>
           <input
             className={Styles.loginForm}
             type="password"

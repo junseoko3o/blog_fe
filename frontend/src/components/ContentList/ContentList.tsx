@@ -14,7 +14,6 @@ const ContentList = () => {
           {contentList.map((content) => (
             <li key={content.id}>
               <h2 className={Styles.contentListItem}>{content.title}</h2>
-              <p className={Styles.contentListItem}>{content.content}</p>
               <p >User: {content.user_name}</p>
             </li>
           ))}
