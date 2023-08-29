@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import useLogin from '../../hooks/login/useLogin';
 import { useRecoilValue } from 'recoil';
 import { userState } from '../../hooks/store/store';
+import Styles from './lib/login.module.css';
+import logo from '../../logo.svg'; 
 
 const LoginForm = () => {
   useRecoilValue(userState);
@@ -23,26 +25,29 @@ const LoginForm = () => {
   };
 
   return (
-    <div>
+    <div className={Styles.loginContainer}>
+      <img className={Styles.loginLogo} src={logo} alt="" />
       <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={Styles.LoginForm}>
         <div>
           <label>Email:</label>
           <input
+            className={Styles.loginForm}
             type="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)} // 이메일 입력값 변경 처리
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
         <div>
           <label>Password:</label>
           <input
+            className={Styles.loginForm}
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <button type="submit">Login</button>
+        <button className={Styles.loginForm} type="submit">Login</button>
       </form>
     </div>
   );
