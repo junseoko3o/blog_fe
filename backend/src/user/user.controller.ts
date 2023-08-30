@@ -27,6 +27,11 @@ export class UserController {
       return await this.userService.findOneUser(id);
     }
 
+    @Get('content/:id')
+    async findOneUserWithContent(@Param('id') id: number) {
+      return await this.userService.findOneUserWithContent(id);
+    }
+
     @Post('signup')
     @Public()
     async userSignUp(@Body() createData: CreateUserDto): Promise<User> {

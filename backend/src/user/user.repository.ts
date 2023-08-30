@@ -25,6 +25,13 @@ export class UserRepository extends Repository<User> {
     });
   }
 
+  async findOneUserWithContent(id: number) {
+    return await this.findOne({
+      where: { id },
+      relations: ['content'],
+    })
+  }
+
   async createUser(createData: CreateUserDto) {
     const queryRunner = this.dataSource.createQueryRunner();
     

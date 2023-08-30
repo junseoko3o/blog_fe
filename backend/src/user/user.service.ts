@@ -21,6 +21,12 @@ export class UserService {
     return await this.userRepository.findOneUser(id);
   }
 
+  async findOneUserWithContent(id: number) {
+    await this.findOneUser(id);
+    const user = await this.userRepository.findOneUserWithContent(id);
+    return user.content;
+  }
+
   async signUpUser(createData: CreateUserDto) {
     const findUser = await this.userRepository.findOneUserEmail(createData.user_email);
     const hashedPassword = await bcrypt.hash(createData.password, 10);
