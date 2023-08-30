@@ -7,6 +7,10 @@ const useNav = (): MenuData[] => {
       link: '/home',
     },
     {
+      title: '나의 컨텐츠',
+      link: '/info',
+    },
+    {
       title: '작성하기',
       link: '/write',
     }

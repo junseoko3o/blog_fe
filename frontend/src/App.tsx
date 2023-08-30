@@ -4,21 +4,28 @@ import Home from './components/Home/Home';
 import Layout from './components/frame/Layout';
 import LoginForm from './components/LoginForm';
 import ContentPost from './components/ContentPost';
+import ContentInfo from './components/ContentInfo/ContentInfo';
+import { useRecoilValue } from 'recoil';
+import { userState } from './hooks/store/store';
 
   const App = () => {
-    const isAuthenticated = true; 
-  
+    const user = useRecoilValue(userState);
+    console.log(user);
     return (
       <Router>
         <Routes>
           <Route path="/" element={<LoginForm />} />
           <Route
             path="/home"
-            element={isAuthenticated ? <Layout><Home /></Layout> : <Navigate to="/home" />}
+            element={user ? <Layout><Home /></Layout> : <Navigate to="/home" />}
           />
           <Route
             path="/write"
-            element={isAuthenticated ? <Layout><ContentPost /></Layout> : <Navigate to="/" />}
+            element={<Layout><ContentPost /></Layout>}
+          />
+          <Route
+            path="/info"
+            element={<Layout><ContentInfo /></Layout>}
           />
         </Routes>
       </Router>

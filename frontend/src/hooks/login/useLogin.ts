@@ -4,11 +4,11 @@ import api from '../../api/api';
 
 export const useLogin = () => {
   const [user, setUser] = useRecoilState(userState);
-
+  console.log(user);
   const login = async (email: string, password: string) => {
     try {
       const response = await api.post('/user/login', { user_email: email, password });
-
+      
       if (response.status === 201) {
         const data = response.data;
         setUser(data);
@@ -23,5 +23,3 @@ export const useLogin = () => {
 
   return { login };
 }
-
-export default useLogin;
