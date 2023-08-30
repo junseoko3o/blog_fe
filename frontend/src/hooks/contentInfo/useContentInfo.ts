@@ -5,14 +5,12 @@ import { userState } from '../store/store';
 import { ContentInfo } from './interface';
 
 export const useContentInfo = () => {
-  const [contentInfo, setContentInfo] = useState<ContentInfo[]>([]);
   const user = useRecoilValue(userState);
-  console.log(user);
+  const [contentInfo, setContentInfo] = useState<ContentInfo[]>([]);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await api.get<ContentInfo[]>(`/user/content/${user}`);
-        console.log(response);
+        const response = await api.get<ContentInfo[]>(`/user/content/${user.id}`);
         setContentInfo(response.data);
       } catch (error) {
         console.error('user is not found:', error);

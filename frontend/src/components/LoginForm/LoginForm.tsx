@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import useLogin from '../../hooks/login/useLogin';
 import { useRecoilValue } from 'recoil';
 import { userState } from '../../hooks/store/store';
 import Styles from './lib/login.module.css';
 import logo from '../../logo.svg'; 
-import { useLogin } from '../../hooks/login/useLogin';
 
 const LoginForm = () => {
   useRecoilValue(userState);
@@ -15,14 +15,15 @@ const LoginForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const userData = await login(email, password);
     
-    if (userData) {
-      navigate('/home', { state: { user: userData } });
-    } else {
-      alert('로그인에 실패했습니다.');
+    try {
+      await login(email, password);
+      navigate('/home');
+    } catch (error) {
+      console.error('로그인에 실패했습니다.');
     }
   };
+
 
   return (
     <div className={Styles.loginContainer}>
