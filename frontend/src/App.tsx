@@ -20,7 +20,7 @@ import ContentInfo from './components/ContentInfo/ContentInfo';
             element={<Layout><ContentPost /></Layout>}
           />
           <Route
-            path="/info"
+            path="/content/:id"
             element={<Layout><ContentInfo /></Layout>}
           />
         </Routes>

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useContentList } from "../../hooks/contentsList/useContentsList"
 import Styles from './lib/contentList.module.css';
 
@@ -13,8 +14,10 @@ const ContentList = () => {
         <ul>
           {contentList.map((content) => (
             <li key={content.id}>
-              <h2 className={Styles.contentListItem}>{content.title}</h2>
-              <p >User: {content.user_name}</p>
+              <Link to={`/content/${content.id}`}>
+                <h2 className={Styles.contentListItem}>{content.title}</h2>
+              </Link>
+              <p>User: {content.user_name}</p>
             </li>
           ))}
         </ul>
