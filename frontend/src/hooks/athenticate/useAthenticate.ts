@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 import api from '../../api/api';
 import { useRecoilState } from 'recoil';
-import { userState } from '../store/store';
+import { authenticatedUserState, userState } from '../store/store';
 
 export const useUserAuthenticate = () => {
-  const [user, setUser] = useRecoilState(userState);
+  const [user, setUser] = useRecoilState(authenticatedUserState);
 
   const authenticateUser = async () => {
     try {

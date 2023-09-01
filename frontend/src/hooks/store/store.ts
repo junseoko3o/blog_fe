@@ -13,5 +13,8 @@ export const userState = atom({
 
 export const authenticatedUserState = atom({
   key: 'authenticatedUserState',
-  default: null, 
+  default: {
+    id: 0,
+    user_name: '',
+  }, 
 });

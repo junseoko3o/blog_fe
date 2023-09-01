@@ -1,9 +1,9 @@
 import React from 'react';
 import Styles from './lib/layout.module.css';
 import useNav from '../../../hooks/nav/useNav';
-import Header from '../Header';
-import Aside from '../Aside';
-import Body from '../Body';
+import Header from '../Header/Header';
+import Aside from '../Aside/Aside';
+import Body from '../Body/Body';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const asideNavList = useNav();

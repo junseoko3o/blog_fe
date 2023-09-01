@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 import { useContentList } from "../../hooks/contentsList/useContentsList"
 import Styles from './lib/contentList.module.css';
+import { useRecoilValue } from "recoil";
+import { authenticatedUserState } from "../../hooks/store/store";
 
 const ContentList = () => {
+  const user = useRecoilValue(authenticatedUserState);
   const { contentList, loading } = useContentList();
 
   return (

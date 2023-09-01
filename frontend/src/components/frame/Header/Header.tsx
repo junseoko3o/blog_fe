@@ -1,10 +1,8 @@
 import React from 'react';
-import Styles from './lib/header.module.css';
+import style from './lib/header.module.css';
 
-const Header = () => {
-    return <header>
-        <h1 className={Styles.header}>My Blog</h1>
+export default function Header(){
+    return <header className={style.header}>
+        <h1>Lee Jae Gyeong</h1>
     </header>
 }
-
-export default Header
