@@ -1,7 +1,7 @@
 import React from 'react';
-import Styles from './lib/layout.module.css';
+import style from './lib/layout.module.css';
 import useNav from '../../../hooks/nav/useNav';
-import Header from '../Header/Header';
+import Header from 'components/frame/Header/Header';
 import Aside from '../Aside/Aside';
 import Body from '../Body/Body';
 
@@ -9,14 +9,14 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const asideNavList = useNav();
 
   return (
-    <div className={Styles.container}>
+    <div className={style.container}>
       <Header />
-      <div className={Styles.asideContainer}>
-        <div className={Styles.aside}>
+      <div className={style.asideContainer}>
+        <div className={style.aside}>
           <Aside data={asideNavList} />
         </div>
       </div>
-      <div className={Styles.bodyContainer}>
+      <div className={style.bodyContainer}>
         <Body>{children}</Body>
       </div>
     </div>

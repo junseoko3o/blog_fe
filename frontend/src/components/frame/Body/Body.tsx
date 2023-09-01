@@ -1,8 +1,8 @@
 import React from 'react';
-import Styles from './lib/body.module.css';
+import style from './lib/body.module.css';
 
 const Body = ({ children }: { children: React.ReactNode }) => {
-  return <div className={Styles.body}>{children}</div>;
+  return <div className={style.body}>{children}</div>;
 }
 
 export default Body

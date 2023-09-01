@@ -3,7 +3,7 @@ import style from './lib/contentInfo.module.css';
 
 const ContentInfo = () => {
   const { contentInfo }  = useContentInfo();
-
+  
   return (
     <div className={style.contentListContainer}>
       <p>My Content</p>

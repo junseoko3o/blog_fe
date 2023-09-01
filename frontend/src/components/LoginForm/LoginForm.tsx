@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useLogin from '../../hooks/login/useLogin';
-import Styles from './lib/login.module.css';
+import style from './lib/login.module.css';
 import logo from '../../logo.svg'; 
 
 const LoginForm = () => {
@@ -23,14 +23,14 @@ const LoginForm = () => {
 
 
   return (
-    <div className={Styles.loginContainer}>
-      <img className={Styles.loginLogo} src={logo} alt="" />
+    <div className={style.loginContainer}>
+      <img className={style.loginLogo} src={logo} alt="" />
       <h2>Login</h2>
-      <form onSubmit={handleSubmit} className={Styles.LoginForm}>
+      <form onSubmit={handleSubmit} className={style.LoginForm}>
         <div>
           <label>Email</label>
           <input
-            className={Styles.loginForm}
+            className={style.loginForm}
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -39,13 +39,13 @@ const LoginForm = () => {
         <div>
           <label>Password</label>
           <input
-            className={Styles.loginForm}
+            className={style.loginForm}
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <button className={Styles.loginForm} type="submit">Login</button>
+        <button className={style.loginForm} type="submit">Login</button>
       </form>
     </div>
   );
