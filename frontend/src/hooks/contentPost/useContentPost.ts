@@ -5,7 +5,6 @@ import api from "../../api/api";
 
 export const useContentPost = () => { 
   const user = useRecoilValue(authenticatedUserState);
-
   const createContentPost = async (contentPost: contentPost) => {
     try {
       const response = await api.post('/content', contentPost);

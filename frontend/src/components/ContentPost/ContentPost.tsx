@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useRecoilValue } from 'recoil';
-import { useContentPost } from '../../hooks/contentPost/useContentPost';
-import { authenticatedUserState } from '../../hooks/store/store';
-import { contentPost } from '../../hooks/contentPost/interface';
+import { useContentPost } from 'hooks/contentPost/useContentPost';
+import { authenticatedUserState } from 'hooks/store/store';
+import { contentPost } from 'hooks/contentPost/interface';
 
 const ContentPost = () => {
   const user = useRecoilValue(authenticatedUserState);

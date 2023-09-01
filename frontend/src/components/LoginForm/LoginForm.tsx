@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import useLogin from '../../hooks/login/useLogin';
+import useLogin from 'hooks/login/useLogin';
 import style from './lib/login.module.css';
-import logo from '../../logo.svg'; 
+import logo from 'logo.svg'; 
 
 const LoginForm = () => {
   const { login } = useLogin();

@@ -1,6 +1,6 @@
 import React from 'react';
-import { MenuData } from '../Menu/lib/interface';
-import Menu from '../Menu';
+import { MenuData } from 'components/frame/Menu/lib/interface';
+import Menu from 'components/frame/Menu/Menu';
 
 const Aside = ({ data }: { data: MenuData[] }) => {
   return (

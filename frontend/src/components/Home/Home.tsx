@@ -1,5 +1,5 @@
 import React from 'react';
-import ContentList from '../ContentList/ContentList';
+import ContentList from 'components/ContentList/ContentList';
 
 const Home = () => {
   return (
