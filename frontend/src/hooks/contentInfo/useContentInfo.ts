@@ -1,16 +1,15 @@
 import { useState, useEffect } from 'react';
 import api from '../../api/api';
-import { useRecoilValue } from 'recoil';
-import { contentState } from '../store/store';
 import { ContentInfo } from './interface';
+import { useParams } from 'react-router';
 
 export const useContentInfo = () => {
-  const contentId = useRecoilValue(contentState);
+  const { id } = useParams();
   const [contentInfo, setContentInfo] = useState<ContentInfo>();
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await api.get<ContentInfo>(`/content/${contentId}`);
+        const response = await api.get<ContentInfo>(`/content/${id}`);
         setContentInfo(response.data);
       } catch (error) {
         console.error('user is not found:', error);
@@ -18,7 +17,7 @@ export const useContentInfo = () => {
     };
 
     fetchData();
-  }, [contentId, contentInfo]);
+  }, [id]);
 
   return { contentInfo };
 }

@@ -1,29 +1,33 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import api from '../../api/api';
+import { useRecoilState } from 'recoil';
+import { userState } from '../store/store';
 
-export const useAuthenticate= (access_token: string) => {
-  const [user, setUser] = useState();
+export const useUserAuthenticate = () => {
+  const [user, setUser] = useRecoilState(userState);
+
+  const authenticateUser = async () => {
+    try {
+      const response = await api.get('/user/authenticate');
+      
+      if (response.status === 200) {
+        const userData = response.data;
+        setUser(userData);
+      }
+    } catch (error) {
+      console.error('유저 인증에 실패했습니다.', error);
+    }
+  };
 
   useEffect(() => {
-    const authenticateUser = async () => {
-      try {
-        const response = await api.get('/user/authenticate', {
-          headers: {
-            Authorization: `Bearer ${access_token}`,
-          },
-        });
+    authenticateUser();
 
-        if (response.status === 200) {
-          setUser(response.data);
-        }
-      } catch (error) {
-        console.error('인증 실패', error);
-      }
-    };
-      authenticateUser();
-  }, [access_token]);
+    const intervalId = setInterval(authenticateUser, 3000);
 
-  return user;
-}
+    return () => clearInterval(intervalId);
+  }, []);
 
-export default useAuthenticate;
+  return { authenticateUser };
+};
+
+export default useUserAuthenticate;

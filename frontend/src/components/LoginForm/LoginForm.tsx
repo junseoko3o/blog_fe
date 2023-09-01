@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useLogin from '../../hooks/login/useLogin';
-import { useRecoilValue } from 'recoil';
-import { userState } from '../../hooks/store/store';
 import Styles from './lib/login.module.css';
 import logo from '../../logo.svg'; 
 
 const LoginForm = () => {
-  useRecoilValue(userState);
   const { login } = useLogin();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
