@@ -1,16 +1,15 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserRepository } from './user.repository';
 import { User } from './user.entity';
 import * as bcrypt from 'bcrypt';
-import { RedisCacheService } from 'src/common/redis/redis-cache.service';
+import { LoginUserDto } from './dto/login-user.dto';
 
 @Injectable()
 export class UserService {
   constructor(
     private readonly userRepository: UserRepository,
-    private readonly redisCacheService: RedisCacheService,
   ) {}
 
   async findAllUser() {
@@ -26,6 +25,23 @@ export class UserService {
     const user = await this.userRepository.findOneUserWithContent(id);
     return user.content;
   }
+
+  async findOneUserEmail(user_email: string) {
+    const user = await this.userRepository.findOneUserEmail(user_email);
+    if (!user) {
+      throw new NotFoundException('User is not found.');
+    }
+    return user;
+  }
+
+  async validateUser(loginData: LoginUserDto): Promise<User> {
+    const user = await this.findOneUserEmail(loginData.user_email);
+    const matchPassword = await bcrypt.compare(loginData.password, user.password);
+    if (!matchPassword) {
+      throw new BadRequestException('Invalid credentials.');
+    }
+    return user;
+  } 
 
   async signUpUser(createData: CreateUserDto) {
     const findUser = await this.userRepository.findOneUserEmail(createData.user_email);
@@ -65,38 +81,5 @@ export class UserService {
     }
     await this.userRepository.deleteUser(id);
     return 'success delete user!';
-  }
-
-  async setCurrentRefreshToken(user_email: string, refresh_token: string) {
-    const user = await this.userRepository.findOneUserEmail(user_email);
-    const hashedToken = await this.getCurrentHashedRefreshToken(refresh_token);
-    await this.redisCacheService.setKeyValue(user_email, hashedToken, 'EX', parseInt(process.env.JWT_REFRESH_EXPIRATION_TIME));
-    await this.userRepository.updateUser(user.id, {
-      user_name: user.user_name,
-      password: user.password,
-      login_at: new Date(),
-    });
-  }
-
-  async getCurrentHashedRefreshToken(refresh_token: string) {
-    const currentRefreshToken = await bcrypt.hash(refresh_token, 10);
-    return currentRefreshToken;
-  }
-  
-  async getUserIfRefreshTokenMatches( id: number, refresh_token: string): Promise<User> {
-    const user: User = await this.findOneUser(id);
-    const getRefreshTokenInRedis = await this.redisCacheService.getKey(user.user_email);
-    const isRefreshTokenMatching = await bcrypt.compare(
-      refresh_token,
-      getRefreshTokenInRedis
-    );
-    if (isRefreshTokenMatching) {
-      return user;
-    } 
-    return user;
-  }
-
-  async removeRefreshToken(id: number) {
-    return await this.redisCacheService.deleteKeyValue(id);
   }
 }

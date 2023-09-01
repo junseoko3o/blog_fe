@@ -51,17 +51,19 @@ export class UserController {
     @Post('login')
     @Public()
     async login(@Body() loginDto: LoginUserDto, @Res({ passthrough: true }) res: Response) {
-      const user = await this.authService.validateUser(loginDto);
+      const user = await this.userService.validateUser(loginDto);
       const accessToken = await this.authService.generateAccessToken(user);
       const refreshToken = await this.authService.generateRefreshToken(user);
     
-      await this.userService.setCurrentRefreshToken(user.user_email, refreshToken);
+      await this.authService.setRefreshToken(user.user_email, refreshToken);
       res.setHeader('Authorization', 'Bearer ' + [accessToken, refreshToken]);
       res.cookie('access_token', accessToken, {
         httpOnly: true,
+        maxAge: parseInt(process.env.JWT_ACCESS_EXPIRATION_TIME),
       });
       res.cookie('refresh_token', refreshToken, {
         httpOnly: true,
+        maxAge: parseInt(process.env.JWT_REFRESH_EXPIRATION_TIME),
       });
       return {
         id: user.id,
@@ -69,13 +71,13 @@ export class UserController {
         user_name: user.user_name,
         access_token: accessToken,
         login_at: new Date(),
-      };
+      }
     }
 
     @Post('logout')
     @UseGuards(JwtRefreshGuard)
     async logout(@Req() req: Request, @Res() res: Response) {
-      await this.userService.removeRefreshToken(req.user.id);
+      await this.authService.removeRefreshToken(req.user.id);
       res.clearCookie('access_token');
       res.clearCookie('refresh_token');
       return res.send({
@@ -85,7 +87,7 @@ export class UserController {
 
     @Get('refresh')
     @UseGuards(JwtRefreshGuard)
-    async regenerateRefreshToken(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
+    async regenerateAccessToken(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
       const user = req.user;
       const newAccessToken = await this.authService.refresh(user);
       res.setHeader('Authorization', 'Bearer ' + newAccessToken);

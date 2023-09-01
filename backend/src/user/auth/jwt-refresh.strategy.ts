@@ -2,15 +2,14 @@ import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { PassportStrategy } from "@nestjs/passport";
 import { ExtractJwt, Strategy } from "passport-jwt";
 import { Request } from "express";
-import { UserService } from "../user.service";
 import { User } from "../user.entity";
-import { Payload } from "./auth.service";
+import { AuthService, Payload } from "./auth.service";
 import { RedisCacheService } from "src/common/redis/redis-cache.service";
 
 @Injectable()
 export class JwtRefreshStrategy extends PassportStrategy(Strategy, 'jwt-refresh-token') {
   constructor(
-    private readonly userService: UserService,
+    private readonly authService: AuthService,
     private readonly redisCacheService: RedisCacheService,
   ) {
     super({
@@ -30,7 +29,7 @@ export class JwtRefreshStrategy extends PassportStrategy(Strategy, 'jwt-refresh-
     if (!getRefreshTokenInRedis) {
       throw new UnauthorizedException('refreshToken is not exist.');
     }
-    const user: User = await this.userService.getUserIfRefreshTokenMatches(
+    const user: User = await this.authService.getUserIfRefreshTokenMatches(
       payload.id,
       refreshToken,
     );

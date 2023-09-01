@@ -1,11 +1,10 @@
-import { BadRequestException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { UserService } from '../user.service';
 import { JwtService } from '@nestjs/jwt';
 import { User } from '../user.entity';
-import { LoginUserDto } from '../dto/login-user.dto';
-import { UserRepository } from '../user.repository';
 import { RedisCacheService } from '../../common/redis/redis-cache.service';
+import { v4 as uuidv4 } from 'uuid';
 import * as bcrypt from 'bcrypt';
 
 export interface Payload {
@@ -18,23 +17,10 @@ export interface Payload {
 export class AuthService {
   constructor(
     private readonly userService: UserService,
-    private readonly userRepository: UserRepository,
     private readonly jwtService: JwtService,  
     private readonly configService: ConfigService,
     private readonly redisCacheService: RedisCacheService,
   ) {}
-  
-  async validateUser(loginData: LoginUserDto): Promise<User> {
-    const user = await this.userRepository.findOneUserEmail(loginData.user_email);
-    const matchPassword = await bcrypt.compare(loginData.password, user.password);
-    if (!user) {
-      throw new NotFoundException('User not found!')
-    }
-    if (!matchPassword) {
-      throw new BadRequestException('Invalid credentials.');
-    }
-    return user;
-  } 
 
   async generateAccessToken(user: User): Promise<string> {
     const payload: Payload = {
@@ -59,6 +45,39 @@ export class AuthService {
       secret: this.configService.get<string>('JWT_REFRESH_SECRET'),
       expiresIn: this.configService.get<string>('JWT_REFRESH_EXPIRATION_TIME'),
     },);
+  }
+
+  async setRefreshToken(user_email: string, refresh_token: string) {
+    const user = await this.userService.findOneUserEmail(user_email);
+    const hashedToken = await this.getCurrentHashedRefreshToken(refresh_token);
+    await this.redisCacheService.setKeyValue(user_email, hashedToken, 'EX', parseInt(process.env.JWT_REFRESH_EXPIRATION_TIME));
+    await this.userService.updateUser(user.id, {
+      user_name: user.user_name,
+      password: user.password,
+      login_at: new Date(),
+    });
+  }
+
+  async getCurrentHashedRefreshToken(refresh_token: string) {
+    const currentRefreshToken = await bcrypt.hash(refresh_token, 10);
+    return currentRefreshToken;
+  }
+  
+  async getUserIfRefreshTokenMatches( id: number, refresh_token: string): Promise<User> {
+    const user: User = await this.userService.findOneUser(id);
+    const getRefreshTokenInRedis = await this.redisCacheService.getKey(user.user_email);
+    const isRefreshTokenMatching = await bcrypt.compare(
+      refresh_token,
+      getRefreshTokenInRedis
+    );
+    if (isRefreshTokenMatching) {
+      return user;
+    } 
+    return user;
+  }
+
+  async removeRefreshToken(id: number) {
+    return await this.redisCacheService.deleteKeyValue(id);
   }
 
   async refresh(user: User) : Promise<string>{
