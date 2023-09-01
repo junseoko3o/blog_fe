@@ -11,6 +11,11 @@ export const userState = atom({
     user_name: null,
     access_token: null,
     refresh_token: null,
-  },
-  effects_UNSTABLE: [persistAtom]
+  }
 });
+
+export const contentState = atom({
+  key: 'contentState',
+  default: null,
+  effects_UNSTABLE: [persistAtom],
+})

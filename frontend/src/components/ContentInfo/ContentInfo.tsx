@@ -8,11 +8,9 @@ const ContentInfo = () => {
     <div className={Styles.contentListContainer}>
       <p>My Content</p>
         <ul>
-          {contentInfo.map(content => (
-            <li key={content.id}>
-              <h2 className={Styles.contentListItem}>{content.title}</h2>
-            </li>
-          ))}
+          <li key={contentInfo?.id}>
+            <h2 className={Styles.contentListItem}>{contentInfo?.title}</h2>
+          </li>
         </ul>
     </div>
   );
