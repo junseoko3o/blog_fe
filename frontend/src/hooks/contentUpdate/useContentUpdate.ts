@@ -4,6 +4,7 @@ import { authenticatedUserState } from "../store/store";
 import api from "../../api/api";
 import { useParams } from "react-router";
 import { ContentUpdate } from "./interface";
+import { message } from 'antd';
 
 export const useContentUpdate = () => {
   const user = useRecoilValue(authenticatedUserState);
@@ -15,12 +16,14 @@ export const useContentUpdate = () => {
   });
 
   const updateContent = async () => {
-    try {
-      const response = await api.post(`/content/${id}`, contentUpdate);
-      return response.data;
-    } catch (err) {
-      console.log(err);
-    }
+    await api.post(`/content/${id}`, contentUpdate)
+      .then(response => {
+        message.success('수정이 완료되었습니다.');
+        return response.data;
+      })
+      .catch(err => {
+        message.error('수정을 실패하였습니다.');
+      })
   };
 
   const handleInputChange = (e: any) => {

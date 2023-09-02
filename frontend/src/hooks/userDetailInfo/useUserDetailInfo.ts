@@ -3,6 +3,7 @@ import api from 'api/api';
 import { useRecoilValue } from 'recoil';
 import { authenticatedUserState } from 'hooks/store/store';
 import { UserProfile } from './interface';
+import { message } from 'antd';
 
 export const useUserDetailInfo = () => {
   const user = useRecoilValue(authenticatedUserState);
@@ -18,7 +19,7 @@ export const useUserDetailInfo = () => {
           return data;
         }
       } catch (error) {
-        alert('유저정보 없음');
+        message.error('유저 정보 없음');
       }
     };
 

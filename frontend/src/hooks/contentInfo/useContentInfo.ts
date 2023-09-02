@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import api from '../../api/api';
 import { ContentInfo } from './interface';
 import { useParams } from 'react-router';
+import { message } from 'antd';
 
 export const useContentInfo = () => {
   const { id } = useParams();
@@ -13,7 +14,7 @@ export const useContentInfo = () => {
         setContentInfo(response.data);
         return response.data;
       } catch (error) {
-        console.error('user is not found:', error);
+        message.error('user is not found');
       }
     };
 

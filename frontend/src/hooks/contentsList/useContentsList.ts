@@ -18,7 +18,7 @@ export const useContentList = () => {
         })
         .catch(error => {
           if (error.response.status === 500) {
-            message.error('hi');
+            message.error('server error');
           }
         })
       };
