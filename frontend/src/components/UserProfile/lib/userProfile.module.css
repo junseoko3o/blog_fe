@@ -1,32 +1,31 @@
 .userProfileContainer {
-  max-width: 800px;
+  max-width: 400px;
   margin: 0 auto;
-  padding: 20px;
-  margin-left: 0;
+  background-color: #f9f9f9;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.userProfileHeader {
-  font-size: 24px;
-  margin-bottom: 20px;
+.userProfileList {
+  list-style: none;
+  padding: 0;
 }
 
 .userProfileItem {
-  background-color: #f5f5f5;
+  margin: 20px 0;
+  padding: 10px;
+  background-color: white;
   border: 1px solid #ddd;
   border-radius: 5px;
-  padding: 10px;
-  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.userProfileItem h2 {
-  font-size: 20px;
-  margin-bottom: 10px;
+.userProfileTitle {
+  font-size: 1rem;
+  color: #333;
 }
 
-.userProfileItem p {
-  font-size: 16px;
-}
-
-.userProfileItem p.user {
-  font-weight: bold;
+.userProfileValue {
+  font-size: 1.2rem;
+  color: #0077b6; 
 }

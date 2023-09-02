@@ -1,4 +1,29 @@
-.menuList li{
-  padding:6px;
-  cursor: pointer
+.menuList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.menuItem {
+  margin: 5px 0;
+  padding: 10px;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.menuLink {
+  text-decoration: none;
+  color: #0077b6;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.menuLink:hover {
+  background-color: #023e8a;
+  color: white;
+  border-radius: 5px;
 }

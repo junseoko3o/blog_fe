@@ -1,31 +1,29 @@
-import { Link } from "react-router-dom";
-import { useContentList } from "hooks/contentsList/useContentsList"
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { useContentList } from 'hooks/contentsList/useContentsList';
 import style from './lib/contentList.module.css';
-// import { useRecoilValue } from "recoil";
-// import { authenticatedUserState } from "hooks/store/store";
 
 const ContentList = () => {
-  // const user = useRecoilValue(authenticatedUserState);
   const { contentList, loading } = useContentList();
 
   return (
     <div className={style.contentListContainer}>
-      <h1 className={style.contentListItem}>Content List</h1>
       {loading ? (
-        <p className={style.contentListItem}>Loading...</p>
+        <p className={style.loadingText}>Loading...</p>
       ) : (
-        <ul>
+        <ul className={style.contentList}>
           {contentList.map((content) => (
-            <li key={content.id}>
-              <Link to={`/content/${content.id}`}>
-                <h2 className={style.contentListItem}>{content.title}</h2>
+            <li key={content.id} className={style.contentListItem}>
+              <Link to={`/content/${content.id}`} className={style.link}>
+                <h2 className={style.contentTitle}>{content.title}</h2>
               </Link>
-              <p>User: {content.user_name}</p>
+              <p className={style.userInfo}>User: {content.user_name}</p>
             </li>
           ))}
         </ul>
       )}
     </div>
   );
-}
-export default ContentList
+};
+
+export default ContentList;

@@ -2,72 +2,63 @@
   max-width: 400px;
   margin: 0 auto;
   padding: 20px;
-  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
   border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center; 
-}
-
-.loginContainer input,
-.loginContainer button {
-  width: 100%;
-  margin-bottom: 20px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .loginLogo {
-  width: 300px;
-  height: 300px;
+  width: 100px;
+  height: 100px;
   margin: 0 auto 20px;
+}
+
+h2 {
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.submitButton:hover {
+  background-color: #023e8a;
 }
 
 .loginForm {
   display: flex;
   flex-direction: column;
+  align-items: center; 
+}
+
+.formGroup {
+  margin-bottom: 20px;
+  display: flex; 
+  flex-direction: column;
   align-items: center;
 }
 
-.loginForm label {
-  font-size: 16px;
-  margin-bottom: 8px;
+.label {
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 5px;
 }
 
-.loginForm input {
-  width: 100%;
+.input {
   padding: 10px;
-  margin-bottom: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  font-size: 16px;
-}
-
-.loginForm input {
+  font-size: 1rem;
   width: 100%;
-  padding: 12px;
-  margin-bottom: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
-  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-.loginForm input:focus {
-  border-color: #007BFF;
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-}
-
-.loginForm button {
-  background-color: #007BFF;
-  color: #fff;
-  font-size: 16px;
-  padding: 10px 20px;
+.submitButton {
+  background-color: #0077b6;
+  color: white;
   border: none;
   border-radius: 5px;
+  padding: 10px;
+  font-size: 1rem;
   cursor: pointer;
+  width: 100%;
 }
 
-.loginForm button:hover {
-  background-color: #0056b3;
-}
