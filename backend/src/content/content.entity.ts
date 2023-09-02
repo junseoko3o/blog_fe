@@ -20,6 +20,12 @@ export class Content {
 
   @Column({ nullable: true })
   updated_user_id: number;
+
+  @Column()
+  created_at: Date;
+
+  @Column()
+  update_at: Date;
   
   @ManyToOne(() => User, (user) => user.content, { onDelete: 'CASCADE' })
   @JoinColumn([{ name: 'created_user_id' }, { name: 'updated_user_id' }])
