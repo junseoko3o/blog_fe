@@ -1,5 +1,5 @@
 import { User } from "src/user/user.entity";
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
 export class Content {
@@ -21,10 +21,10 @@ export class Content {
   @Column({ nullable: true })
   updated_user_id: number;
 
-  @Column()
+  @CreateDateColumn()
   created_at: Date;
 
-  @Column()
+  @UpdateDateColumn()
   update_at: Date;
   
   @ManyToOne(() => User, (user) => user.content, { onDelete: 'CASCADE' })
