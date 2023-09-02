@@ -93,6 +93,7 @@ export class UserController {
       res.setHeader('Authorization', 'Bearer ' + newAccessToken);
       res.cookie('access_token', newAccessToken, {
         httpOnly: true,
+        // maxAge: parseInt(process.env.JWT_ACCESS_EXPIRATION_TIME),
       });
       res.send({
         id: user.id,
