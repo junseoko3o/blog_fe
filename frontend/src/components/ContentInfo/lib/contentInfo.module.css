@@ -1,3 +1,11 @@
+.infoContainer {
+  padding: 20px;
+}
+
+.content {
+  font-size: 18px;
+}
+
 .button {
   background: navy;
   border-color: navy;

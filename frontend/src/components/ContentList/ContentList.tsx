@@ -2,8 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { List, Spin, Typography, Card, Space } from 'antd';
 import { useContentList } from 'hooks/contentsList/useContentsList';
-import moment from 'moment';
 const { Text } = Typography;
+import moment from 'moment';
+import styles from './lib/contentList.module.css';
 
 const ContentList = () => {
   const { contentList, loading } = useContentList();
@@ -18,7 +19,7 @@ const ContentList = () => {
         <List
           itemLayout="vertical"
           dataSource={contentList}
-          renderItem={(content, index) => (
+          renderItem={(content) => (
             <List.Item key={content.id}>
               <Link to={`/content/${content.id}`}>
                 <Card>
@@ -27,7 +28,7 @@ const ContentList = () => {
                     description={
                       <Space>
                         <Text>User: {content.user_name}</Text>
-                        <span>{moment(content.updated_at).format('YYYY-MM-DD')}</span>
+                        <span className={styles.span}>{moment(content.updated_at).format('YYYY-MM-DD')}</span>
                       </Space>
                     }
                   />

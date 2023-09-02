@@ -17,9 +17,9 @@ const ContentInfo = () => {
   };
 
   return (
-    <div style={{ padding: '20px' }}>
+    <div className={styles.infoContainer}>
       <Title level={2}>{contentInfo?.title}</Title>
-      <Text style={{ fontSize: '18px' }}>{contentInfo?.content}</Text>
+      <Text className={styles.content}>{contentInfo?.content}</Text>
       <Divider />
       <Space>
         <Button type="primary" onClick={() => handleEditClick(contentInfo?.id)} className={styles.button}>
