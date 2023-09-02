@@ -3,15 +3,15 @@ import { MenuData } from "../../components/frame/Menu/lib/interface";
 const useNav = (): MenuData[] => {
   return [
     {
-      title: '처음으로',
+      title: 'Home',
       link: '/home',
     },
     {
-      title: '나의 컨텐츠',
-      link: '/info',
+      title: 'Profile',
+      link: '/profile',
     },
     {
-      title: '작성하기',
+      title: 'Post',
       link: '/write',
     }
   ];

@@ -1,16 +1,16 @@
-.contentInfoContainer {
+.userProfileContainer {
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
   margin-left: 0;
 }
 
-.contentInfoHeader {
+.userProfileHeader {
   font-size: 24px;
   margin-bottom: 20px;
 }
 
-.contentInfoItem {
+.userProfileItem {
   background-color: #f5f5f5;
   border: 1px solid #ddd;
   border-radius: 5px;
@@ -18,15 +18,15 @@
   margin-bottom: 10px;
 }
 
-.contentInfoItem h2 {
+.userProfileItem h2 {
   font-size: 20px;
   margin-bottom: 10px;
 }
 
-.contentInfoItem p {
+.userProfileItem p {
   font-size: 16px;
 }
 
-.contentInfoItem p.user {
+.userProfileItem p.user {
   font-weight: bold;
 }

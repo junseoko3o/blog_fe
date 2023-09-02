@@ -4,8 +4,9 @@ import Home from './components/Home/Home';
 import Layout from './components/frame/Layout';
 import LoginForm from './components/LoginForm';
 import ContentPost from './components/ContentPost';
-import ContentInfo from './components/ContentInfo/ContentInfo';
 import useUserAuthenticate from './hooks/athenticate/useAthenticate';
+import UserProfile from 'components/UserProfile/UserProfile';
+import ContentInfo from 'components/ContentInfo/ContentInfo';
 
 const App = () => {
   const { authenticateUser } = useUserAuthenticate();
@@ -25,6 +26,10 @@ const App = () => {
         <Route
           path="/write"
           element={<Layout><ContentPost /></Layout>}
+        />
+        <Route
+          path="/profile"
+          element={<Layout><UserProfile /></Layout>}
         />
         <Route
           path="/content/:id"

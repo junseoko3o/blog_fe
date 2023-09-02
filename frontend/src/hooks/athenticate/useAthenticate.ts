@@ -1,10 +1,11 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import api from '../../api/api';
 import { useRecoilState } from 'recoil';
-import { authenticatedUserState, userState } from '../store/store';
+import { authenticatedUserState } from '../store/store';
 
 export const useUserAuthenticate = () => {
   const [user, setUser] = useRecoilState(authenticatedUserState);
+  const [buttonReady, setButtonReady] = useState(false);
 
   const authenticateUser = async () => {
     try {
@@ -19,15 +20,24 @@ export const useUserAuthenticate = () => {
     }
   };
 
-  useEffect(() => {
+  const handleUserAction = () => {
     authenticateUser();
+  };
 
-    const intervalId = setInterval(authenticateUser, 3000);
+  useEffect(() => {
+    const button = document.getElementById('myButton');
 
-    return () => clearInterval(intervalId);
+    if (button) {
+      setButtonReady(true);
+      button.addEventListener('click', handleUserAction);
+
+      return () => {
+        button.removeEventListener('click', handleUserAction);
+      };
+    }
   }, []);
 
-  return { authenticateUser };
+  return { authenticateUser, user, buttonReady };
 };
 
 export default useUserAuthenticate;

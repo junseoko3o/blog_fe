@@ -21,5 +21,5 @@ export const useContentList = () => {
     fetchData();
   }, []);
 
-  return { contentList, loading };
+  return { contentList, loading, user };
 }
