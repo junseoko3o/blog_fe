@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { RecoilRoot } from 'recoil';
 import { BrowserRouter } from 'react-router-dom';
+import 'antd/dist/antd'
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

@@ -1,26 +1,39 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { List, Spin, Typography, Card, Space } from 'antd';
 import { useContentList } from 'hooks/contentsList/useContentsList';
-import styles from './lib/contentList.module.css';
+import moment from 'moment';
+const { Text } = Typography;
 
 const ContentList = () => {
   const { contentList, loading } = useContentList();
 
   return (
-    <div className={styles.contentListContainer}>
+    <div>
       {loading ? (
-        <p className={styles.loadingText}>Loading...</p>
+        <Spin tip="Loading..." />
       ) : (
-        <ul className={styles.contentList}>
-          {contentList.map((content) => (
-            <li key={content.id} className={styles.contentListItem}>
-              <Link to={`/content/${content.id}`} className={styles.link}>
-                <h2 className={styles.contentTitle}>{content.title}</h2>
+        <List
+          itemLayout="vertical"
+          dataSource={contentList}
+          renderItem={(content, index) => (
+            <List.Item key={content.id}>
+              <Link to={`/content/${content.id}`}>
+                <Card>
+                  <Card.Meta
+                    title={content.title}
+                    description={
+                      <Space>
+                        <Text>User: {content.user_name}</Text>
+                        <span>{moment(content.updated_at).format('YYYY-MM-DD')}</span>
+                      </Space>
+                    }
+                  />
+                </Card>
               </Link>
-              <p className={styles.userInfo}>User: {content.user_name}</p>
-            </li>
-          ))}
-        </ul>
+            </List.Item>
+          )}
+        />
       )}
     </div>
   );

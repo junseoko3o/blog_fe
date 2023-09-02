@@ -1,54 +1,81 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Form, Input, Button, Typography, Row, Col } from 'antd';
 import useLogin from 'hooks/login/useLogin';
-import styles from './lib/login.module.css';
 import logo from 'logo.svg';
+import styles from './lib/login.module.css';
+
+const { Title } = Typography;
+const layout = {
+  labelCol: { span: 4 }, 
+  wrapperCol: { span: 18 },
+};
 
 const LoginForm = () => {
   const { login } = useLogin();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const onFinish = async (values: { email: string, password: string }) => {
+    const { email, password } = values;
+    setLoading(true);
 
     try {
       await login(email, password);
       navigate('/home');
     } catch (error) {
-      console.error('로그인에 실패했습니다.');
+      alert('로그인에 실패했습니다.');
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className={styles.loginContainer}>
-      <img className={styles.loginLogo} src={logo} alt="" />
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit} className={styles.loginForm}>
-        <div className={styles.formGroup}>
-          <label>Email</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className={styles.input}
-          />
-        </div>
-        <div className={styles.formGroup}>
-          <label>Password</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className={styles.input}
-          />
-        </div>
-        <button type="submit" className={styles.submitButton}>
-          Login
-        </button>
-      </form>
-    </div>
+    <Row justify="center" align="middle">
+      <Col span={8}>
+        <img src={logo} alt=""/>
+        <Title level={2} className={styles.title}>Login</Title>
+      <Form name="login" onFinish={onFinish} {...layout}>
+          <Form.Item
+            name="email"
+            label="Email"
+            rules={[
+              {
+                required: true,
+                type: 'email',
+                message: 'Please enter a valid email address',
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            name="password"
+            label="Password"
+            rules={[
+              {
+                required: true,
+                message: 'Please enter your password',
+              },
+            ]} 
+          >
+            <Input.Password />
+          </Form.Item>
+
+          <Form.Item>
+            <Button
+              type="primary"
+              htmlType="submit"
+              loading={loading}
+              className={styles.loginButton}
+            >
+              Login
+            </Button>
+          </Form.Item>
+        </Form>
+      </Col>
+    </Row>
   );
 };
 

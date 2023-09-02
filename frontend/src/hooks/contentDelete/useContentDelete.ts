@@ -7,7 +7,6 @@ export const useContentDelete = () => {
   const { id } = useParams();
   const user = useRecoilValue(authenticatedUserState);
   const navigate = useNavigate();
-  console.log(user)
   const handleDelete = async () => {
     const confirmDelete = window.confirm("삭제하시겠습니까?");
     if (confirmDelete) {

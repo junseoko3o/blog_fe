@@ -1,22 +1,29 @@
 import React from 'react';
+import { Typography, List, Spin } from 'antd';
+import useUserDetailInfo from 'hooks/userDetailInfo/useUserDetailInfo';
 import styles from './lib/userProfile.module.css';
-import useUserDetailInfo from "hooks/userDetailInfo/useUserDetailInfo";
+
+const { Text } = Typography;
 
 const UserProfile = () => {
   const { userInfo } = useUserDetailInfo();
 
   return (
-    <div className={styles.userProfileContainer}>
-      <ul className={styles.userProfileList}>
-        <li key={userInfo?.id} className={styles.userProfileItem}>
-          <h2 className={styles.userProfileTitle}>User Email</h2>
-          <p className={styles.userProfileValue}>{userInfo?.user_email}</p>
-        </li>
-        <li key={userInfo?.id} className={styles.userProfileItem}>
-          <h2 className={styles.userProfileTitle}>User Name</h2>
-          <p className={styles.userProfileValue}>{userInfo?.user_name}</p>
-        </li>
-      </ul>
+    <div>
+        <Spin />
+        <List
+          size="large"
+          header={<h2 className={styles.title}>Profile</h2>}
+          dataSource={[
+            { title: 'Email', value: userInfo?.user_email },
+            { title: 'Name', value: userInfo?.user_name },
+          ]}
+          renderItem={(item) => (
+            <List.Item>
+              <Text strong>{item.title}:</Text> {item.value}
+            </List.Item>
+          )}
+        />
     </div>
   );
 };

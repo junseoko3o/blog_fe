@@ -1,8 +1,11 @@
-import React from "react";
-import { useContentPost } from "hooks/contentPost/useContentPost";
-import styles from "./lib/contentPost.module.css";
+import React from 'react';
+import { Input, Button, Typography } from 'antd';
+import { useContentPost } from 'hooks/contentPost/useContentPost';
+import styles from './lib/contentPost.module.css'
 
-function YourComponent() {
+const { Text } = Typography;
+
+const ContentPost = () => {
   const { user, title, setTitle, content, setContent, postContent } = useContentPost();
 
   const handleCreatePost = async () => {
@@ -10,28 +13,29 @@ function YourComponent() {
   };
 
   return (
-    <div className={styles.contentPostContainer}>
-      <div className={styles.contentPostUser}>
-        User ID: {user.user_name}
+    <div>
+      <div style={{ color: 'navy' }}>
+        Username: <Text strong>{user.user_name}</Text>
       </div>
-      <input
+      <Input
         type="text"
         placeholder="Title"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        className={styles.contentPostInput}
+        className={styles.input}
       />
-      <textarea
+      <Input.TextArea
         placeholder="Content"
         value={content}
         onChange={(e) => setContent(e.target.value)}
-        className={styles.contentPostTextarea}
+        className={styles.textarea}
+        rows={20}
       />
-      <button onClick={handleCreatePost} className={styles.contentPostButton}>
-        Create Post
-      </button>
+      <Button type="primary" onClick={handleCreatePost} className={styles.button}>
+        Submit
+      </Button>
     </div>
   );
 }
 
-export default YourComponent;
+export default ContentPost;

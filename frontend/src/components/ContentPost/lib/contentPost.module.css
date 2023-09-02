@@ -1,39 +1,13 @@
-.contentPostContainer {
-  font-family: Arial, sans-serif;
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-}
-
-.contentPostUser {
-  font-size: 1.2rem;
-  margin-bottom: 20px;
-  color: #333;
-}
-
-.contentPostInput,
-.contentPostTextarea {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 1rem;
-}
-
-.contentPostButton {
-  background-color: #0077b6;
+.button {
+  background: navy;
+  border-color: navy;
   color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
-  font-size: 1.2rem;
-  cursor: pointer;
 }
 
-.contentPostButton:hover {
-  background-color: #023e8a;
+.input {
+  margin-bottom: 10px;
+}
+
+.textarea {
+  margin-bottom: 10px;
 }
