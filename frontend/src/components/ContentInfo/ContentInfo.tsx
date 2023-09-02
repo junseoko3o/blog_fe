@@ -1,6 +1,6 @@
 import React from 'react';
 import { useContentInfo } from '../../hooks/contentInfo/useContentInfo';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import style from './lib/contentInfo.module.css';
 import { useContentDelete } from '../../hooks/contentDelete/useContentDelete';
 

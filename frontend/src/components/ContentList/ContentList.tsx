@@ -1,23 +1,23 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useContentList } from 'hooks/contentsList/useContentsList';
-import style from './lib/contentList.module.css';
+import styles from './lib/contentList.module.css';
 
 const ContentList = () => {
   const { contentList, loading } = useContentList();
 
   return (
-    <div className={style.contentListContainer}>
+    <div className={styles.contentListContainer}>
       {loading ? (
-        <p className={style.loadingText}>Loading...</p>
+        <p className={styles.loadingText}>Loading...</p>
       ) : (
-        <ul className={style.contentList}>
+        <ul className={styles.contentList}>
           {contentList.map((content) => (
-            <li key={content.id} className={style.contentListItem}>
-              <Link to={`/content/${content.id}`} className={style.link}>
-                <h2 className={style.contentTitle}>{content.title}</h2>
+            <li key={content.id} className={styles.contentListItem}>
+              <Link to={`/content/${content.id}`} className={styles.link}>
+                <h2 className={styles.contentTitle}>{content.title}</h2>
               </Link>
-              <p className={style.userInfo}>User: {content.user_name}</p>
+              <p className={styles.userInfo}>User: {content.user_name}</p>
             </li>
           ))}
         </ul>

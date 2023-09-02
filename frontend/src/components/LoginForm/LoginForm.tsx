@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useLogin from 'hooks/login/useLogin';
-import style from './lib/login.module.css';
+import styles from './lib/login.module.css';
 import logo from 'logo.svg';
 
 const LoginForm = () => {
@@ -22,29 +22,29 @@ const LoginForm = () => {
   };
 
   return (
-    <div className={style.loginContainer}>
-      <img className={style.loginLogo} src={logo} alt="" />
+    <div className={styles.loginContainer}>
+      <img className={styles.loginLogo} src={logo} alt="" />
       <h2>Login</h2>
-      <form onSubmit={handleSubmit} className={style.loginForm}>
-        <div className={style.formGroup}>
+      <form onSubmit={handleSubmit} className={styles.loginForm}>
+        <div className={styles.formGroup}>
           <label>Email</label>
           <input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className={style.input}
+            className={styles.input}
           />
         </div>
-        <div className={style.formGroup}>
+        <div className={styles.formGroup}>
           <label>Password</label>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className={style.input}
+            className={styles.input}
           />
         </div>
-        <button type="submit" className={style.submitButton}>
+        <button type="submit" className={styles.submitButton}>
           Login
         </button>
       </form>

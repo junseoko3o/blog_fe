@@ -2,10 +2,13 @@ import { useEffect, useState } from 'react';
 import api from '../../api/api';
 import { useRecoilState } from 'recoil';
 import { authenticatedUserState } from '../store/store';
+import { useNavigate } from 'react-router';
 
 export const useUserAuthenticate = () => {
   const [user, setUser] = useRecoilState(authenticatedUserState);
   const [buttonReady, setButtonReady] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(''); 
+  const navigate = useNavigate();
 
   const authenticateUser = async () => {
     try {
@@ -16,7 +19,8 @@ export const useUserAuthenticate = () => {
         setUser(userData);
       }
     } catch (error) {
-      console.error('유저 인증에 실패했습니다.', error);
+      setErrorMessage('유저 인증에 실패했습니다.');
+      navigate('/');
     }
   };
 
@@ -37,7 +41,7 @@ export const useUserAuthenticate = () => {
     }
   }, []);
 
-  return { authenticateUser, user, buttonReady };
+  return { authenticateUser, user, buttonReady, errorMessage };
 };
 
 export default useUserAuthenticate;
