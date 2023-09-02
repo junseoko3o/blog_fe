@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Layout, Menu } from "antd";
 import { EditOutlined, HomeOutlined, UserOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
+import kuromi from './lib/kuromi.png';
 import styles from './lib/appLayout.module.css';
 
 const { Sider, Content, Header } = Layout;
@@ -32,8 +33,10 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
   ];
   return (
     <Layout className={styles.layout}>
-      <Sider collapsible collapsed={collapsed} onCollapse={toggleMenu}>
-        <div className="logo" />
+      <Sider collapsible collapsed={collapsed} onCollapse={toggleMenu} className={styles.sider}>
+        <div>
+          <img src={kuromi} className={styles.image}></img>
+        </div>
         <Menu
           theme="dark"
           items={data.map((e, i) => ({
@@ -42,6 +45,7 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
             label: <Link to={e.link}>{e.title}</Link>
           }))}
           mode="inline"
+          className={styles.menu}
         >
         </Menu>
       </Sider>

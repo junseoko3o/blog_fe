@@ -3,6 +3,7 @@ import api from '../../api/api';
 import { ContentList } from './interface';
 import { useRecoilValue } from 'recoil';
 import { userState } from '../store/store';
+import { message } from 'antd';
 
 export const useContentList = () => {
   const [contentList, setContentList] = useState<ContentList[]>([]);
@@ -10,14 +11,17 @@ export const useContentList = () => {
   const user = useRecoilValue(userState);
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const response = await api.get<ContentList[]>('/content/list');
-        setContentList(response.data);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching content list:', error);
-      }
-    };
+      await api.get<ContentList[]>('/content/list')
+        .then(response => {
+          setContentList(response.data);
+          setLoading(false);
+        })
+        .catch(error => {
+          if (error.response.status === 500) {
+            message.error('hi');
+          }
+        })
+      };
     fetchData();
   }, []);
 

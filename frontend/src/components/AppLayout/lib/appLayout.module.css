@@ -9,3 +9,7 @@
 .layout {
   min-height: 100vh;
 }
+
+.image {
+  width: 90px;
+}

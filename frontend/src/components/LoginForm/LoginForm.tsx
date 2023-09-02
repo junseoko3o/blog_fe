@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Form, Input, Button, Typography, Row, Col } from 'antd';
 import useLogin from 'hooks/login/useLogin';
-import logo from 'logo.svg';
+import logo from './lib/kuromi.svg'
 import styles from './lib/login.module.css';
 
 const { Title } = Typography;
@@ -32,7 +32,7 @@ const LoginForm = () => {
 
   return (
     <Row justify="center" align="middle">
-      <Col span={8}>
+      <Col span={8} className={styles.col}>
         <img src={logo} alt=""/>
         <Title level={2} className={styles.title}>Login</Title>
       <Form name="login" onFinish={onFinish} {...layout}>
