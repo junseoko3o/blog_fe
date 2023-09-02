@@ -30,24 +30,26 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
       icon: <EditOutlined />,
     }
   ];
-
   return (
-    <Layout style={{ minHeight: "100vh" }}>
+    <Layout className={styles.layout}>
       <Sider collapsible collapsed={collapsed} onCollapse={toggleMenu}>
         <div className="logo" />
-        <Menu theme="dark" >
-          {data.map((e, i) => (
-            <Menu.Item key={i} icon={e.icon}>
-              <Link to={e.link}>{e.title}</Link>
-            </Menu.Item>
-          ))}
+        <Menu
+          theme="dark"
+          items={data.map((e, i) => ({
+            key: i, 
+            icon: e.icon,
+            label: <Link to={e.link}>{e.title}</Link>
+          }))}
+          mode="inline"
+        >
         </Menu>
       </Sider>
       <Layout>
         <Header className={styles.header}>
           Lee Jae Gyeong
         </Header>
-        <Content style={{ margin: "16px 16px 16px 16px" }}>
+        <Content className={styles.content}>
           {children}
         </Content>
       </Layout>

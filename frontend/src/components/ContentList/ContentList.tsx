@@ -11,7 +11,9 @@ const ContentList = () => {
   return (
     <div>
       {loading ? (
-        <Spin tip="Loading..." />
+        <Spin >
+          <div>Loading</div>
+        </Spin>
       ) : (
         <List
           itemLayout="vertical"

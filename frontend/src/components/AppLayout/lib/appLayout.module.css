@@ -1,3 +1,11 @@
 .header {
   color: white;
 }
+
+.content {
+  margin: 16px 16px 16px 16px;
+}
+
+.layout {
+  min-height: 100vh;
+}
