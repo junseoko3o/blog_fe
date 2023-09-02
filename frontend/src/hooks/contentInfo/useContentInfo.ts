@@ -9,7 +9,6 @@ export const useContentInfo = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log(id)
         const response = await api.get<ContentInfo>(`/content/${id}`);
         setContentInfo(response.data);
         return response.data;

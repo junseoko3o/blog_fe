@@ -7,6 +7,7 @@ import ContentPost from './components/ContentPost';
 import useUserAuthenticate from './hooks/athenticate/useAthenticate';
 import UserProfile from 'components/UserProfile/UserProfile';
 import ContentInfo from 'components/ContentInfo/ContentInfo';
+import ContentUpdate from 'components/ContentUpdate/ContentUpdate';
 
 const App = () => {
   const { authenticateUser } = useUserAuthenticate();
@@ -34,6 +35,10 @@ const App = () => {
         <Route
           path="/content/:id"
           element={<Layout><ContentInfo /></Layout>}
+        />
+         <Route
+          path="/content/edit/:id"
+          element={<Layout><ContentUpdate /></Layout>}
         />
       </Routes>
     </Router>

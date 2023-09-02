@@ -1,54 +1,37 @@
-import React, { useState } from 'react';
-import { useRecoilValue } from 'recoil';
-import { useContentPost } from 'hooks/contentPost/useContentPost';
-import { authenticatedUserState } from 'hooks/store/store';
-import { contentPost } from 'hooks/contentPost/interface';
+import React from "react";
+import { useContentPost } from "hooks/contentPost/useContentPost";
+import styles from "./lib/contentPost.module.css";
 
-const ContentPost = () => {
-  const user = useRecoilValue(authenticatedUserState);
-  const { createContentPost } = useContentPost();
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
+function YourComponent() {
+  const { user, title, setTitle, content, setContent, postContent } = useContentPost();
 
   const handleCreatePost = async () => {
-    const contentPost: contentPost = {
-      title,
-      content,
-      created_user_id: user.id,
-    };
-
-    try {
-      await createContentPost(contentPost);
-      setTitle('');
-      setContent('');
-    } catch (error) {
-      console.error('Error creating post:', error);
-    }
+    await postContent();
   };
 
   return (
-    <div>
-      <h2>Create a New Post</h2>
-      <div>
-        <label htmlFor="title">Title:</label>
-        <input
-          type="text"
-          id="title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
+    <div className={styles.contentPostContainer}>
+      <div className={styles.contentPostUser}>
+        User ID: {user.user_name}
       </div>
-      <div>
-        <label htmlFor="content">Content:</label>
-        <textarea
-          id="content"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-        />
-      </div>
-      <button onClick={handleCreatePost}>Create Post</button>
+      <input
+        type="text"
+        placeholder="Title"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        className={styles.contentPostInput}
+      />
+      <textarea
+        placeholder="Content"
+        value={content}
+        onChange={(e) => setContent(e.target.value)}
+        className={styles.contentPostTextarea}
+      />
+      <button onClick={handleCreatePost} className={styles.contentPostButton}>
+        Create Post
+      </button>
     </div>
   );
-};
+}
 
-export default ContentPost;
+export default YourComponent;
