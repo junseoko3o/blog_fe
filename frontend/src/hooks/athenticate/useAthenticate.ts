@@ -25,7 +25,9 @@ export const useUserAuthenticate = () => {
   };
 
   useEffect(() => {
-    authenticateUser();
+    if (location.pathname !== '/') {
+      authenticateUser();
+    }
   }, [location.pathname]);
 
   return { authenticateUser, user, location };

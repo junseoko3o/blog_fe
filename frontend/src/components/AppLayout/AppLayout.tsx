@@ -4,11 +4,13 @@ import { EditOutlined, HomeOutlined, UserOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import kuromi from './lib/kuromi.png';
 import styles from './lib/appLayout.module.css';
+import useLogout from "hooks/logout/useLogout";
 
 const { Sider, Content, Header } = Layout;
 
 const AppLayout = ({ children }: { children: React.ReactNode }) => {
   const [collapsed, setCollapsed] = useState(false);
+  const { handleLogout } = useLogout();
   
   const toggleMenu = () => {
     setCollapsed(!collapsed);
@@ -29,7 +31,7 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
       title: 'Post',
       link: '/write',
       icon: <EditOutlined />,
-    }
+    },
   ];
   return (
     <Layout className={styles.layout}>
@@ -52,6 +54,7 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
       <Layout>
         <Header className={styles.header}>
           Lee Jae Gyeong
+          <button onClick={handleLogout} className={styles.logoutButton}></button>
         </Header>
         <Content className={styles.content}>
           {children}
