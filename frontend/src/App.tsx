@@ -10,11 +10,7 @@ import ContentUpdate from 'components/ContentUpdate/ContentUpdate';
 import AppLayout from 'components/AppLayout/AppLayout';
 
 const App = () => {
-  const { authenticateUser } = useUserAuthenticate();
-  useEffect(() => {
-    authenticateUser()
-  }, []);
-
+  useUserAuthenticate();
   return (
     <Routes>
       <Route path="/" element={<LoginForm />} />

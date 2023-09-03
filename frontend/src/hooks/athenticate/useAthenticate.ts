@@ -1,14 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import api from '../../api/api';
 import { useRecoilState } from 'recoil';
 import { authenticatedUserState } from '../store/store';
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import { message } from 'antd';
 
 export const useUserAuthenticate = () => {
   const [user, setUser] = useRecoilState(authenticatedUserState);
-  const [buttonReady, setButtonReady] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const authenticateUser = async () => {
     await api.get('/user/authenticate')
@@ -24,24 +24,11 @@ export const useUserAuthenticate = () => {
     })
   };
 
-  const handleUserAction = () => {
-    authenticateUser();
-  };
-
   useEffect(() => {
-    const button = document.getElementById('myButton');
+    authenticateUser();
+  }, [location]);
 
-    if (button) {
-      setButtonReady(true);
-      button.addEventListener('click', handleUserAction);
-
-      return () => {
-        button.removeEventListener('click', handleUserAction);
-      };
-    }
-  }, []);
-
-  return { authenticateUser, user, buttonReady };
+  return { authenticateUser, user };
 };
 
 export default useUserAuthenticate;
