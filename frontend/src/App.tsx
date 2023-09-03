@@ -11,6 +11,7 @@ import AppLayout from 'components/AppLayout/AppLayout';
 
 const App = () => {
   useUserAuthenticate();
+
   return (
     <Routes>
       <Route path="/" element={<LoginForm />} />

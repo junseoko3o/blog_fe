@@ -26,9 +26,9 @@ export const useUserAuthenticate = () => {
 
   useEffect(() => {
     authenticateUser();
-  }, [location]);
+  }, [location.pathname]);
 
-  return { authenticateUser, user };
+  return { authenticateUser, user, location };
 };
 
 export default useUserAuthenticate;
