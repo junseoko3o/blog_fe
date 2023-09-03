@@ -8,10 +8,13 @@ import UserProfile from 'components/UserProfile/UserProfile';
 import ContentInfo from 'components/ContentInfo/ContentInfo';
 import ContentUpdate from 'components/ContentUpdate/ContentUpdate';
 import AppLayout from 'components/AppLayout/AppLayout';
+import useRefreshToken from 'hooks/refreshToken/useRefreshToken';
 
 const App = () => {
-  useUserAuthenticate();
-
+  const { authenticateUser, user } = useUserAuthenticate();
+  if (!user && !authenticateUser) {
+    useRefreshToken();
+  }
   return (
     <Routes>
       <Route path="/" element={<LoginForm />} />

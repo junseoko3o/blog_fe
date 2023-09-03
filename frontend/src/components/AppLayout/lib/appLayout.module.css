@@ -13,3 +13,18 @@
 .image {
   width: 90px;
 }
+
+.logoutButton {
+  background-color: #080942; 
+  color: white; 
+  border: none; 
+  padding: 10px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  float: right;
+  margin: 15px 20px;
+}
+
+.logoutButton:hover {
+  background-color: #082b50;
+}

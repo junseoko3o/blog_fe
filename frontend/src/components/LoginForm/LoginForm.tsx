@@ -14,7 +14,6 @@ const layout = {
 const LoginForm = () => {
   const { login } = useLogin();
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
 
   const onFinish = async (values: { email: string, password: string }) => {
     const { email, password } = values;
@@ -22,7 +21,6 @@ const LoginForm = () => {
 
     try {
       await login(email, password);
-      navigate('/home');
     } catch (error) {
       alert('로그인에 실패했습니다.');
     } finally {
@@ -33,7 +31,7 @@ const LoginForm = () => {
   return (
     <Row justify="center" align="middle">
       <Col span={8} className={styles.col}>
-        <img src={logo} alt=""/>
+        <img src={logo} alt="" className={styles.image} />
         <Title level={2} className={styles.title}>Login</Title>
       <Form name="login" onFinish={onFinish} {...layout}>
           <Form.Item

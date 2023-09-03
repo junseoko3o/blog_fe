@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Layout, Menu } from "antd";
-import { EditOutlined, HomeOutlined, UserOutlined } from "@ant-design/icons";
+import { EditOutlined, HomeOutlined, UserOutlined, LogoutOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import kuromi from './lib/kuromi.png';
 import styles from './lib/appLayout.module.css';
@@ -54,7 +54,7 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
       <Layout>
         <Header className={styles.header}>
           Lee Jae Gyeong
-          <button onClick={handleLogout} className={styles.logoutButton}></button>
+          <button onClick={handleLogout} className={styles.logoutButton}> <LogoutOutlined /></button>
         </Header>
         <Content className={styles.content}>
           {children}

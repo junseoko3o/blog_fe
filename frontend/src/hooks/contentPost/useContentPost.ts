@@ -4,9 +4,11 @@ import { authenticatedUserState } from "../store/store";
 import { contentPost } from "./interface";
 import api from "../../api/api";
 import { message } from 'antd';
+import { useNavigate } from "react-router";
 
 export const useContentPost = () => {
   const user = useRecoilValue(authenticatedUserState);
+  const navigate = useNavigate();
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -23,6 +25,7 @@ export const useContentPost = () => {
         setTitle("");
         setContent("");
         message.success('생성이 완료되었습니다.');
+        navigate('/home');
         return response.data;
       })
       .catch(err => {

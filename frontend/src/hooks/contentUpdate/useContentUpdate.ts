@@ -2,12 +2,13 @@ import { useState } from 'react';
 import { useRecoilValue } from "recoil";
 import { authenticatedUserState } from "../store/store";
 import api from "../../api/api";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { ContentUpdate } from "./interface";
 import { message } from 'antd';
 
 export const useContentUpdate = () => {
   const user = useRecoilValue(authenticatedUserState);
+  const navigate = useNavigate();
   const { id } = useParams();
   const [contentUpdate, setContentUpdate] = useState<ContentUpdate>({
     title: '',
@@ -19,6 +20,7 @@ export const useContentUpdate = () => {
     await api.post(`/content/${id}`, contentUpdate)
       .then(response => {
         message.success('수정이 완료되었습니다.');
+        navigate('/home');
         return response.data;
       })
       .catch(err => {

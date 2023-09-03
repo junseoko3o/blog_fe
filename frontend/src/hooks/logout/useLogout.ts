@@ -5,15 +5,15 @@ import { useNavigate } from 'react-router';
 const useLogout = () => {
   const navigate = useNavigate();
     const handleLogout = async () => {
-      await api.get('/user/logout')
+      await api.post('/user/logout')
       .then(response => {
         message.success('로그아웃 완료');
-        navigate('/')
+        navigate('/');
       })
-      // .catch(error => {
-      //   console.log(error);
-      //   message.error('로그아웃 실패');
-      // });
+      .catch(error => {
+        console.log(error);
+        message.error('로그아웃 실패');
+      });
    }
   return { handleLogout };
 }

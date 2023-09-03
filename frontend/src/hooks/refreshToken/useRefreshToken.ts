@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import api from 'api/api';
 import { NewAccessToken } from './interface';
 
-export const useRefreshToken = (props: NewAccessToken) => {
+export const useRefreshToken = () => {
   const [newAccessToken, setNewAccessToken] = useState(null);
 
   useEffect(() => {
@@ -19,7 +19,7 @@ export const useRefreshToken = (props: NewAccessToken) => {
     };
 
     refreshAccessToken();
-  }, [props]);
+  }, []);
 
   return newAccessToken;
 }
