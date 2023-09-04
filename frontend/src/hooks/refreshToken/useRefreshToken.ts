@@ -1,27 +1,28 @@
 import { useState, useEffect } from 'react';
 import api from 'api/api';
-import { NewAccessToken } from './interface';
+import { message } from 'antd';
 
 export const useRefreshToken = () => {
-  const [newAccessToken, setNewAccessToken] = useState(null);
+  const [newAccessToken, setNewAccessToken] = useState('');
 
   useEffect(() => {
     const refreshAccessToken = async () => {
-      try {
-        const response = await api.get('/user/refresh');
+      await api.get('/user/refresh')
+        .then(response => {
+          if (response.status === 200) {
+            setNewAccessToken(response.data.access_token);
+          }
+        })
+        .catch(err => {
+          message.error('리프레시도 없음');
+        })
+      };
+      const intervalId = setInterval(refreshAccessToken, 540000);
 
-        if (response.status === 200) {
-          setNewAccessToken(response.data.access_token);
-        }
-      } catch (error) {
-        alert('토큰 재발급 실패');
-      }
-    };
-
-    refreshAccessToken();
+    return () => clearInterval(intervalId);
   }, []);
 
-  return newAccessToken;
+  return { newAccessToken };
 }
 
 export default useRefreshToken;

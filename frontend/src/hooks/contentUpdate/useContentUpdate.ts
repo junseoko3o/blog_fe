@@ -24,6 +24,9 @@ export const useContentUpdate = () => {
   }, [contents.contentInfo, id]);
 
   const updateContent = async () => {
+    if (user.id !== contents.contentInfo?.created_user_id) {
+      message.error('작성자가 아님');
+    }
     const contentUpdate: ContentUpdate = {
       title,
       content,

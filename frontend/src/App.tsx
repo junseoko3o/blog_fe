@@ -11,10 +11,8 @@ import AppLayout from 'components/AppLayout/AppLayout';
 import useRefreshToken from 'hooks/refreshToken/useRefreshToken';
 
 const App = () => {
-  const { authenticateUser, user } = useUserAuthenticate();
-  if (!user && !authenticateUser) {
-    useRefreshToken();
-  }
+  useUserAuthenticate();
+  useRefreshToken();
   return (
     <Routes>
       <Route path="/" element={<LoginForm />} />
