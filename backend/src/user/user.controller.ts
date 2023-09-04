@@ -59,11 +59,11 @@ export class UserController {
       res.setHeader('Authorization', 'Bearer ' + [accessToken, refreshToken]);
       res.cookie('access_token', accessToken, {
         httpOnly: true,
-        // maxAge: parseInt(process.env.JWT_ACCESS_EXPIRATION_TIME),
+        maxAge: parseInt(process.env.JWT_ACCESS_EXPIRATION_TIME),
       });
       res.cookie('refresh_token', refreshToken, {
         httpOnly: true,
-        // maxAge: parseInt(process.env.JWT_REFRESH_EXPIRATION_TIME),
+        maxAge: parseInt(process.env.JWT_REFRESH_EXPIRATION_TIME),
       });
       return {
         id: user.id,
@@ -93,7 +93,7 @@ export class UserController {
       res.setHeader('Authorization', 'Bearer ' + newAccessToken);
       res.cookie('access_token', newAccessToken, {
         httpOnly: true,
-        // maxAge: parseInt(process.env.JWT_ACCESS_EXPIRATION_TIME),
+        maxAge: parseInt(process.env.JWT_ACCESS_EXPIRATION_TIME),
       });
       res.send({
         id: user.id,
