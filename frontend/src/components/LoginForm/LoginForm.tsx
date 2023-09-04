@@ -29,51 +29,53 @@ const LoginForm = () => {
   };
 
   return (
-    <Row justify="center" align="middle">
-      <Col span={8} className={styles.col}>
-        <img src={logo} alt="" className={styles.image} />
-        <Title level={2} className={styles.title}>Login</Title>
-      <Form name="login" onFinish={onFinish} {...layout}>
-          <Form.Item
-            name="email"
-            label="Email"
-            rules={[
-              {
-                required: true,
-                type: 'email',
-                message: 'Please enter a valid email address',
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            name="password"
-            label="Password"
-            rules={[
-              {
-                required: true,
-                message: 'Please enter your password',
-              },
-            ]} 
-          >
-            <Input.Password />
-          </Form.Item>
-
-          <Form.Item>
-            <Button
-              type="primary"
-              htmlType="submit"
-              loading={loading}
-              className={styles.loginButton}
+    <>
+      <Row justify="center" align="middle">
+        <Col span={8} className={styles.col}>
+          <img src={logo} alt="" className={styles.image} />
+          <Title level={2} className={styles.title}>Login</Title>
+        <Form name="login" onFinish={onFinish} {...layout}>
+            <Form.Item
+              name="email"
+              label="Email"
+              rules={[
+                {
+                  required: true,
+                  type: 'email',
+                  message: 'Please enter a valid email address',
+                },
+              ]}
             >
-              Login
-            </Button>
-          </Form.Item>
-        </Form>
-      </Col>
-    </Row>
+              <Input />
+            </Form.Item>
+
+            <Form.Item
+              name="password"
+              label="Password"
+              rules={[
+                {
+                  required: true,
+                  message: 'Please enter your password',
+                },
+              ]} 
+            >
+              <Input.Password />
+            </Form.Item>
+
+            <Form.Item>
+              <Button
+                type="primary"
+                htmlType="submit"
+                loading={loading}
+                className={styles.loginButton}
+              >
+                Login
+              </Button>
+            </Form.Item>
+          </Form>
+        </Col>
+      </Row>
+    </>
   );
 };
 

@@ -10,7 +10,7 @@ const UserProfile = () => {
   const { userInfo } = useUserDetailInfo();
 
   return (
-    <div>
+    <>
         <div>
           <img src={kuromi} className={styles.image}></img>
         </div>
@@ -26,7 +26,7 @@ const UserProfile = () => {
             </List.Item>
           )}
         />
-    </div>
+    </>
   );
 };
 

@@ -1,23 +1,35 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRecoilValue } from "recoil";
 import { authenticatedUserState } from "../store/store";
 import api from "../../api/api";
 import { useNavigate, useParams } from "react-router";
 import { ContentUpdate } from "./interface";
 import { message } from 'antd';
+import { useContentInfo } from 'hooks/contentInfo/useContentInfo';
 
 export const useContentUpdate = () => {
   const user = useRecoilValue(authenticatedUserState);
+  const contents = useContentInfo();
   const navigate = useNavigate();
   const { id } = useParams();
-  const [contentUpdate, setContentUpdate] = useState<ContentUpdate>({
-    title: '',
-    content: '',
-    updated_user_id: user.id,
-  });
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+
+
+  useEffect(() => {
+    if (contents.contentInfo) {
+      setTitle(contents.contentInfo?.title || "");
+      setContent(contents.contentInfo?.content || "");
+    }
+  }, [contents.contentInfo, id]);
 
   const updateContent = async () => {
-    await api.post(`/content/${id}`, contentUpdate)
+    const contentUpdate: ContentUpdate = {
+      title,
+      content,
+      updated_user_id: user.id,
+    }
+      await api.post(`/content/${id}`, contentUpdate)
       .then(response => {
         message.success('수정이 완료되었습니다.');
         navigate('/home');
@@ -26,25 +38,7 @@ export const useContentUpdate = () => {
       .catch(err => {
         message.error('수정을 실패하였습니다.');
       })
-  };
+    };
 
-  const handleInputChange = (e: any) => {
-    const { name, value } = e.target;
-    setContentUpdate({
-      ...contentUpdate,
-      [name]: value,
-    });
-  };
-
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
-
-    try {
-      await updateContent();
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  return { user, contentUpdate, handleInputChange, handleSubmit };
+  return { user, title, setTitle, content, setContent, updateContent };
 };

@@ -13,28 +13,28 @@ const ContentPost = () => {
   };
 
   return (
-    <div>
-      <div style={{ color: 'navy' }}>
-        Username: <Text strong>{user.user_name}</Text>
+    <>
+      <div className={styles.div}>
+        name: <Text strong>{user.user_name}</Text>
       </div>
       <Input
         type="text"
         placeholder="Title"
         value={title}
-        onChange={(e) => setTitle(e.target.value)}
+        onChange={e => setTitle(e.target.value)}
         className={styles.input}
       />
       <Input.TextArea
         placeholder="Content"
         value={content}
-        onChange={(e) => setContent(e.target.value)}
+        onChange={e => setContent(e.target.value)}
         className={styles.textarea}
         rows={20}
       />
       <Button type="primary" onClick={handleCreatePost} className={styles.button}>
         Submit
       </Button>
-    </div>
+    </>
   );
 }
 

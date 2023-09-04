@@ -7,7 +7,7 @@ import styles from './lib/contentList.module.css';
 const ContentList = () => {
   const { contentList } = useContentList();
   return (
-    <div>
+    <>
       <table className={styles.table}>
         <thead>
           <tr>
@@ -32,7 +32,7 @@ const ContentList = () => {
           ))}
         </tbody>
       </table>
-    </div>
+    </>
   );
 };
 
