@@ -33,5 +33,9 @@ export const useContentPost = () => {
       })
   };
 
-  return { user, title, setTitle, content, setContent, postContent };
+  const handleCreatePost = async () => {
+    await postContent();
+  };
+
+  return { user, title, setTitle, content, setContent, handleCreatePost };
 };

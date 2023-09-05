@@ -43,5 +43,10 @@ export const useContentUpdate = () => {
       })
     };
 
-  return { user, title, setTitle, content, setContent, updateContent };
+    const handledUpdateContent = async () => {
+      await updateContent();
+    };
+  
+
+  return { user, title, setTitle, content, setContent, updateContent, handledUpdateContent };
 };

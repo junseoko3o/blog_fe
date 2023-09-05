@@ -4,11 +4,7 @@ import { useContentUpdate } from 'hooks/contentUpdate/useContentUpdate';
 import styles from './lib/contentUpdate.module.css';
 
 const ContentUpdate = () => {
-  const { title, setTitle, content, setContent, updateContent } = useContentUpdate();
-
-  const handledUpdateContent = async () => {
-    await updateContent();
-  };
+  const { title, setTitle, content, setContent, handledUpdateContent } = useContentUpdate();
 
   return (
     <>

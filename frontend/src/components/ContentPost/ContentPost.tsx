@@ -6,11 +6,7 @@ import styles from './lib/contentPost.module.css'
 const { Text } = Typography;
 
 const ContentPost = () => {
-  const { user, title, setTitle, content, setContent, postContent } = useContentPost();
-
-  const handleCreatePost = async () => {
-    await postContent();
-  };
+  const { user, title, setTitle, content, setContent, handleCreatePost } = useContentPost();
 
   return (
     <>
