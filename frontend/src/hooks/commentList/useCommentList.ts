@@ -23,6 +23,7 @@ export const useCommentList = () => {
         })
       };
     fetchData();
-  }, []);
+  }, [contents.id]);
+
   return { user, commentList }
 }

@@ -34,6 +34,5 @@ export const userCommentPost = () => {
     await postComment();
   };
 
-
  return { comment, setComment, handleCreatePost }
 }
