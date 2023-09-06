@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import { authenticatedUserState } from "../store/store";
-import { contentPost } from "./interface";
+import { ContentPost } from "./interface";
 import api from "../../api/api";
 import { message } from 'antd';
 import { useNavigate } from "react-router";
@@ -14,12 +14,12 @@ export const useContentPost = () => {
   const [content, setContent] = useState("");
 
   const postContent = async () => {
-    const contentPostData: contentPost = {
+    const contentPostData: ContentPost = {
       title,
       content,
       created_user_id: user.id,
     };
-
+    
     await api.post("/content", contentPostData)
       .then(response => {
         setTitle("");
