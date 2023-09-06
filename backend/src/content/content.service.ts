@@ -4,6 +4,7 @@ import { UpdateContentDto } from "./dto/update-content.dto";
 import { CreateContentDto } from "./dto/create-content.dto";
 import { ContentRepository } from "./content.repository";
 import { UserService } from "src/user/user.service";
+import { Comment } from "src/comment/comment.entity";
 
 @Injectable()
 export class ContentService {
@@ -32,9 +33,10 @@ export class ContentService {
     return content;
   }
 
-  async findOneContentWithAllComment(id: number): Promise<Content> {
+  async findOneContentWithAllComment(id: number): Promise<Comment[]> {
     await this.findOneContent(id);
-    return await this.contentRepository.findOneContentWithAllComment(id);
+    const comment = await this.contentRepository.findOneContentWithAllComment(id);
+    return comment.comment;
   }
 
   async searchTitleContent(searchKeyword: string): Promise<Content[]> {
