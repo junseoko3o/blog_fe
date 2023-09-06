@@ -32,6 +32,11 @@ export class ContentService {
     return content;
   }
 
+  async findOneContentWithAllComment(id: number): Promise<Content> {
+    await this.findOneContent(id);
+    return await this.contentRepository.findOneContentWithAllComment(id);
+  }
+
   async searchTitleContent(searchKeyword: string): Promise<Content[]> {
     return await this.contentRepository.searchTitleContent(searchKeyword);
   }

@@ -28,6 +28,12 @@ const Comment = () => {
     setEditingIndex(-1);
   }
 
+  const handleCommentInputChange = (e: any, index: any) => {
+    const newComments = [...comments];
+    newComments[index].comment = e.target.value;
+    setComments(newComments);
+  };
+
   return (
     <div>
       <Row gutter={16}>
@@ -52,12 +58,8 @@ const Comment = () => {
               {editingIndex === index ? (
                 <>
                   <Input
-                    value={comment.comment} // 현재 댓글 내용을 인풋에 표시
-                    onChange={(e) => {
-                      const newComments = [...comments];
-                      newComments[index].comment = e.target.value;
-                      setComments(newComments);
-                    }}
+                    value={comment.comment}
+                    onChange={(e) => {handleCommentInputChange(e, index)} }
                   />
                   <Button type="primary" onClick={() => handleSaveClick(index)}>
                     Save

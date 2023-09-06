@@ -24,4 +24,8 @@ export class CommentService {
     }
     return comment;
   }
+
+  async findOneContentWithAllComment(content_id: number) {
+    return await this.findOneContentWithAllComment(content_id);
+  }
 }

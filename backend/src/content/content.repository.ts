@@ -20,6 +20,13 @@ export class ContentRepository extends Repository<Content> {
     });
   }
 
+  async findOneContentWithAllComment(id: number): Promise<Content> {
+    return await this.findOne({
+      where: { id },
+      relations: ['comment'],
+    });
+  }
+
   async findOneContentOfUserName(user_name: string): Promise<Content> {
     return await this.findOne({
       where: { user_name },
