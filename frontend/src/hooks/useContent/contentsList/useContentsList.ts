@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
-import api from '../../api/api';
 import { ContentList } from './interface';
 import { useRecoilValue } from 'recoil';
-import { userState } from '../store/store';
 import { message } from 'antd';
+import api from 'api/api';
+import { userState } from 'hooks/store/store';
 
 export const useContentList = () => {
+  const user = useRecoilValue(userState);
   const [contentList, setContentList] = useState<ContentList[]>([]);
   const [loading, setLoading] = useState(true);
-  const user = useRecoilValue(userState);
   useEffect(() => {
     const fetchData = async () => {
       await api.get<ContentList[]>('/content/list')

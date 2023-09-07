@@ -1,7 +1,7 @@
 import React from 'react';
 import { Input, Button, Typography } from 'antd';
-import { useContentPost } from 'hooks/contentPost/useContentPost';
 import styles from './lib/contentPost.module.css'
+import { useContentPost } from 'hooks/useContent/contentPost/useContentPost';
 
 const { Text } = Typography;
 

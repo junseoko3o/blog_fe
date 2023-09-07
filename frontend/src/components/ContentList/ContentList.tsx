@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useContentList } from 'hooks/contentsList/useContentsList';
 import moment from 'moment';
 import styles from './lib/contentList.module.css';
+import { useContentList } from 'hooks/useContent/contentsList/useContentsList';
 
 const ContentList = () => {
   const { contentList } = useContentList();

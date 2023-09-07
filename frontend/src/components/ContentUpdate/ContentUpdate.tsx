@@ -1,10 +1,13 @@
 import React from 'react';
 import { Input, Button } from 'antd';
-import { useContentUpdate } from 'hooks/contentUpdate/useContentUpdate';
 import styles from './lib/contentUpdate.module.css';
+import { useParams } from 'react-router';
+import { useContentUpdate } from 'hooks/useContent/contentUpdate/useContentUpdate';
 
 const ContentUpdate = () => {
-  const { title, setTitle, content, setContent, handledUpdateContent } = useContentUpdate();
+  const { id } = useParams();
+  const contentId = id ? parseInt(id) : 0;
+  const { title, setTitle, content, setContent, handledUpdateContent } = useContentUpdate(contentId);
 
   return (
     <>
@@ -33,7 +36,7 @@ const ContentUpdate = () => {
             rows={20}
           />
         </div>
-        <Button type="primary" htmlType="submit" onClick={handledUpdateContent} className={styles.button}>
+        <Button type="primary" htmlType="submit" onClick={e => handledUpdateContent(1)} className={styles.button}>
           Submit
         </Button>
     </>

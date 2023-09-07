@@ -43,4 +43,18 @@ export class CommentService {
     await this.commentRepository.createComment(comment);
     return comment;
   }
+
+  async updateComment(id: number, updateData: UpdateCommentDto) {
+    await this.findOneComment(id);
+    await this.userService.findOneUser(updateData.updated_user_id);
+    await this.contentService.findOneContent(updateData.content_id);
+    const comment = new Comment();
+    comment.comment = updateData.comment;
+    comment.content_id = updateData.content_id;
+    comment.updated_user_id = updateData.updated_user_id;
+
+    await this.commentRepository.updateComment(id, updateData);
+
+    return comment;
+  }
 }

@@ -1,20 +1,22 @@
 import React from 'react';
 import { Button, Typography, Space, Divider } from 'antd';
-import { useContentInfo } from '../../hooks/contentInfo/useContentInfo';
-import { useNavigate } from 'react-router-dom';
-import { useContentDelete } from 'hooks/contentDelete/useContentDelete';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useContentDelete } from 'hooks/useContent/contentDelete/useContentDelete';
 import styles from './lib/contentInfo.module.css';
 import Comment from 'components/Comment/Comment';
+import { useContentInfo } from 'hooks/useContent/contentInfo/useContentInfo';
 
 const { Text, Title } = Typography;
 
 const ContentInfo = () => {
-  const { contentInfo } = useContentInfo();
-  const { handleDelete } = useContentDelete();
+  const { id } = useParams() as { id: string };
+  const contentId = parseInt(id);
+  const { contentInfo } = useContentInfo(contentId);
+  const { handleDelete } = useContentDelete(contentId);
   const navigate = useNavigate();
 
-  const handleEditClick = (id: any) => {
-    navigate(`/content/edit/${id}`);
+  const handleEditClick = (contentId: number) => {
+    navigate(`/content/edit/${contentId}`);
   };
 
   return (
@@ -24,7 +26,7 @@ const ContentInfo = () => {
         <Text className={styles.content}>{contentInfo?.content}</Text>
         <Divider />
         <Space>
-          <Button type="primary" onClick={() => handleEditClick(contentInfo?.id)} className={styles.button}>
+          <Button type="primary" onClick={() => handleEditClick(1)} className={styles.button}>
             수정
           </Button>
           <Button type="primary" onClick={handleDelete} className={styles.button}>

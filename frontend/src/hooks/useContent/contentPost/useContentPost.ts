@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
-import { authenticatedUserState } from "../store/store";
 import { ContentPost } from "./interface";
-import api from "../../api/api";
 import { message } from 'antd';
 import { useNavigate } from "react-router";
+import { authenticatedUserState } from "hooks/store/store";
+import api from "api/api";
 
 export const useContentPost = () => {
   const user = useRecoilValue(authenticatedUserState);

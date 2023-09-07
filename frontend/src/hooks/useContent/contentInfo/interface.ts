@@ -1,5 +1,5 @@
 export interface ContentInfo {
-  id: number, 
+  id: any, 
   title: string,
   content: string,
   user_name: string,

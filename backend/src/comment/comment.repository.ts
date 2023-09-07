@@ -36,7 +36,7 @@ export class CommentRepository extends Repository<Comment> {
     }
   }
 
-  async updateUser(id: number, updateData: UpdateCommentDto) {
+  async updateComment(id: number, updateData: UpdateCommentDto) {
     const queryRunner = this.dataSource.createQueryRunner();
     
     await queryRunner.connect();

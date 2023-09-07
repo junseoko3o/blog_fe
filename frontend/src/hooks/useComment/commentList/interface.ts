@@ -1,5 +1,5 @@
 export interface CommentList {
-  id: number;
+  id: any;
   comment: string;
   user_name: string;
   content_id: number;

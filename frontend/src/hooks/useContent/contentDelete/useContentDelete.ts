@@ -1,17 +1,16 @@
-import api from '../../api/api';
+import api from '../../../api/api';
 import { useRecoilValue } from 'recoil';
-import { authenticatedUserState } from '../store/store';
-import { useParams, useNavigate } from 'react-router';
+import { authenticatedUserState } from '../../store/store';
+import { useNavigate } from 'react-router';
 import { message } from 'antd';
 
-export const useContentDelete = () => {
-  const { id } = useParams();
+export const useContentDelete = (contentId: number) => {
   const user = useRecoilValue(authenticatedUserState);
   const navigate = useNavigate();
   const handleDelete = async () => {
     const confirmDelete = window.confirm("삭제하시겠습니까?");
     if (confirmDelete) {
-       await api.delete(`/content/${id}`)
+       await api.delete(`/content/${contentId}`)
        .then(response => {
           message.success('삭제가 완료되었습니다.');
           navigate('/home');
@@ -22,5 +21,5 @@ export const useContentDelete = () => {
     }
   };
 
-  return { id, user, handleDelete };
+  return { user, handleDelete };
 }

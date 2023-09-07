@@ -28,4 +28,9 @@ export class CommentController {
   async createComment(@Body() createData: CreateCommentDto): Promise<Comment> {
     return await this.commentService.createComment(createData);
   }
+
+  @Post(':id')
+  async updateComment(@Param('id') id: number, @Body() updateData: UpdateCommentDto): Promise<Comment> {
+    return await this.commentService.updateComment(id, updateData);
+  }
 }
