@@ -1,8 +1,8 @@
 import React from 'react';
 import { Input, Button } from 'antd';
-import styles from './lib/contentUpdate.module.css';
 import { useParams } from 'react-router';
 import { useContentUpdate } from 'hooks/useContent/contentUpdate/useContentUpdate';
+import styles from './lib/contentUpdate.module.css';
 
 const ContentUpdate = () => {
   const { id } = useParams() as { id: string };

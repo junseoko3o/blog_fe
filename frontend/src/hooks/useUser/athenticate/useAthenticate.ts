@@ -1,7 +1,7 @@
+import api from '../../../api/api';
 import { useEffect } from 'react';
-import api from '../../api/api';
 import { useRecoilState } from 'recoil';
-import { authenticatedUserState } from '../store/store';
+import { authenticatedUserState } from '../../store/store';
 import { useLocation, useNavigate } from 'react-router';
 import { message } from 'antd';
 

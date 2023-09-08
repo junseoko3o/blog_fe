@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
 import api from 'api/api';
+import { useState, useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import { authenticatedUserState } from 'hooks/store/store';
 import { UserProfile } from './interface';

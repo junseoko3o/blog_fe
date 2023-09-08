@@ -1,9 +1,12 @@
 import React from 'react';
 import { Button, Input, Row, Col } from 'antd';
 import { useCommentPost } from 'hooks/useComment/commentPost/useCommentPost';
+import { useParams } from 'react-router';
 
 const CommentPost = () => {
-  const { comment, setComment, handleCreatePost} = useCommentPost();
+  const { id } = useParams() as { id: string };
+  const contentId = parseInt(id);
+  const { comment, setComment, handleCreatePost} = useCommentPost(contentId);
 
   return (
     <div>
@@ -22,7 +25,6 @@ const CommentPost = () => {
           </Button>
         </Col>
       </Row>
-  
     </div>
   );
 };

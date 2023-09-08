@@ -4,6 +4,7 @@ import { useCommentUpdate } from "hooks/useComment/commentUpdate/useCommentUpdat
 import { useState } from "react";
 import { useParams } from "react-router";
 import { useCommentDelete } from "hooks/useComment/commentDelete/useCommentDelete";
+import { useCommentInfo } from "hooks/useComment/commentInfo/useCommentInfo";
 import moment from 'moment';
 import styles from './lib/commentList.module.css';
 import CommentPost from "components/Comment/CommentPost";
@@ -11,10 +12,11 @@ import CommentPost from "components/Comment/CommentPost";
 const CommentList = () => {
   const { id } = useParams() as { id: string };
   const contentId = parseInt(id);
-  const { commentList } = useCommentList(contentId);
+  const { user, commentList } = useCommentList(contentId);
   const [editingIndex, setEditingIndex] = useState(-1);
   const { updateComment, setUpdateComment, hadledUpdateComment } = useCommentUpdate(contentId);
   const { handledDelete } = useCommentDelete();
+  const { commentInfo } = useCommentInfo();
 
   const handleUpdateClick = (index: number) => {
     setEditingIndex(index);
@@ -25,6 +27,18 @@ const CommentList = () => {
       setUpdateComment('');
     }
   };
+
+  const handledUpdateSave = async (commentId: number) => {
+    await hadledUpdateComment(commentId);
+    setEditingIndex(-1);
+  }
+
+  const userCheck = async (userId: number, commentId: number) => {
+    userId = user.id;
+    if (userId === commentId) {
+     await commentInfo(commentId);
+    }
+  }
 
   return (
     <>
@@ -47,7 +61,7 @@ const CommentList = () => {
                     />
                     <Button type="primary"
                     className={styles.updateButton}
-                    onClick={() => hadledUpdateComment(comment.id)}
+                    onClick={() => handledUpdateSave(comment.id)}
                     >
                       Save
                     </Button>

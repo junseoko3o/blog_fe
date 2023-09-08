@@ -3,16 +3,17 @@ import { authenticatedUserState } from "hooks/store/store"
 import { useState } from "react";
 import { useRecoilValue } from "recoil"
 import { message } from 'antd';
-import { CommentPost } from "./interface";
+import { useSWRConfig } from "swr";
 
-export const useCommentPost = () => {
+export const useCommentPost = (contentId: number) => {
+  const { mutate } = useSWRConfig();
   const user = useRecoilValue(authenticatedUserState);
   const [comment, setComment] = useState("");
 
   const postComment = async () => {
     const commentPost = {
       comment,
-      // content_id: contentId,
+      content_id: contentId,
       created_user_id: user.id,
     };
 
@@ -20,6 +21,7 @@ export const useCommentPost = () => {
     .then(response => {
       setComment("");
       message.success('생성이 완료되었습니다.');
+      mutate(`/comment/content/${contentId}`);
       return response.data;
     })
     .catch(err => {

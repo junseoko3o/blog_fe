@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { Layout, Menu } from "antd";
-import { EditOutlined, HomeOutlined, UserOutlined, LogoutOutlined } from "@ant-design/icons";
-import { Link } from "react-router-dom";
+import { Layout } from "antd";
+import { LogoutOutlined } from "@ant-design/icons";
 import kuromi from './lib/kuromi.png';
 import styles from './lib/appLayout.module.css';
-import useLogout from "hooks/logout/useLogout";
 import AppMenu from "components/AppMenu/AppMenu";
+import useLogout from "hooks/useUser/logout/useLogout";
 
 const { Sider, Content, Header } = Layout;
 

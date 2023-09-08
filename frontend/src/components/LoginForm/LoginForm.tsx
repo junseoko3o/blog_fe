@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Form, Input, Button, Typography, Row, Col } from 'antd';
-import useLogin from 'hooks/login/useLogin';
 import logo from './lib/kuromi.svg'
 import styles from './lib/login.module.css';
+import useLogin from 'hooks/useUser/login/useLogin';
 
 const { Title } = Typography;
 const layout = {
