@@ -9,23 +9,37 @@ export const useLogin = () => {
   const navigate = useNavigate();
 
   const login = async (email: string, password: string) => {
-    await api.post('/user/login', { user_email: email, password })
-      .then((res) => {
-        const data = res.data;
-        setUser(data);
-        navigate('/home');
-        return user;
-      })
-      .catch((error) => {
-        if (error.response.status === 400) {
-          message.error('비번틀림');
-        }
-        if (error.response.status === 404) {
-          message.error('이메일 틀림')
-        };
-      });
+
+    try {
+      await api.post('/user/login', { user_email: email, password })
+        .then((res) => {
+          const data = res.data;
+          setUser(data);
+          navigate('/home');
+          return user;
+        })
+        .catch((error) => {
+          if (error.response.status === 400) {
+            message.error('비번틀림');
+          }
+          if (error.response.status === 404) {
+            message.error('이메일 틀림')
+          };
+        });
+      } catch (err) {
+        message.error('로그인 실패');
+      }
   }
-  return { login };
+
+  const handledLogin = async (values: { email: string, password: string }) => {
+    const { email, password } = values;
+      await login(email, password);
+  };
+
+  const signUp = () => {
+    navigate('/signup');
+  }
+  return { login, signUp, handledLogin };
 }
 
 export default useLogin

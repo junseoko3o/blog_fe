@@ -10,6 +10,7 @@ import ContentUpdate from 'components/ContentUpdate/ContentUpdate';
 import AppLayout from 'components/AppLayout/AppLayout';
 import GlobalConfigProvider from 'GlobalConfigProvider';
 import useRefreshToken from 'hooks/useUser/refreshToken/useRefreshToken';
+import SignUpForm from 'components/SignUpForm/SignUpForm';
 
 const App = () => {
   useUserAuthenticate();
@@ -18,6 +19,7 @@ const App = () => {
     <GlobalConfigProvider>
       <Routes>
           <Route path="/" element={<LoginForm />} />
+          <Route path="/signup" element={<SignUpForm />} />
           <Route
             path="/home"
             element={<AppLayout><Home /></AppLayout>}

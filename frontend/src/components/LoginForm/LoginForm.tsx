@@ -11,29 +11,17 @@ const layout = {
 };
 
 const LoginForm = () => {
-  const { login } = useLogin();
+  const { handledLogin, signUp } = useLogin();
   const [loading, setLoading] = useState(false);
-
-  const onFinish = async (values: { email: string, password: string }) => {
-    const { email, password } = values;
-    setLoading(true);
-
-    try {
-      await login(email, password);
-    } catch (error) {
-      alert('로그인에 실패했습니다.');
-    } finally {
-      setLoading(false);
-    }
-  };
 
   return (
     <>
+    <div className={styles.container}>
       <Row justify="center" align="middle">
         <Col span={8} className={styles.col}>
           <img src={logo} alt="" className={styles.image} />
           <Title level={2} className={styles.title}>Login</Title>
-        <Form name="login" onFinish={onFinish} {...layout}>
+        <Form name="login" onFinish={handledLogin} {...layout}>
             <Form.Item
               name="email"
               label="Email"
@@ -62,18 +50,30 @@ const LoginForm = () => {
             </Form.Item>
 
             <Form.Item>
-              <Button
-                type="primary"
-                htmlType="submit"
-                loading={loading}
-                className={styles.loginButton}
-              >
-                Login
-              </Button>
+              <div className={styles.buttonContainer}>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  loading={loading}
+                  className={styles.loginButton}
+                >
+                  Login
+                </Button>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  loading={loading}
+                  onClick={signUp}
+                  className={styles.signUpButton}
+                >
+                  SignUp
+                </Button>
+              </div>
             </Form.Item>
           </Form>
         </Col>
       </Row>
+    </div>
     </>
   );
 };

@@ -25,7 +25,7 @@ export const useUserAuthenticate = () => {
   };
 
   useEffect(() => {
-    if (location.pathname !== '/') {
+    if (location.pathname !== '/' && location.pathname !== '/signup') {
       authenticateUser();
     }
   }, [location.pathname]);

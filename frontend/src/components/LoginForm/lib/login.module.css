@@ -3,7 +3,7 @@
   background: navy;
   border-color: navy;
   color: white;
-  margin: 0 200px; 
+  margin-left: 130px; 
   display: block; 
 }
 
@@ -13,5 +13,26 @@
 
 .image {
   width: 500px;
-  height: 300px;
+  height: 450px;
+}
+
+.signUpButton {
+  width: 30%;
+  background: navy;
+  border-color: navy;
+  color: white;
+  margin-right: 10px;
+  display: block; 
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center; 
+}
+
+.container {
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 }
