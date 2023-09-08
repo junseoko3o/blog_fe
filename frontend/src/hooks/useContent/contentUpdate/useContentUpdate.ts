@@ -45,7 +45,11 @@ export const useContentUpdate = (contentId: number) => {
     const handledUpdateContent = async (id: number) => {
       await updateContent(id);
     };
+
+    const cancelUpdate = (id: number) => {
+        navigate(`/content/${id}`)
+    }
   
 
-  return { user, title, setTitle, content, setContent, updateContent, handledUpdateContent };
+  return { user, title, setTitle, content, setContent, updateContent, handledUpdateContent, cancelUpdate };
 };

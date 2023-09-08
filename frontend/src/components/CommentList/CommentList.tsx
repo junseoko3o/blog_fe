@@ -7,7 +7,7 @@ import { useCommentDelete } from "hooks/useComment/commentDelete/useCommentDelet
 import { useCommentInfo } from "hooks/useComment/commentInfo/useCommentInfo";
 import moment from 'moment';
 import styles from './lib/commentList.module.css';
-import CommentPost from "components/Comment/CommentPost";
+import CommentPost from "components/CommentPost/CommentPost";
 
 const CommentList = () => {
   const { id } = useParams() as { id: string };
@@ -16,7 +16,6 @@ const CommentList = () => {
   const [editingIndex, setEditingIndex] = useState(-1);
   const { updateComment, setUpdateComment, hadledUpdateComment } = useCommentUpdate(contentId);
   const { handledDelete } = useCommentDelete();
-  const { commentInfo } = useCommentInfo();
 
   const handleUpdateClick = (index: number) => {
     setEditingIndex(index);

@@ -3,3 +3,10 @@
   border-color: navy;
   color: white;
 }
+
+.cancelButton {
+  margin-left: 15px;
+  background: navy;
+  border-color: navy;
+  color: white;
+}

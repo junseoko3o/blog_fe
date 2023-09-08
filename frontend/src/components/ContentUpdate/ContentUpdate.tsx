@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Input, Button } from 'antd';
 import { useParams } from 'react-router';
 import { useContentUpdate } from 'hooks/useContent/contentUpdate/useContentUpdate';
@@ -7,13 +7,13 @@ import styles from './lib/contentUpdate.module.css';
 const ContentUpdate = () => {
   const { id } = useParams() as { id: string };
   const contentId = parseInt(id);
-  const { title, setTitle, content, setContent, handledUpdateContent } = useContentUpdate(contentId);
+  const { title, setTitle, content, setContent, handledUpdateContent, cancelUpdate } = useContentUpdate(contentId);
 
   return (
     <>
       <h2>Update</h2>
         <div>
-          <label htmlFor="title">제목</label>
+          <label htmlFor="title">Title</label>
           <Input
             type="text"
             id="title"
@@ -25,7 +25,7 @@ const ContentUpdate = () => {
           />
         </div>
         <div>
-          <label htmlFor="content">내용</label>
+          <label htmlFor="content">Content</label>
           <Input.TextArea
             id="content"
             name="content"
@@ -36,8 +36,11 @@ const ContentUpdate = () => {
             rows={20}
           />
         </div>
-        <Button type="primary" htmlType="submit" onClick={e => handledUpdateContent(1)} className={styles.button}>
+        <Button type="primary" htmlType="submit" onClick={e => handledUpdateContent(contentId)} className={styles.button}>
           Submit
+        </Button>
+        <Button  className={styles.cancelButton} onClick={e => cancelUpdate(contentId)}>
+          Cancel
         </Button>
     </>
   );
