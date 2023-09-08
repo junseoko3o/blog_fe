@@ -13,6 +13,7 @@ const CommentList = () => {
   const contentId = parseInt(id);
   const { user, commentList } = useCommentList(contentId);
   const [editingIndex, setEditingIndex] = useState<number>(-1);
+  const [visibleComments, setVisibleComments] = useState<number>(3);
   const { updateComment, setUpdateComment, hadledUpdateComment } = useCommentUpdate(contentId);
   const { handledDelete } = useCommentDelete();
 
@@ -31,12 +32,15 @@ const CommentList = () => {
     setEditingIndex(-1);
   }
 
- 
+  const handleLoadMoreClick = () => {
+    setVisibleComments(prevVisibleComments => prevVisibleComments + 3);
+  };
+
   return (
     <>
       <CommentPost />
       <List
-        dataSource={commentList}
+        dataSource={commentList.slice(0, visibleComments)}
         header={`${commentList.length} ${commentList.length === 1 ? 'Comment' : 'Comments'}`}
         itemLayout="horizontal"
         renderItem={(comment) => (
@@ -96,7 +100,19 @@ const CommentList = () => {
               )}
             </div>
           </List.Item>
-        )}  
+        )}
+        footer={
+          <div className={styles.loadMoreButtonContainer}>
+            {visibleComments < commentList.length && visibleComments >= 3 && (
+              <Button
+                type="primary"
+                onClick={handleLoadMoreClick}
+              >
+                Load More
+              </Button>
+            )}
+          </div>
+        }
       />
     </>
   )
