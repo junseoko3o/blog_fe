@@ -7,7 +7,7 @@ import { message } from 'antd';
 
 export const useUserDetailInfo = () => {
   const user = useRecoilValue(authenticatedUserState);
-  const [userInfo, setUserInfo] = useState<UserProfile>();
+  const [userInfo, setUserInfo] = useState<UserProfile>({} as UserProfile);
   useEffect(() => {
     const getUserDetailInfo = async () => {
       await api.get(`/user/list/${user.id}`)

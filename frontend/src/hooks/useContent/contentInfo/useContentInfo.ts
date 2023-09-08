@@ -1,23 +1,26 @@
+import api from 'api/api';
 import { useState, useEffect } from 'react';
 import { ContentInfo } from './interface';
 import { message } from 'antd';
-import api from 'api/api';
+import { useRecoilValue } from 'recoil';
+import { authenticatedUserState } from 'hooks/store/store';
 
 export const useContentInfo = (contentId: number) => {
-  const [contentInfo, setContentInfo] = useState<ContentInfo>();
+  const user = useRecoilValue(authenticatedUserState);
+  const [contentInfo, setContentInfo] = useState<ContentInfo>({} as ContentInfo);
   useEffect(() => {
     const fetchData = async () => {
-        await api.get<ContentInfo>(`/content/${contentId}`)
-          .then(response => {
-            setContentInfo(response.data);
-          })
-          .catch(err => {
-            message.error('user is not found');
-          })
+      try {
+        const response = await api.get<ContentInfo>(`/content/${contentId}`);
+        setContentInfo(response.data);
+        return response.data;
+      } catch (err) {
+        message.error('먼가 오류');
+      }
     };
 
     fetchData();
   }, []);
 
-  return { contentInfo };
+  return { contentInfo, user };
 }

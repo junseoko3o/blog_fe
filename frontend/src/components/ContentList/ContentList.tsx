@@ -23,7 +23,7 @@ const ContentList = () => {
               <td>{index + 1}</td> 
               <td className={styles.centerAlign}>
                 <Link to={`/content/${content.id}`} className={styles.link}>
-                  {content.title.length > 50 ? content.title.slice(0, 50) + '...' : content.title}
+                  {content.title.length > 10 ? content.title.slice(0, 50) + '...' : content.title}
                 </Link>
               </td>
               <td className={styles.username}>{content.user_name}</td>

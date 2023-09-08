@@ -17,13 +17,13 @@ export const useContentUpdate = (contentId: number) => {
 
   useEffect(() => {
     if (contents.contentInfo) {
-      setTitle(contents.contentInfo?.title || "");
-      setContent(contents.contentInfo?.content || "");
+      setTitle(contents.contentInfo.title || "");
+      setContent(contents.contentInfo.content || "");
     }
   }, [contents.contentInfo]);
 
   const updateContent = async (id: number) => {
-    if (user.id !== contents.contentInfo?.created_user_id) {
+    if (user.id !== contents.contentInfo.created_user_id) {
       message.error('작성자가 아님');
     }
     const contentUpdate: ContentUpdate = {

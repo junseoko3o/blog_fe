@@ -17,8 +17,8 @@ const UserProfile = () => {
         <List
           size="large"
           dataSource={[
-            { title: 'Email', value: userInfo?.user_email },
-            { title: 'Name', value: userInfo?.user_name },
+            { title: 'Email', value: userInfo.user_email },
+            { title: 'Name', value: userInfo.user_name },
           ]}
           renderItem={(item) => (
             <List.Item>
