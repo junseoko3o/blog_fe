@@ -3,21 +3,22 @@ import { authenticatedUserState } from "hooks/store/store";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import { message } from 'antd';
-import { useCommentInfo } from "../commentInfo/useCommentInfo";
+import useCommentInfo from "../commentInfo";
+import { CommentUpdate } from "./lib/interface";
 
-export const useCommentUpdate = (contentId: number) => {
+const useCommentUpdate = (contentId: number) => {
   const user = useRecoilValue(authenticatedUserState);
-  const [updateComment, setUpdateComment] = useState("");
+  const [updateComment, setUpdateComment] = useState<string>("");
   const { commentInfo } = useCommentInfo();
 
   const commentUpdate = async (id: number) => {
-    const info = await commentInfo(id);
-    const commentUpdate = {
+    await commentInfo(id);
+    const commentUpdate: CommentUpdate = {
       comment: updateComment,
       content_id: contentId,
       updated_user_id: user.id,
     };
-      await api.post(`/comment/${id}`, commentUpdate)
+      await api.post<CommentUpdate>(`/comment/${id}`, commentUpdate)
       .then(response => {
         message.success('수정이 완료되었습니다.');
         return response.data;
@@ -33,3 +34,5 @@ export const useCommentUpdate = (contentId: number) => {
 
   return { updateComment, setUpdateComment, hadledUpdateComment }
 }
+
+export default useCommentUpdate;

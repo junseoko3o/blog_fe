@@ -1,10 +1,11 @@
 import api from "api/api";
 import { message } from 'antd';
+import { CommentInfo } from "./lib/interface";
 
-export const useCommentInfo = () => {
+const useCommentInfo = () => {
   const commentInfo = async (id: number) => {
      try {
-       const response = await api.get(`/comment/list/${id}`);
+       const response = await api.get<CommentInfo>(`/comment/list/${id}`);
       return response.data;
      } catch (error) {
        message.error('문제있음');
@@ -13,3 +14,5 @@ export const useCommentInfo = () => {
   }
   return { commentInfo }
 }
+
+export default useCommentInfo;

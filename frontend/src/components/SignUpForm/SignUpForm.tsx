@@ -1,10 +1,9 @@
 import React from 'react';
-import { Form, Input, Button, Row, Col, Typography } from 'antd';
-import { useSignUp } from 'hooks/useUser/signUp/useSignUp';
+import { Form, Input, Button, Row, Col } from 'antd';
 import styles from './lib/signUp.module.css'
 import melody from './lib/melody.png';
+import useSignUp from 'hooks/useUser/signUp';
 
-const { Title } = Typography;
 const layout = {
   labelCol: { span: 5 },
   wrapperCol: { span: 18 },

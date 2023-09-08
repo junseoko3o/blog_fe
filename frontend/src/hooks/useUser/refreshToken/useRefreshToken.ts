@@ -4,7 +4,7 @@ import { message } from 'antd';
 import { useLocation } from 'react-router';
 
 export const useRefreshToken = () => {
-  const [newAccessToken, setNewAccessToken] = useState('');
+  const [newAccessToken, setNewAccessToken] = useState<string>('');
   const location = useLocation();
 
   useEffect(() => {

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Button, Typography, Space, Divider } from 'antd';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useContentDelete } from 'hooks/useContent/contentDelete/useContentDelete';
-import { useContentInfo } from 'hooks/useContent/contentInfo/useContentInfo';
 import styles from './lib/contentInfo.module.css';
 import CommentList from 'components/CommentList/CommentList';
+import useContentInfo from 'hooks/useContent/contentInfo';
+import useContentDelete from 'hooks/useContent/contentDelete';
 
 const { Text, Title } = Typography;
 

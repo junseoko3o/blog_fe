@@ -4,12 +4,11 @@ import { message } from 'antd';
 import { useNavigate } from 'react-router';
 import { userState } from 'hooks/store/store';
 
-export const useLogin = () => {
+const useLogin = () => {
   const [user, setUser] = useRecoilState(userState);
   const navigate = useNavigate();
 
   const login = async (email: string, password: string) => {
-
     try {
       await api.post('/user/login', { user_email: email, password })
         .then((res) => {
@@ -33,7 +32,7 @@ export const useLogin = () => {
 
   const handledLogin = async (values: { email: string, password: string }) => {
     const { email, password } = values;
-      await login(email, password);
+    await login(email, password);
   };
 
   const signUp = () => {

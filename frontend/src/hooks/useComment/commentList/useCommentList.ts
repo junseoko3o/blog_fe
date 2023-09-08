@@ -1,10 +1,10 @@
 import { authenticatedUserState } from "hooks/store/store";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from 'recoil';
-import { CommentList } from "./interface";
+import { CommentList } from "./lib/interface";
 import useSwr from 'swr';
 
-export const useCommentList = (contentId: number) => {
+const useCommentList = (contentId: number) => {
   const user = useRecoilValue(authenticatedUserState);
   const [commentList, setCommentList] = useState<CommentList[]>([]); 
   const { data, error } = useSwr(`/comment/content/${contentId}`)
@@ -17,3 +17,5 @@ export const useCommentList = (contentId: number) => {
 
   return { user, commentList }
 }
+
+export default useCommentList;

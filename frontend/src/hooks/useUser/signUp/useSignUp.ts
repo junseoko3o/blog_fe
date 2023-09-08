@@ -1,14 +1,14 @@
 import api from "api/api";
 import { useState } from "react";
 import { message } from 'antd';
-import { UserSignUp } from "./interface";
+import { UserSignUp } from "./lib/interface";
 import { useNavigate } from "react-router";
 
-export const useSignUp = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState(''); 
+const useSignUp = () => {
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [name, setName] = useState<string>('');
+  const [confirmPassword, setConfirmPassword] = useState<string>(''); 
   const navigate = useNavigate();
 
   const handledSignUp = async () => {
@@ -18,7 +18,7 @@ export const useSignUp = () => {
       user_name: name,
     };
 
-    await api.post('/user/signup', signUp)
+    await api.post<UserSignUp>('/user/signup', signUp)
       .then(response => {
         setEmail("");
         setPassword("");
@@ -47,3 +47,5 @@ export const useSignUp = () => {
 
   return { email, setEmail, password, setPassword, name, setName, handledSignUp, confirmPassword, setConfirmPassword, validatePassword, backLogin }
 }
+
+export default useSignUp;

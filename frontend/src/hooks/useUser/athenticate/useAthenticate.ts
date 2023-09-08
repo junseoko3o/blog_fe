@@ -4,14 +4,15 @@ import { useRecoilState } from 'recoil';
 import { authenticatedUserState } from '../../store/store';
 import { useLocation, useNavigate } from 'react-router';
 import { message } from 'antd';
+import { UserAuthentication } from './lib/interface';
 
-export const useUserAuthenticate = () => {
+const useUserAuthenticate = () => {
   const [user, setUser] = useRecoilState(authenticatedUserState);
   const navigate = useNavigate();
   const location = useLocation();
 
   const authenticateUser = async () => {
-    await api.get('/user/authenticate')
+    await api.get<UserAuthentication>('/user/authenticate')
     .then(response => {
       if (response.status === 200) {
         const userData = response.data;

@@ -1,18 +1,18 @@
+import api from 'api/api';
 import { useEffect, useState } from 'react';
 import { useRecoilValue } from "recoil";
 import { useNavigate } from "react-router";
-import { ContentUpdate } from "./interface";
+import { ContentUpdate } from "./lib/interface";
 import { message } from 'antd';
 import { authenticatedUserState } from 'hooks/store/store';
-import { useContentInfo } from '../contentInfo/useContentInfo';
-import api from 'api/api';
+import useContentInfo from '../contentInfo';
 
-export const useContentUpdate = (contentId: number) => {
+const useContentUpdate = (contentId: number) => {
   const user = useRecoilValue(authenticatedUserState);
   const contents = useContentInfo(contentId);
   const navigate = useNavigate();
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+  const [title, setTitle] = useState<string>("");
+  const [content, setContent] = useState<string>("");
 
 
   useEffect(() => {
@@ -31,7 +31,7 @@ export const useContentUpdate = (contentId: number) => {
       content,
       updated_user_id: user.id,
     }
-      await api.post(`/content/${id}`, contentUpdate)
+      await api.post<ContentUpdate>(`/content/${id}`, contentUpdate)
       .then(response => {
         message.success('수정이 완료되었습니다.');
         navigate('/home');
@@ -53,3 +53,5 @@ export const useContentUpdate = (contentId: number) => {
 
   return { user, title, setTitle, content, setContent, updateContent, handledUpdateContent, cancelUpdate };
 };
+
+export default useContentUpdate;

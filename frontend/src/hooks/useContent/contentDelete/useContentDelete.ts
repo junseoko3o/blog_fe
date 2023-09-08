@@ -4,7 +4,7 @@ import { authenticatedUserState } from '../../store/store';
 import { useNavigate } from 'react-router';
 import { message } from 'antd';
 
-export const useContentDelete = (contentId: number) => {
+const useContentDelete = (contentId: number) => {
   const user = useRecoilValue(authenticatedUserState);
   const navigate = useNavigate();
   const handleDelete = async () => {
@@ -23,3 +23,5 @@ export const useContentDelete = (contentId: number) => {
 
   return { user, handleDelete };
 }
+
+export default useContentDelete;

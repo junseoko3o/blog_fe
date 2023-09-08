@@ -1,7 +1,7 @@
 import { EditOutlined, HomeOutlined, UserOutlined } from "@ant-design/icons";
 import { Menu } from "antd";
-import styles from './lib/menu.module.css';
 import { Link } from "react-router-dom";
+import styles from './lib/menu.module.css';
 
 const AppMenu = () => {
   const data = [

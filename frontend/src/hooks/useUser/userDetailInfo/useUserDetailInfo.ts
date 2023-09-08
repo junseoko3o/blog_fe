@@ -2,10 +2,10 @@ import api from 'api/api';
 import { useState, useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import { authenticatedUserState } from 'hooks/store/store';
-import { UserProfile } from './interface';
+import { UserProfile } from './lib/interface';
 import { message } from 'antd';
 
-export const useUserDetailInfo = () => {
+const useUserDetailInfo = () => {
   const user = useRecoilValue(authenticatedUserState);
   const [userInfo, setUserInfo] = useState<UserProfile>({} as UserProfile);
   useEffect(() => {

@@ -1,11 +1,11 @@
 import api from 'api/api';
 import { useState, useEffect } from 'react';
-import { ContentInfo } from './interface';
+import { ContentInfo } from './lib/interface';
 import { message } from 'antd';
 import { useRecoilValue } from 'recoil';
 import { authenticatedUserState } from 'hooks/store/store';
 
-export const useContentInfo = (contentId: number) => {
+const useContentInfo = (contentId: number) => {
   const user = useRecoilValue(authenticatedUserState);
   const [contentInfo, setContentInfo] = useState<ContentInfo>({} as ContentInfo);
   useEffect(() => {
@@ -24,3 +24,5 @@ export const useContentInfo = (contentId: number) => {
 
   return { contentInfo, user };
 }
+
+export default useContentInfo;

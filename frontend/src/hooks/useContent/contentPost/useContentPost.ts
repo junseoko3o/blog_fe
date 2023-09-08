@@ -1,17 +1,17 @@
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
-import { ContentPost } from "./interface";
+import { ContentPost } from "./lib/interface";
 import { message } from 'antd';
 import { useNavigate } from "react-router";
 import { authenticatedUserState } from "hooks/store/store";
 import api from "api/api";
 
-export const useContentPost = () => {
+const useContentPost = () => {
   const user = useRecoilValue(authenticatedUserState);
   const navigate = useNavigate();
 
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+  const [title, setTitle] = useState<string>("");
+  const [content, setContent] = useState<string>("");
 
   const postContent = async () => {
     const contentPostData: ContentPost = {
@@ -20,7 +20,7 @@ export const useContentPost = () => {
       created_user_id: user.id,
     };
     
-    await api.post("/content", contentPostData)
+    await api.post<ContentPost>("/content", contentPostData)
       .then(response => {
         setTitle("");
         setContent("");
@@ -39,3 +39,5 @@ export const useContentPost = () => {
 
   return { user, title, setTitle, content, setContent, handleCreatePost };
 };
+
+export default useContentPost;

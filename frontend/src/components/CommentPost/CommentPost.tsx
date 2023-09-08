@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Input, Row, Col } from 'antd';
-import { useCommentPost } from 'hooks/useComment/commentPost/useCommentPost';
 import { useParams } from 'react-router';
+import useCommentPost from 'hooks/useComment/commentPost';
 
 const CommentPost = () => {
   const { id } = useParams() as { id: string };

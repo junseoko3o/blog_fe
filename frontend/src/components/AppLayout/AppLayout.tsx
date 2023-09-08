@@ -9,7 +9,7 @@ import useLogout from "hooks/useUser/logout/useLogout";
 const { Sider, Content, Header } = Layout;
 
 const AppLayout = ({ children }: { children: React.ReactNode }) => {
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState<boolean>(false);
   const { handleLogout } = useLogout();
   
   const toggleMenu = () => {

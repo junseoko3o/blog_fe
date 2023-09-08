@@ -5,10 +5,10 @@ import { useRecoilValue } from "recoil"
 import { message } from 'antd';
 import { useSWRConfig } from "swr";
 
-export const useCommentPost = (contentId: number) => {
+const useCommentPost = (contentId: number) => {
   const { mutate } = useSWRConfig();
   const user = useRecoilValue(authenticatedUserState);
-  const [comment, setComment] = useState("");
+  const [comment, setComment] = useState<string>("");
 
   const postComment = async () => {
     const commentPost = {
@@ -35,3 +35,5 @@ export const useCommentPost = (contentId: number) => {
 
  return { comment, setComment, handleCreatePost }
 }
+
+export default useCommentPost;

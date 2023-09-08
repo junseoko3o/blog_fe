@@ -1,19 +1,18 @@
 import { Button, Input, List } from "antd"
-import { useCommentList } from "hooks/useComment/commentList/useCommentList";
-import { useCommentUpdate } from "hooks/useComment/commentUpdate/useCommentUpdate";
 import { useState } from "react";
 import { useParams } from "react-router";
-import { useCommentDelete } from "hooks/useComment/commentDelete/useCommentDelete";
-import { useCommentInfo } from "hooks/useComment/commentInfo/useCommentInfo";
 import moment from 'moment';
 import styles from './lib/commentList.module.css';
 import CommentPost from "components/CommentPost/CommentPost";
+import useCommentList from "hooks/useComment/commentList";
+import useCommentUpdate from "hooks/useComment/commentUpdate";
+import useCommentDelete from "hooks/useComment/commentDelete";
 
 const CommentList = () => {
   const { id } = useParams() as { id: string };
   const contentId = parseInt(id);
   const { user, commentList } = useCommentList(contentId);
-  const [editingIndex, setEditingIndex] = useState(-1);
+  const [editingIndex, setEditingIndex] = useState<number>(-1);
   const { updateComment, setUpdateComment, hadledUpdateComment } = useCommentUpdate(contentId);
   const { handledDelete } = useCommentDelete();
 
