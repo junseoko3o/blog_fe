@@ -26,7 +26,7 @@ export class Content {
   created_at: Date;
 
   @UpdateDateColumn()
-  update_at: Date;
+  updated_at: Date;
   
   @ManyToOne(() => User, (user) => user.content, { onDelete: 'CASCADE' })
   @JoinColumn([{ name: 'created_user_id' }, { name: 'updated_user_id' }])
