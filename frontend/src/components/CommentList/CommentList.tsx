@@ -33,69 +33,74 @@ const CommentList = () => {
     setEditingIndex(-1);
   }
 
-  const userCheck = async (userId: number, commentId: number) => {
-    userId = user.id;
-    if (userId === commentId) {
-     await commentInfo(commentId);
-    }
-  }
-
+ 
   return (
     <>
       <CommentPost />
-        <List
-            dataSource={commentList}
-            header={`${commentList.length} ${commentList.length === 1 ? 'Comment' : 'Comments'}`}
-            itemLayout="horizontal"
-            renderItem={(comment) => (
-              <List.Item>
-              <div key={comment.id} className={styles.div}>
-                {editingIndex === comment.id ? (
-                  <>
-                    <Input
-                      type="text"
-                      id="comment"
-                      name="comment"
-                      value={updateComment}
-                      onChange={e => setUpdateComment(e.target.value)} 
-                    />
-                    <Button type="primary"
-                    className={styles.updateButton}
-                    onClick={() => handledUpdateSave(comment.id)}
-                    >
-                      Save
-                    </Button>
-                    <Button type="primary"
-                      className={styles.deleteButton}
-                      onClick={() => handleUpdateClick(-1)}
-                     >
-                      Cancel
-                    </Button>
-                  </>
-                ) : (
-                  <>
-                    <p className={styles.comment}>{comment.comment}</p>
-                    <p className={styles.info}>작성자: {comment.user_name} 작성시간: {moment(comment.updated_at).format('YYYY-MM-DD HH:mm:ss')}</p>
-                    <Button type="primary" 
-                      className={styles.updateButton}
-                      onClick={() => handleUpdateClick(comment.id)}
-                    >
-                      Update
-                    </Button>
-                    <Button type="primary"
-                       className={styles.deleteButton}
-                       onClick={()=> handledDelete(comment.id)}
-                    >
-                      Delete
-                    </Button>
-                  </>
-                )}
-              </div>
-            </List.Item>
-            )}  
-        />
+      <List
+        dataSource={commentList}
+        header={`${commentList.length} ${commentList.length === 1 ? 'Comment' : 'Comments'}`}
+        itemLayout="horizontal"
+        renderItem={(comment) => (
+          <List.Item>
+            <div key={comment.id} className={styles.div}>
+              {editingIndex === comment.id ? (
+                <>
+                  {user.id === comment.created_user_id && (
+                    <>
+                      <Input
+                        type="text"
+                        id="comment"
+                        name="comment"
+                        value={updateComment}
+                        onChange={e => setUpdateComment(e.target.value)} 
+                      />
+                      <Button
+                        type="primary"
+                        className={styles.updateButton}
+                        onClick={() => handledUpdateSave(comment.id)}
+                      >
+                        Save
+                      </Button>
+                      <Button
+                        type="primary"
+                        className={styles.deleteButton}
+                        onClick={() => handleUpdateClick(-1)}
+                      >
+                        Cancel
+                      </Button>
+                    </>
+                  )}
+                </>
+              ) : (
+                <>
+                  <p className={styles.comment}>{comment.comment}</p>
+                  <p className={styles.info}>작성자: {comment.user_name} 작성시간: {moment(comment.updated_at).format('YYYY-MM-DD HH:mm:ss')}</p>
+                  {user.id === comment.created_user_id && (
+                    <>
+                      <Button
+                        type="primary" 
+                        className={styles.updateButton}
+                        onClick={() => handleUpdateClick(comment.id)}
+                      >
+                        Update
+                      </Button>
+                      <Button
+                        type="primary"
+                        className={styles.deleteButton}
+                        onClick={()=> handledDelete(comment.id)}
+                      >
+                        Delete
+                      </Button>
+                    </>
+                  )}
+                </>
+              )}
+            </div>
+          </List.Item>
+        )}  
+      />
     </>
   )
 }
-
 export default CommentList;
