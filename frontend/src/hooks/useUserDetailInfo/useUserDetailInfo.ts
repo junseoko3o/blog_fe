@@ -10,18 +10,16 @@ export const useUserDetailInfo = () => {
   const [userInfo, setUserInfo] = useState<UserProfile>();
   useEffect(() => {
     const getUserDetailInfo = async () => {
-      try {
-        const response = await api.get(`/user/list/${user.id}`);
-
-        if (response.status === 200) {
+      await api.get(`/user/list/${user.id}`)
+        .then(response => {
           const data = response.data;
           setUserInfo(data);
           return data;
-        }
-      } catch (error) {
-        message.error('유저 정보 없음');
-      }
-    };
+        })
+        .catch(err => {
+          message.error('유저 정보 없음');
+        });
+      };
 
     getUserDetailInfo();
   }, [user.id]);

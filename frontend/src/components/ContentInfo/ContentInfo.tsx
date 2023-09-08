@@ -3,8 +3,8 @@ import { Button, Typography, Space, Divider } from 'antd';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useContentDelete } from 'hooks/useContent/contentDelete/useContentDelete';
 import styles from './lib/contentInfo.module.css';
-import Comment from 'components/Comment/Comment';
 import { useContentInfo } from 'hooks/useContent/contentInfo/useContentInfo';
+import CommentList from 'components/CommentList/CommentList';
 
 const { Text, Title } = Typography;
 
@@ -34,7 +34,7 @@ const ContentInfo = () => {
           </Button>
         </Space>
         <div className={styles.commentContainer}>
-          <Comment />
+          <CommentList />
         </div>
       </div>
     </>

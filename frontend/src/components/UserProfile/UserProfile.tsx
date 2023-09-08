@@ -1,6 +1,6 @@
 import React from 'react';
-import { Typography, List, Spin } from 'antd';
-import useUserDetailInfo from 'hooks/userDetailInfo/useUserDetailInfo';
+import { Typography, List } from 'antd';
+import useUserDetailInfo from 'hooks/useUserDetailInfo/useUserDetailInfo';
 import styles from './lib/userProfile.module.css';
 import kuromi from './lib/kuromi.png';
 

@@ -1,0 +1,22 @@
+.div {
+  width: 100%;
+}
+
+.updateButton {
+  background-color: navy;
+}
+
+.deleteButton {
+  background-color: darkred;
+  margin-left: 10px;
+}
+
+.comment {
+  font-size: medium;
+  font-weight: bold;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.info {
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}

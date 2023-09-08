@@ -5,8 +5,8 @@ import { useParams } from 'react-router';
 import { useContentUpdate } from 'hooks/useContent/contentUpdate/useContentUpdate';
 
 const ContentUpdate = () => {
-  const { id } = useParams();
-  const contentId = id ? parseInt(id) : 0;
+  const { id } = useParams() as { id: string };
+  const contentId = parseInt(id);
   const { title, setTitle, content, setContent, handledUpdateContent } = useContentUpdate(contentId);
 
   return (

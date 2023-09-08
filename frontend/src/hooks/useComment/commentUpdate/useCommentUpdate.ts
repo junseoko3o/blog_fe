@@ -1,14 +1,17 @@
 import api from "api/api";
 import { authenticatedUserState } from "hooks/store/store";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import { message } from 'antd';
+import { useCommentInfo } from "../commentInfo/useCommentInfo";
 
 export const useCommentUpdate = (contentId: number) => {
   const user = useRecoilValue(authenticatedUserState);
   const [updateComment, setUpdateComment] = useState("");
+  const { commentInfo } = useCommentInfo();
 
   const commentUpdate = async (id: number) => {
+    const info = await commentInfo(id);
     const commentUpdate = {
       comment: updateComment,
       content_id: contentId,
@@ -25,12 +28,8 @@ export const useCommentUpdate = (contentId: number) => {
     };
 
     const hadledUpdateComment = async (id: number) => {
-      
       await commentUpdate(id);
     };
 
-    useEffect(() => {
-      
-    }, []);
   return { updateComment, setUpdateComment, hadledUpdateComment }
 }
