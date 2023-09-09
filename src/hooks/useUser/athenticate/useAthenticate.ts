@@ -12,7 +12,7 @@ const useUserAuthenticate = () => {
   const location = useLocation();
 
   const authenticateUser = async () => {
-    await api.get<UserAuthentication>('/user/authenticate')
+    await api.get<UserAuthentication>('/auth/authenticate')
     .then(response => {
       if (response.status === 200) {
         const userData = response.data;

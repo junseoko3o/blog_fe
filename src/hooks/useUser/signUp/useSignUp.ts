@@ -24,6 +24,7 @@ const useSignUp = () => {
         setPassword("");
         setName("");
         navigate('/');
+        message.success('회원가입 성공');
         response.data;
       })
       .catch(err => {

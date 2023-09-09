@@ -17,7 +17,7 @@ const useProfileUpdate = () => {
     const UserProfile: UpdateUserProfile = {
       password,
     }
-    await api.post(`/user/update/${user.id}`, UserProfile)
+    await api.post(`/user/update/pw/${user.id}`, UserProfile)
       .then(res => {
         // setUserName("");
         setPassword("");

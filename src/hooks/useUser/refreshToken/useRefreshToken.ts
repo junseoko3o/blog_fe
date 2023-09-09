@@ -10,7 +10,7 @@ export const useRefreshToken = () => {
   useEffect(() => {
     const refreshAccessToken = async () => {
       if (location.pathname !== '/' && location.pathname !== '/signup') {
-      await api.get('/user/refresh')
+      await api.get('/auth/refresh')
         .then(response => {
           if (response.status === 200) {
             setNewAccessToken(response.data.access_token);
