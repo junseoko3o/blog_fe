@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
 import { CommentRepository } from './comment.repository';
@@ -56,5 +56,15 @@ export class CommentService {
     await this.commentRepository.updateComment(id, updateData);
 
     return comment;
+  }
+
+  async deleteComment(id: number): Promise<string> {
+    const comment = await this.findOneComment(id);
+    const user = await this.userService.findOneUser(comment.content_id);
+    if (comment.created_user_id !== user.id) {
+      throw new BadRequestException('This comment is not yout comment.');
+    }
+    await this.commentRepository.deleteComment(id);
+    return 'deleted successfully';
   }
 }

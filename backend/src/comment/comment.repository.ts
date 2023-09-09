@@ -51,4 +51,26 @@ export class CommentRepository extends Repository<Comment> {
       await queryRunner.release();
     }
   }
+
+  async deleteComment(id: number) {
+    const queryRunner = this.dataSource.createQueryRunner();
+
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+
+    try {
+      await queryRunner.manager
+      .createQueryBuilder(Comment, 'comment')
+      .delete()
+      .from(Comment)
+      .where("id = :id", { id })
+      .execute()
+      
+      await queryRunner.commitTransaction();
+    } catch (err) {
+      await queryRunner.rollbackTransaction();
+    } finally {
+      await queryRunner.release();
+    }
+  }
 }

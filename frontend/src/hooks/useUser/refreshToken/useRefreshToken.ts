@@ -9,7 +9,7 @@ export const useRefreshToken = () => {
 
   useEffect(() => {
     const refreshAccessToken = async () => {
-      if (location.pathname !== '/' || '/signup') {
+      if (location.pathname !== '/' && location.pathname !== '/signup') {
       await api.get('/user/refresh')
         .then(response => {
           if (response.status === 200) {

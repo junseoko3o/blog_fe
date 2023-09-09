@@ -5,6 +5,7 @@ import { message } from 'antd';
 import { useNavigate } from "react-router";
 import { authenticatedUserState } from "hooks/store/store";
 import api from "api/api";
+import { mutate } from "swr";
 
 const useContentPost = () => {
   const user = useRecoilValue(authenticatedUserState);
@@ -24,6 +25,7 @@ const useContentPost = () => {
       .then(response => {
         setTitle("");
         setContent("");
+        mutate(`/content/list`);
         message.success('생성이 완료되었습니다.');
         navigate('/home');
         return response.data;

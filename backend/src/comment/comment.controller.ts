@@ -1,9 +1,8 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { CommentService } from './comment.service';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
 import { Comment } from './comment.entity';
-import { Content } from 'src/content/content.entity';
 
 @Controller('comment')
 export class CommentController {
@@ -32,5 +31,11 @@ export class CommentController {
   @Post(':id')
   async updateComment(@Param('id') id: number, @Body() updateData: UpdateCommentDto): Promise<Comment> {
     return await this.commentService.updateComment(id, updateData);
+  }
+
+  @Delete(':id')
+  async deleteComment(@Param('id') id: number): Promise<string> {
+    await this.commentService.deleteComment(id);
+    return 'deleted successfully';
   }
 }
