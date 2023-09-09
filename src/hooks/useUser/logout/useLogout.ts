@@ -11,7 +11,6 @@ const useLogout = () => {
         navigate('/');
       })
       .catch(error => {
-        console.log(error);
         message.error('로그아웃 실패');
       });
    }

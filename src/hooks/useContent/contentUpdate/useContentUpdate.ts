@@ -14,7 +14,6 @@ const useContentUpdate = (contentId: number) => {
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
 
-  console.log(contentId);
   useEffect(() => {
     if (contents.contentInfo) {
       setTitle(contents.contentInfo.title || "");
