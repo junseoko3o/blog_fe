@@ -27,7 +27,7 @@ const ContentInfo = () => {
         <Space>
           {!shouldHideButtons && (
             <>
-              <Button type="primary" onClick={() => handleEditClick(1)} className={styles.button}>
+              <Button type="primary" onClick={() => handleEditClick(contentId)} className={styles.button}>
                 수정
               </Button>
               <Button type="primary" onClick={handleDelete} className={styles.button}>

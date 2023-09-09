@@ -20,7 +20,7 @@ const useContentInfo = (contentId: number) => {
     };
 
     fetchData();
-  }, []);
+  }, [contentId]);
 
   return { contentInfo, user };
 }

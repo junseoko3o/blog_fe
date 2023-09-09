@@ -31,7 +31,7 @@ return (
   {isInputEnabled ? (
     <>
       <img src={kitty} className={styles.image}/>
-      <Form>
+      <Form onFinish={handledUserUpdate}>
       {/* <div className={styles.inputContainer}>
         <Input
           placeholder="input new name"
@@ -89,17 +89,19 @@ return (
     </>
   ) : (
     <>
-      <img src={cinnamoroll} className={styles.image}/>
-      <div className={styles.passwordConfirmContainer}>
-        <Password
-          placeholder="input current password"
-          value={currentPassword}
-          onChange={(e) => setCurrentPassword(e.target.value)}
-        />
-      </div>
-      <Button type="primary" onClick={handlePasswordCheck} className={styles.passwordCheckButton}>
-        Password Check
-      </Button>
+      <Form onFinish={handlePasswordCheck}>
+        <img src={cinnamoroll} className={styles.image}/>
+        <div className={styles.passwordConfirmContainer}>
+          <Password
+            placeholder="input current password"
+            value={currentPassword}
+            onChange={(e) => setCurrentPassword(e.target.value)}
+          />
+        </div>
+        <Button type="primary" onClick={handlePasswordCheck} className={styles.passwordCheckButton}>
+          Password Check
+        </Button>
+      </Form>
     </>
   )}
 </>
