@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input, Button } from 'antd';
+import { Input, Button, Space } from 'antd';
 import { useParams } from 'react-router';
 import styles from './lib/contentUpdate.module.css';
 import useContentUpdate from 'hooks/useContent/contentUpdate';

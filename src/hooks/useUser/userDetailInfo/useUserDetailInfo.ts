@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router';
 
 const useUserDetailInfo = () => {
   const user = useRecoilValue(authenticatedUserState);
-  const [userInfo, setUserInfo] = useState<UserProfile>({} as UserProfile);
+  const [userInfo, setUserInfo] = useState<UserProfile>();
   const navigate = useNavigate();
 
   useEffect(() => {

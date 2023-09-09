@@ -15,7 +15,6 @@ const usePasswordCheck = () => {
       user_email: user.user_email,
       password,
     }
-
    const response = await api.post<PasswordCheck>('/user/validate', check);
     try {
       if (response.data) {

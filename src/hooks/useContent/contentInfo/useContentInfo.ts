@@ -7,7 +7,7 @@ import { authenticatedUserState } from 'hooks/store/store';
 
 const useContentInfo = (contentId: number) => {
   const user = useRecoilValue(authenticatedUserState);
-  const [contentInfo, setContentInfo] = useState<ContentInfo>({} as ContentInfo);
+  const [contentInfo, setContentInfo] = useState<ContentInfo>();
   useEffect(() => {
     const fetchData = async () => {
       try {

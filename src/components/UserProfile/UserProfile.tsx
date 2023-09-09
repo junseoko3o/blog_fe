@@ -12,28 +12,28 @@ const UserProfile = () => {
 
   return (
     <>
-        <div>
-          <img src={kuromi} className={styles.image}></img>
-          <Button
-            type="primary"
-            size="large"
-            icon={<SettingOutlined />}
-            className={styles.settingButton}
-            onClick={profileUpdateButton}
-          />
-        </div>
-        <List
+      <div>
+        <img src={kuromi} className={styles.image}></img>
+        <Button
+          type="primary"
           size="large"
-          dataSource={[
-            { title: 'Email', value: userInfo.user_email },
-            { title: 'Name', value: userInfo.user_name },
-          ]}
-          renderItem={(item) => (
-            <List.Item>
-              <Text strong>{item.title}:</Text> {item.value}
-            </List.Item>
-          )}
+          icon={<SettingOutlined />}
+          className={styles.settingButton}
+          onClick={profileUpdateButton}
         />
+      </div>
+      <List
+        size="large"
+        dataSource={[
+          { title: 'Email', value: userInfo?.user_email },
+          { title: 'Name', value: userInfo?.user_name },
+        ]}
+        renderItem={(item) => (
+          <List.Item>
+            <Text strong>{item.title}:</Text> {item.value}
+          </List.Item>
+        )}
+      />
     </>
   );
 };

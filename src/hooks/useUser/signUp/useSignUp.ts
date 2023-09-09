@@ -33,6 +33,10 @@ const useSignUp = () => {
       })
   }
 
+  const signUp = async () => {
+    await handledSignUp();
+  }
+
   const validatePassword = (rule: any, value: string, callback: (error?: string) => void) => {
     if (value && value !== password) {
       callback('비밀번호가 일치하지 않습니다.');
@@ -45,7 +49,7 @@ const useSignUp = () => {
     navigate('/');
   }
 
-  return { email, setEmail, password, setPassword, name, setName, handledSignUp, confirmPassword, setConfirmPassword, validatePassword, backLogin }
+  return { email, setEmail, password, setPassword, name, setName, signUp, confirmPassword, setConfirmPassword, validatePassword, backLogin }
 }
 
 export default useSignUp;

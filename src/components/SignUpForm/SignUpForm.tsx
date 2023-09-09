@@ -17,7 +17,7 @@ const SignUpForm = () => {
     setPassword,
     name,
     setName,
-    handledSignUp,
+    signUp,
     confirmPassword,
     setConfirmPassword,
     validatePassword,
@@ -30,7 +30,7 @@ const SignUpForm = () => {
       <Col span={8}>
         <img src={melody} alt="" className={styles.image} />
         <h1 className={styles.title}>SignUp</h1>
-        <Form className={styles.layout} onFinish={handledSignUp} {...layout}>
+        <Form className={styles.layout} onFinish={signUp} {...layout}>
           <Form.Item
             label="Email"
             name="email"

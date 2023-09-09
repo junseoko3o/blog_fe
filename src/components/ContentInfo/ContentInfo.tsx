@@ -14,14 +14,14 @@ const ContentInfo = () => {
   const { user, contentInfo } = useContentInfo(contentId);
   const { handleDelete } = useContentDelete(contentId);
   const navigate = useNavigate();
-  const shouldHideButtons = user.id !== contentInfo.created_user_id;
+  const shouldHideButtons = user.id !== contentInfo?.created_user_id;
   const handleEditClick = (contentId: number) => {
     navigate(`/content/edit/${contentId}`);
   };
   return (
     <>
       <div className={styles.infoContainer}>
-        <Title level={2}>{contentInfo.title}</Title>
+        <Title level={2}>{contentInfo?.title}</Title>
         <Text className={styles.content}>{contentInfo?.content}</Text>
         <Divider />
         <Space>
