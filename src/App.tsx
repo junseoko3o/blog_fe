@@ -11,6 +11,7 @@ import AppLayout from 'components/AppLayout/AppLayout';
 import GlobalConfigProvider from 'GlobalConfigProvider';
 import useRefreshToken from 'hooks/useUser/refreshToken/useRefreshToken';
 import SignUpForm from 'components/SignUpForm/SignUpForm';
+import ProfileUpdate from 'components/ProfileUpdate/ProfileUpdate';
 
 const App = () => {
   useUserAuthenticate();
@@ -31,6 +32,10 @@ const App = () => {
           <Route
             path="/profile"
             element={<AppLayout><UserProfile /></AppLayout>}
+          />
+          <Route
+            path="/profile/update"
+            element={<AppLayout><ProfileUpdate /></AppLayout>}
           />
           <Route
             path="/content/:id"

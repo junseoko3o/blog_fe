@@ -12,6 +12,7 @@
 }
 
 .backButton {
+  width: 40%;
   background: palevioletred;
   border-color: pink;
   color: white;

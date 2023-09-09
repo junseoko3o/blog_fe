@@ -1,18 +1,26 @@
 import React from 'react';
-import { Typography, List } from 'antd';
+import { Typography, List, Button } from 'antd';
 import useUserDetailInfo from 'hooks/useUser/userDetailInfo/useUserDetailInfo';
 import styles from './lib/userProfile.module.css';
 import kuromi from './lib/kuromi.png';
+import { SettingOutlined } from '@ant-design/icons';
 
 const { Text } = Typography;
 
 const UserProfile = () => {
-  const { userInfo } = useUserDetailInfo();
+  const { userInfo, profileUpdateButton } = useUserDetailInfo();
 
   return (
     <>
         <div>
           <img src={kuromi} className={styles.image}></img>
+          <Button
+            type="primary"
+            size="large"
+            icon={<SettingOutlined />}
+            className={styles.settingButton}
+            onClick={profileUpdateButton}
+          />
         </div>
         <List
           size="large"

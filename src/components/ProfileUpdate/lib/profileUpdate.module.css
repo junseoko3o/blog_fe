@@ -1,0 +1,37 @@
+.inputContainer {
+  display: flex;
+  width: 400px;
+}
+
+.passwordContainer {
+  margin-bottom: 16px;
+  width: 400px;
+}
+
+.cancelButton {
+  margin-left: 10px;
+}
+
+.passwordCheckContainer {
+  margin-bottom: 16px;
+  width: 400px;
+}
+
+.image {
+  width: 400px;
+  margin-bottom: 20px;
+}
+
+.passwordCheckButton {
+  margin-left: 130px;
+}
+
+.passwordConfirmContainer {
+  margin-bottom: 16px;
+  width: 400px;
+  display: flex;
+}
+
+.updateButton {
+  margin-left: 145px;
+}

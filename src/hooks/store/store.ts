@@ -15,6 +15,7 @@ export const authenticatedUserState = atom({
   key: 'authenticatedUserState',
   default: {
     id: 0,
+    user_email: '',
     user_name: '',
   }, 
 });
