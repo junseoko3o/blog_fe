@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router';
 const useLogout = () => {
   const navigate = useNavigate();
     const handleLogout = async () => {
-      await api.post('/user/logout')
+      await api.post('/auth/logout')
       .then(response => {
         message.success('로그아웃 완료');
         navigate('/');

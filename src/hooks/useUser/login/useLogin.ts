@@ -10,7 +10,7 @@ const useLogin = () => {
 
   const login = async (email: string, password: string) => {
     try {
-      await api.post('/user/login', { user_email: email, password })
+      await api.post('/auth/login', { user_email: email, password })
         .then((res) => {
           const data = res.data;
           setUser(data);
