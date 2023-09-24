@@ -22,7 +22,7 @@ const useLogin = () => {
             message.error('비번틀림');
           }
           if (error.response.status === 404) {
-            message.error('이메일 틀림')
+            message.error('이메일 틀림');
           };
         });
       } catch (err) {
