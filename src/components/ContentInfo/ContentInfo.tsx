@@ -22,7 +22,7 @@ const ContentInfo = () => {
     <>
       <div className={styles.infoContainer}>
         <Title level={2}>{contentInfo?.title}</Title>
-        <Text className={styles.content}>{contentInfo?.content}</Text>
+        <Text className={styles.content} style={{ whiteSpace: 'pre-line' }}>{contentInfo?.content}</Text>
         <Divider />
         <Space>
           {!shouldHideButtons && (
