@@ -28,9 +28,7 @@ const useSignUp = () => {
         response.data;
       })
       .catch(err => {
-        if (err.response.status === 400) {
-          message.error('이메일 이미 있음');
-        }
+        message.error('이메일 이미 있음');
       })
   }
 
