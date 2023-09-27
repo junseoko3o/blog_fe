@@ -18,11 +18,12 @@ const ContentInfo = () => {
   const handleEditClick = (contentId: number) => {
     navigate(`/content/edit/${contentId}`);
   };
+  const contentWithLineBreaks = contentInfo?.content.replace(/\n/g, '<br>');
   return (
     <>
       <div className={styles.infoContainer}>
         <Title level={2}>{contentInfo?.title}</Title>
-        <Text className={styles.content} style={{ whiteSpace: 'pre-line' }}>{contentInfo?.content}</Text>
+        <Text className={styles.content} style={{ whiteSpace: 'pre-wrap' }}>{contentInfo?.content}</Text>
         <Divider />
         <Space>
           {!shouldHideButtons && (
