@@ -11,9 +11,10 @@ FROM node:18-alpine AS build
 WORKDIR /app
 
 COPY --from=deps /app/node_modules ./node_modules
+COPY . .
 
 RUN yarn build
-COPY . .
+
 ENV NODE_ENV production
 
 ARG ARG_REACT_APP_SERVER_API
