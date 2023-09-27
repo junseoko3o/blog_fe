@@ -18,7 +18,6 @@ const ContentInfo = () => {
   const handleEditClick = (contentId: number) => {
     navigate(`/content/edit/${contentId}`);
   };
-  const contentWithLineBreaks = contentInfo?.content.replace(/\n/g, '<br>');
   return (
     <>
       <div className={styles.infoContainer}>
