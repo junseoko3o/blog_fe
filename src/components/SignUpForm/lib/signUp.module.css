@@ -2,44 +2,49 @@
   text-align: center;
 }
 
-.signUpButton {
-  width: 40%;
-  background: palevioletred;
-  border-color: pink;
-  color: white;
-  margin-left: 180px; 
-  display: block; 
+.buttonContainer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 
-.backButton {
-  width: 40%;
+.signUpButton, .backButton {
+  width: 25%;
   background: palevioletred;
   border-color: pink;
   color: white;
-  margin-left: 20px;
-  display: block; 
+  display: block;
+  margin: 5px 6px;
 }
 
 .image {
-  width: 500px;
-  height: 450px;
-  
+  max-width: 100%;
+  height: 400px;
+  display: block;
+  margin: 0 auto;
 }
 
 .title {
   font-style: italic;
   color: palevioletred;
-  margin-left: 220px;
+  text-align: center;
+  margin-left: 30px;
 }
 
 .container {
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
 }
 
-.buttonContainer {
-  display: flex;
-  justify-content: space-between; 
-  align-items: center; 
+
+@media (max-width: 768px) {
+  .signUpButton, .backButton {
+    width: 80%;
+  }
+  
+  .title {
+    margin-left: 0;
+    text-align: center;
+    margin-right: 0;
+  }
 }

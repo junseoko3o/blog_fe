@@ -1,10 +1,10 @@
-.loginButton {
+.loginButton, .signUpButton {
   width: 30%;
   background: navy;
   border-color: navy;
   color: white;
-  margin-left: 150px; 
-  display: block; 
+  display: block;
+  margin: 10px 5px; 
 }
 
 .title {
@@ -12,28 +12,30 @@
 }
 
 .image {
-  width: 500px;
-  height: 450px;
-  margin-left: 10px;
-}
-
-.signUpButton {
-  width: 30%;
-  background: navy;
-  border-color: navy;
-  color: white;
-  margin-left: 20px;
-  display: block; 
+  max-width: 100%;
+  height: 400px;
+  margin: 0 55px;
 }
 
 .buttonContainer {
   display: flex;
-  justify-content: space-between; 
-  align-items: center; 
+  justify-content: flex-end;
+  align-items: center;
 }
 
 .container {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+}
+
+@media (max-width: 768px) {
+  .loginButton, .signUpButton {
+    width: 80%;
+    margin: 10px auto;
+  }
+  
+  .image {
+    margin: 0 auto;
+  }
 }
