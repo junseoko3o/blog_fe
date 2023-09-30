@@ -26,7 +26,7 @@
 
 @keyframes fall {
   0% {
-    transform: translateY(-30vh) translateX(0);
+    transform: translateY(-5vh) translateX(0);
   }
   100% {
     transform: translateY(100vh) translateX(100vw);
