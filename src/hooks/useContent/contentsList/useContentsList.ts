@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { ContentList } from './lib/interface';
 import { useRecoilValue } from 'recoil';
 import { message } from 'antd';
-import api from 'api/api';
 import { userState } from 'hooks/store/store';
 import useSwr from 'swr';
 

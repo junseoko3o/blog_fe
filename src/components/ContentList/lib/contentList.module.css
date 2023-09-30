@@ -130,3 +130,17 @@ th {
     padding: 5px 10px;
   }
 }
+
+.search {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.searchInput {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 200px;
+  font-size: 14px;
+}
