@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import moment from 'moment';
 import styles from './lib/contentList.module.css';
 import useContentList from 'hooks/useContent/contentsList';
+import useHeartAnimation from 'hooks/useHeartAnimation/useHeartAnimation';
 
 const ContentList = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -10,7 +11,7 @@ const ContentList = () => {
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   }
-
+  useHeartAnimation();
   return (
     <>
       <table className={styles.table}>
