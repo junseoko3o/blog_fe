@@ -28,3 +28,19 @@
 .logoutButton:hover {
   background-color: #082b50;
 }
+
+@media (max-width: 768px) {
+  .content {
+    margin: 10px;
+  }
+  
+  .logoutButton {
+    margin: 10px 0;
+  }
+}
+
+@media (min-width: 769px) {
+  .content {
+    margin: 20px;
+  }
+}

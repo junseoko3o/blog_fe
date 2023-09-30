@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import styles from './lib/contentList.module.css';
 import useContentList from 'hooks/useContent/contentsList';
 
 const ContentList = () => {
-  const { contentList } = useContentList();
+  const [currentPage, setCurrentPage] = useState(1);
+  const { contentList } = useContentList(currentPage);
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  }
+
   return (
     <>
       <table className={styles.table}>
@@ -32,6 +37,18 @@ const ContentList = () => {
           ))}
         </tbody>
       </table>
+      <div className={styles.pagination}>
+        <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
+          Previous
+        </button>
+        <span>Page {currentPage}</span>
+        <button
+          onClick={() => handlePageChange(currentPage + 1)}
+          disabled={contentList.length < 10 }
+        >
+          Next
+        </button>
+      </div>
     </>
   );
 };

@@ -56,5 +56,77 @@ th {
   font-size: 16px;
 }
 
+.pagination {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.pagination button {
+  background-color: navy;
+  color: #ffffff;
+  border: none;
+  padding: 5px 20px;
+  margin-right: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  outline: none;
+}
+
+.pagination button:disabled {
+  background-color: #d3d3d3;
+  cursor: not-allowed;
+}
+
+.pagination span {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  margin-right: 10px; 
+}
 
 
+@media screen and (max-width: 768px) {
+  .title {
+    width: 100%;
+  }
+
+  .text {
+    padding-left: 20px;
+  }
+
+  .link {
+    font-size: 16px;
+  }
+
+  th, td {
+    padding: 8px;
+  }
+
+  .pagination {
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .pagination button {
+    padding: 5px 15px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .text {
+    padding-left: 10px;
+  }
+
+  .link {
+    font-size: 14px;
+  }
+
+  th, td {
+    padding: 6px;
+  }
+
+  .pagination button {
+    padding: 5px 10px;
+  }
+}
