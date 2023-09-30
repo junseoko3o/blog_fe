@@ -1,6 +1,6 @@
 .heart {
   border-color: #ffcccb transparent transparent;
-  position: absolute;
+  position: fixed;
   animation: fall 10s linear infinite;
   transform: rotate(45deg);
 }
