@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Input, Row, Col } from 'antd';
 import { useParams } from 'react-router';
+import styles from './lib/comment.module.css';
 import useCommentPost from 'hooks/useComment/commentPost';
 
 const CommentPost = () => {
@@ -20,7 +21,7 @@ const CommentPost = () => {
           />
         </Col>
         <Col span={6}>
-          <Button type="primary" onClick={handleCreatePost}>
+          <Button type="primary" onClick={handleCreatePost} className={styles.postButton}>
             Add Comment
           </Button>
         </Col>
