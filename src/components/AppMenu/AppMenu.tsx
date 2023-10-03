@@ -33,6 +33,7 @@ const AppMenu = () => {
         }))}
         mode="inline"
         className={styles.menu}
+        defaultOpenKeys={['']} 
       >
       </Menu>
     </>
