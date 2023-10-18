@@ -12,6 +12,7 @@ import GlobalConfigProvider from 'GlobalConfigProvider';
 import useRefreshToken from 'hooks/useUser/refreshToken/useRefreshToken';
 import SignUpForm from 'components/SignUpForm/SignUpForm';
 import ProfileUpdate from 'components/ProfileUpdate/ProfileUpdate';
+import Chat from 'components/Chat/Chat';
 
 const App = () => {
   useUserAuthenticate();
@@ -44,6 +45,10 @@ const App = () => {
             <Route
             path="/content/edit/:id"
             element={<AppLayout><ContentUpdate /></AppLayout>}
+          />
+             <Route
+            path="/chat"
+            element={<AppLayout><Chat /></AppLayout>}
           />
         </Routes>
     </GlobalConfigProvider>

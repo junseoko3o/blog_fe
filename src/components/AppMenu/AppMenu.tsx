@@ -1,4 +1,4 @@
-import { EditOutlined, HomeOutlined, UserOutlined } from "@ant-design/icons";
+import { EditOutlined, HomeOutlined, MessageOutlined, UserOutlined } from "@ant-design/icons";
 import { Menu } from "antd";
 import { Link } from "react-router-dom";
 import styles from './lib/menu.module.css';
@@ -20,6 +20,11 @@ const AppMenu = () => {
       link: '/write',
       icon: <EditOutlined />,
     },
+    {
+      title: 'Chat',
+      link: '/chat',
+      icon: <MessageOutlined />
+    }
   ];
   
   return (

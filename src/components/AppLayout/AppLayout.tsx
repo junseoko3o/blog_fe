@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Layout } from "antd";
+import { Layout, Modal } from "antd";
 import { LogoutOutlined } from "@ant-design/icons";
 import kuromi from './lib/kuromi.png';
 import styles from './lib/appLayout.module.css';
