@@ -1,18 +1,19 @@
-import { authenticatedUserState } from "hooks/store/store";
-import { UserAuthentication } from "hooks/useUser/athenticate";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import io from 'socket.io-client';
+import { authenticatedUserState } from "hooks/store/store";
+import { Message } from "./lib/interface";
 
 const socket = io('http://localhost:8080');
+
 const useChat = () => {
   const user = useRecoilValue(authenticatedUserState);
-  const [messages, setMessages] = useState<string[]>([]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    socket.on('message', (message) => {
-      setMessages(prevMessages => [...prevMessages, message ]);
+    socket.on('message', (data: Message) => {
+      setMessages(prevMessages => [...prevMessages, data]);
     });
     return () => {
       socket.disconnect();
@@ -20,17 +21,27 @@ const useChat = () => {
   }, []);
 
   const sendMessage = () => {
-    if (message.trim() !== '') {
-      socket.emit('message', { user, message });
+    if (user && user.id && message.trim() !== '') {
+      const createChatDto: Message = {
+        userId: user.id,
+        email: user.user_email,
+        message: message
+      };
+      socket.emit('message', createChatDto);
       setMessage('');
     }
   };
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setMessage(event.target.value);
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      sendMessage();
+    }
   };
-
-  return { user, message, setMessage, messages, sendMessage, handleInputChange }
+  
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setMessage(e.target.value);
+  };
+  return { user, message, setMessage, messages, sendMessage, handleKeyPress, handleInputChange };
 }
 
 export default useChat;
