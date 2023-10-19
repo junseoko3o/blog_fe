@@ -1,8 +1,11 @@
+import useHeartAnimation from 'hooks/useHeartAnimation';
 import styles from './lib/chat.module.css';
 import useChat from "hooks/useChat";
 
 const Chat = () => {
+  useHeartAnimation();
   const { user, messages, message, handleInputChange, handleKeyPress, sendMessage } = useChat();
+  
   return (
     <div className={styles.chatContainer}>
       <div className={styles.chatMessages}>
