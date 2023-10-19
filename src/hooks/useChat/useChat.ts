@@ -1,25 +1,36 @@
-import { useState } from "react";
+import { authenticatedUserState } from "hooks/store/store";
+import { UserAuthentication } from "hooks/useUser/athenticate";
+import { useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
+import io from 'socket.io-client';
 
+const socket = io('http://localhost:8080');
 const useChat = () => {
-  const [message, setMessage] = useState<string>('');
-  const [chat, setChat] = useState<{ text: string; isUser: boolean }[]>([]);
-  const [responses, setResponses] = useState<string>('response');
+  const user = useRecoilValue(authenticatedUserState);
+  const [messages, setMessages] = useState<string[]>([]);
+  const [message, setMessage] = useState('');
 
+  useEffect(() => {
+    socket.on('message', (message) => {
+      setMessages(prevMessages => [...prevMessages, message ]);
+    });
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
+
+  const sendMessage = () => {
+    if (message.trim() !== '') {
+      socket.emit('message', { user, message });
+      setMessage('');
+    }
+  };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setMessage(event.target.value);
   };
 
-  const handleSendMessage = () => {
-    if (message.trim() !== '') {
-      const newChatEntry = { text: message, isUser: true };
-      const responseEntry = { text: responses, isUser: false };
-      setChat(prevChat => [...prevChat, newChatEntry, responseEntry]);
-      setMessage('');
-    }
-  };
-
-  return { message, chat, responses, handleInputChange, handleSendMessage }
+  return { user, message, setMessage, messages, sendMessage, handleInputChange }
 }
 
 export default useChat;
