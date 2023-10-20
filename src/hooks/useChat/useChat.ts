@@ -4,7 +4,8 @@ import io from 'socket.io-client';
 import { authenticatedUserState } from "hooks/store/store";
 import { Message } from "./lib/interface";
 
-const socket = io('http://localhost:8080');
+const api = process.env.REACT_APP_SERVER_API || '';
+const socket = io(api);
 
 const useChat = () => {
   const user = useRecoilValue(authenticatedUserState);
