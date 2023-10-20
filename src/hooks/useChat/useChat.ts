@@ -24,7 +24,7 @@ const useChat = () => {
     if (user && user.id && message.trim() !== '') {
       const createChatDto: Message = {
         userId: user.id,
-        email: user.user_email,
+        name: user.user_name,
         message: message
       };
       socket.emit('message', createChatDto);
