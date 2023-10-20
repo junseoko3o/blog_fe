@@ -9,14 +9,15 @@ const Chat = () => {
   return (
     <div className={styles.chatContainer}>
       <div className={styles.chatMessages}>
-        {messages.map((msg, index) => (
+        {messages.map((e, i) => (
           <div
-            key={index}
+            key={i}
             className={`${styles.message} ${
-              msg.userId === user.id ? styles.user : styles.response
+              e.userId === user.id ? styles.user : styles.response
             }`}
           >
-            {msg.message}
+          {e.userId === user.id && <p className={styles.name}>{e.name}</p>}
+          {e.message}
           </div>
         ))}
       </div>
