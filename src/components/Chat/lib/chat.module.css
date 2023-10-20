@@ -1,13 +1,13 @@
 .chatContainer {
   display: flex;
   flex-direction: column;
-  height: 600px;
+  max-height: 500px;
   width: 800px;
   border: 1px solid #ccc;
   border-radius: 20px;
   overflow: hidden;
   padding: 20px;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .chatMessages {
@@ -18,11 +18,17 @@
 }
 
 .message {
-  max-width: 70%;
+  max-width: 150px;
   padding: 10px 15px;
   border-radius: 15px;
   word-wrap: break-word;
   overflow-y: auto;
+}
+
+.userName {
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
 }
 
 .user {
