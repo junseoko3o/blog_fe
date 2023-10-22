@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRecoilValue } from "recoil";
 import io from 'socket.io-client';
 import { authenticatedUserState } from "hooks/store/store";
@@ -51,7 +51,13 @@ const useChat = () => {
     setMessage(e.target.value);
   };
 
-  return { user, message, setMessage, messages, sendMessage, handleKeyPress, handleInputChange };
+  const messageEndRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
+
+  return { user, message, setMessage, messages, sendMessage, handleKeyPress, handleInputChange, messageEndRef };
 }
 
 export default useChat;
