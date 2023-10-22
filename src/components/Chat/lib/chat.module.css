@@ -18,11 +18,20 @@
 }
 
 .message {
-  max-width: 150px;
   padding: 10px 15px;
   border-radius: 15px;
   word-wrap: break-word;
   overflow-y: auto;
+  width: auto;
+  max-width: 70%;
+}
+
+.message:empty {
+  width: auto;
+}
+
+.message:not(:empty) {
+  width: fit-content;
 }
 
 .userName {
