@@ -5,12 +5,7 @@ import useChat from "hooks/useChat";
 
 const Chat = () => {
   useHeartAnimation();
-  const { user, messages, message, handleInputChange, handleKeyPress, sendMessage } = useChat();
-  const messageEndRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
+  const { user, messages, message, handleInputChange, handleKeyPress, sendMessage, messageEndRef } = useChat();
 
   return (
     <div>
