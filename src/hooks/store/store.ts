@@ -19,3 +19,18 @@ export const authenticatedUserState = atom({
     user_name: '',
   }, 
 });
+
+export const loginCheck = atom({
+  key: 'loginCheck',
+  default: {
+    user: {
+      id: null,
+      user_email: null,
+      user_name: null,
+      access_token: null,
+      refresh_token: null,
+    },
+    userList: null,
+    login: null,
+  }
+})

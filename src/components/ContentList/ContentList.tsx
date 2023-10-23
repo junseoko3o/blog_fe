@@ -18,6 +18,7 @@ const ContentList = () => {
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   }
+  
   return (
     <>
       <div className={styles.search}>
