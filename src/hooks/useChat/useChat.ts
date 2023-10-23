@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { useRecoilValue } from "recoil";
-import io from 'socket.io-client';
 import { authenticatedUserState } from "hooks/store/store";
 import { Message } from "./lib/interface";
 import useSwr from 'swr';
+import io from 'socket.io-client';
 
 const api = process.env.REACT_APP_SERVER_API || '';
 const socket = io(api);

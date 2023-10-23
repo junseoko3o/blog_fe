@@ -3,6 +3,14 @@ import { useRecoilState } from 'recoil';
 import { message } from 'antd';
 import { useNavigate } from 'react-router';
 import { userState } from 'hooks/store/store';
+import io from 'socket.io-client';
+
+const socketApi = process.env.REACT_APP_SERVER_API || '';
+const socket = io(socketApi);
+
+socket.on('loggedIn', (data) => {
+  console.log('data', data);
+});
 
 const useLogin = () => {
   const [user, setUser] = useRecoilState(userState);
@@ -32,6 +40,7 @@ const useLogin = () => {
 
   const handledLogin = async (values: { email: string, password: string }) => {
     const { email, password } = values;
+    socket.emit('login', user);
     await login(email, password);
   };
 
