@@ -5,10 +5,6 @@ import styles from './lib/login.module.css';
 import useLogin from 'hooks/useUser/login/useLogin';
 
 const { Title } = Typography;
-const layout = {
-  labelCol: { span: 4 }, 
-  wrapperCol: { span: 18 },
-};
 
 const LoginForm = () => {
   const { handledLogin, signUp } = useLogin();
@@ -21,7 +17,7 @@ const LoginForm = () => {
         <Col span={8} className={styles.col}>
           <img src={logo} alt="" className={styles.image} />
           <Title level={2} className={styles.title}>Login</Title>
-        <Form name="login" onFinish={handledLogin} {...layout}>
+        <Form name="login" onFinish={handledLogin}>
             <Form.Item
               name="email"
               label="Email"

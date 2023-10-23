@@ -30,7 +30,7 @@ export const loginCheck = atom({
       access_token: null,
       refresh_token: null,
     },
-    userList: null,
+    userList: 0,
     login: null,
   }
 })

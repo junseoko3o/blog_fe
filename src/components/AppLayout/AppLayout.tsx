@@ -5,16 +5,13 @@ import kuromi from './lib/kuromi.png';
 import styles from './lib/appLayout.module.css';
 import AppMenu from "components/AppMenu/AppMenu";
 import useLogout from "hooks/useUser/logout/useLogout";
-import { useRecoilValue } from "recoil";
-import { loginCheck } from "hooks/store/store";
 
 const { Sider, Content, Header } = Layout;
 
 const AppLayout = ({ children }: { children: React.ReactNode }) => {
-  const [collapsed, setCollapsed] = useState<boolean>(true);
-  const loginUser = useRecoilValue(loginCheck);
+  const [collapsed, setCollapsed] = useState<boolean>(false);
   const { handleLogout } = useLogout();
-
+  
   const toggleMenu = () => {
     setCollapsed(!collapsed);
   };
@@ -30,7 +27,7 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
         </Sider>
         <Layout>
           <Header className={styles.header}>
-            Lee Jae Gyeong , 접속자 {loginUser.userList} 명
+            Lee Jae Gyeong
             <button onClick={handleLogout} className={styles.logoutButton}> <LogoutOutlined /></button>
           </Header>
           <Content className={styles.content}>

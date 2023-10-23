@@ -4,11 +4,6 @@ import styles from './lib/signUp.module.css'
 import melody from './lib/melody.png';
 import useSignUp from 'hooks/useUser/signUp';
 
-const layout = {
-  labelCol: { span: 5 },
-  wrapperCol: { span: 18 },
-};
-
 const SignUpForm = () => {
   const {
     email,
@@ -30,7 +25,7 @@ const SignUpForm = () => {
       <Col span={8}>
         <img src={melody} alt="" className={styles.image} />
         <h1 className={styles.title}>SignUp</h1>
-        <Form className={styles.layout} onFinish={signUp} {...layout}>
+        <Form className={styles.layout} onFinish={signUp}>
           <Form.Item
             label="Email"
             name="email"

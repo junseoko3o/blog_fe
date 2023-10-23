@@ -16,16 +16,12 @@ const useLogin = () => {
 
   useEffect(() => {
     socket.connect();
-
     socket.on('loggedIn', (data) => {
       if (data) {
         setLogined(data);
         return logined;
       }
     });
-    return () => {
-      socket.disconnect();
-    };
   }, []);
 
   const login = async (email: string, password: string) => {
