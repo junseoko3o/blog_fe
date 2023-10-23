@@ -11,7 +11,7 @@ import { loginCheck } from "hooks/store/store";
 const { Sider, Content, Header } = Layout;
 
 const AppLayout = ({ children }: { children: React.ReactNode }) => {
-  const [collapsed, setCollapsed] = useState<boolean>(false);
+  const [collapsed, setCollapsed] = useState<boolean>(true);
   const loginUser = useRecoilValue(loginCheck);
   const { handleLogout } = useLogout();
 

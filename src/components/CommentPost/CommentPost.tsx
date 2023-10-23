@@ -10,7 +10,7 @@ const CommentPost = () => {
   const { comment, setComment, handleCreatePost} = useCommentPost(contentId);
 
   return (
-    <div>
+    <div className={styles.container}>
       <Row gutter={16}>
         <Col span={18}>
           <Input

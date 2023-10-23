@@ -11,3 +11,7 @@
   border-color: navy;
   color: white;
 }
+
+.text {
+  max-height: 350px;
+}

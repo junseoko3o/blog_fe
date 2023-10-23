@@ -28,6 +28,7 @@ const ContentUpdate = () => {
           <label htmlFor="content">Content</label>
           <Input.TextArea
             id="content"
+            className={styles.text}
             name="content"
             value={content}
             onChange={e => setContent(e.target.value)}
