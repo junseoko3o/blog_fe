@@ -85,52 +85,6 @@ th {
   margin-right: 10px; 
 }
 
-
-@media screen and (max-width: 480px) {
-  .title {
-    width: 100%;
-  }
-
-  .text {
-    padding-left: 20px;
-  }
-
-  .link {
-    font-size: 16px;
-  }
-
-  th, td {
-    padding: 8px;
-  }
-
-  .pagination {
-    justify-content: center;
-    margin-top: 20px;
-  }
-
-  .pagination button {
-    padding: 5px 15px;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .text {
-    padding-left: 10px;
-  }
-
-  .link {
-    font-size: 14px;
-  }
-
-  th, td {
-    padding: 6px;
-  }
-
-  .pagination button {
-    padding: 5px 10px;
-  }
-}
-
 .search {
   display: flex;
   align-items: center;
@@ -143,4 +97,24 @@ th {
   border-radius: 5px;
   width: 200px;
   font-size: 14px;
+}
+
+@media screen and (max-width: 480px) {
+  .Text {
+    padding-left: 16px;
+  }
+
+  .table {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .title {
+    width: auto;
+  }
+
+  .searchInput {
+    width: 100%;
+    margin-right: 8px;
+  }
 }
