@@ -21,52 +21,54 @@ const ContentList = () => {
   
   return (
     <>
-      <div className={styles.search}>
-        <input
-          type="text"
-          placeholder="Search content"
-          value={keyword}
-          onChange={(e) => handleKeywordChange(e.target.value)}
-          className={styles.searchInput}
-        />
-      </div>
-      <table className={styles.table}>
-        <thead>
-          <tr>
-            <th className={styles.no}>No.</th>
-            <th className={styles.title}>Title</th>
-            <th>User</th>
-            <th>Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredContentList.map((content, index) => (
-            <tr key={content.id}>
-              <td>{index + 1}</td>
-              <td className={styles.centerAlign}>
-                <Link to={`/content/${content.id}`} className={styles.link}>
-                  {content.title.length > 10 ? content.title.slice(0, 50) + '...' : content.title}
-                </Link>
-              </td>
-              <td className={styles.username}>{content.user_name}</td>
-              <td className={styles.updateAt}>
-                {moment(content.updated_at).format('YYYY-MM-DD HH:mm:ss')}
-              </td>
+      <div className={styles.container}>
+        <div className={styles.search}>
+          <input
+            type="text"
+            placeholder="Search content"
+            value={keyword}
+            onChange={(e) => handleKeywordChange(e.target.value)}
+            className={styles.searchInput}
+          />
+        </div>
+        <table className={styles.table}>
+          <thead>
+            <tr>
+              <th className={styles.no}>No.</th>
+              <th className={styles.title}>Title</th>
+              <th>User</th>
+              <th>Date</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-      <div className={styles.pagination}>
-        <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
-          Previous
-        </button>
-        <span>Page {currentPage}</span>
-        <button
-          onClick={() => handlePageChange(currentPage + 1)}
-          disabled={filteredContentList.length < 10}
-        >
-          Next
-        </button>
+          </thead>
+          <tbody>
+            {filteredContentList.map((content, index) => (
+              <tr key={content.id}>
+                <td>{index + 1}</td>
+                <td className={styles.centerAlign}>
+                  <Link to={`/content/${content.id}`} className={styles.link}>
+                    {content.title.length > 10 ? content.title.slice(0, 50) + '...' : content.title}
+                  </Link>
+                </td>
+                <td className={styles.username}>{content.user_name}</td>
+                <td className={styles.updateAt}>
+                  {moment(content.updated_at).format('YYYY-MM-DD HH:mm:ss')}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <div className={styles.pagination}>
+          <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
+            Previous
+          </button>
+          <span>Page {currentPage}</span>
+          <button
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={filteredContentList.length < 10}
+          >
+            Next
+          </button>
+        </div>
       </div>
     </>
   );
