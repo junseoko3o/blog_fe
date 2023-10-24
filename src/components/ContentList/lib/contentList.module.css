@@ -86,7 +86,7 @@ th {
 }
 
 
-@media screen and (max-width: 828px) {
+@media screen and (max-width: 480px) {
   .title {
     width: 100%;
   }

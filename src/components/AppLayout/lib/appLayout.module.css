@@ -39,13 +39,33 @@
   background: #ffffff;
 }
 
-@media screen and (max-width: 828px) {
+@media screen and (max-width: 480px) {
+  .header {
+    padding: 0 8px;
+    height: auto;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .headerContent {
+    margin-bottom: 12px;
+  }
+
   .image {
+    margin-right: 0;
     margin-bottom: 8px;
   }
 
   .userName {
     margin-right: 0;
     margin-bottom: 8px;
+  }
+
+  .menuList {
+    margin-left: 20px;
+  }
+
+  .content {
+    padding: 16px;
   }
 }

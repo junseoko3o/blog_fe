@@ -1,6 +1,10 @@
 .container {
-  width: 400px;
+  margin: 20px;
+  padding: 20px;
+  border-radius: 10px;
   max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .inputContainer {
@@ -22,19 +26,8 @@
   margin-bottom: 10px;
 }
 
-@media screen and (max-width: 828px) {
-  .inputField {
-    width: 70%;
-  }
-}
-
-@media screen and (max-width: 828px) {
-  .inputField {
-    width: 60%;
-  }
-}
-@media screen and (max-width: 828px) {
-  .inputField {
-    width: 90%;
+@media screen and (max-width: 480px) {
+  .postButton {
+    display: flex;
   }
 }
