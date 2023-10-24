@@ -61,10 +61,16 @@ const useLogin = () => {
     await login();
   };
 
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handledLogin();
+    }
+  };
+
   const signUp = () => {
     navigate('/signup');
   }
-  return { email, setEmail, password, setPassword, login, signUp, handledLogin };
+  return { email, setEmail, password, setPassword, login, signUp, handledLogin, handleKeyPress };
 }
 
 export default useLogin;

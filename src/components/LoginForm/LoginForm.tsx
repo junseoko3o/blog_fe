@@ -6,7 +6,7 @@ import { Button } from 'antd';
 
 
 const LoginForm = () => {
-  const { email, setEmail, password, setPassword, handledLogin, signUp } = useLogin();
+  const { email, setEmail, password, setPassword, handledLogin, signUp, handleKeyPress } = useLogin();
   const [showPassword, setShowPassword] = useState(false);
 
   return (
@@ -42,7 +42,7 @@ const LoginForm = () => {
             </div>
 
             <div className={styles.buttonContainer}>
-              <Button type="primary" onClick={handledLogin} className={styles.loginButton}>
+              <Button type="primary" onClick={handledLogin} className={styles.loginButton} onKeyPress={handleKeyPress}>
                 Login
               </Button>
               <Button type="primary" onClick={signUp} className={styles.signUpButton}>
