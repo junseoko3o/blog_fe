@@ -22,19 +22,18 @@
   margin-bottom: 10px;
 }
 
-@media (max-width: 768px) {
+@media screen and (max-width: 828px) {
   .inputField {
     width: 70%;
   }
 }
 
-@media (max-width: 480px) {
+@media screen and (max-width: 828px) {
   .inputField {
     width: 60%;
   }
 }
-
-@media (min-width: 1200px) {
+@media screen and (max-width: 828px) {
   .inputField {
     width: 90%;
   }

@@ -27,7 +27,7 @@
   margin-top: 40px;
 }
 
-@media (max-width: 768px) {
+@media screen and (max-width: 828px) {
   .infoContainer {
     padding: 10px;
   }
