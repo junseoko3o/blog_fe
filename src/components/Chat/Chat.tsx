@@ -28,7 +28,7 @@ const Chat = () => {
           type="text"
           value={message}
           onChange={handleInputChange}
-          onKeyPress={handleKeyPress}
+          onKeyDown={handleKeyPress}
           placeholder="메시지를 입력하세요..."
         />
         <button onClick={sendMessage}>전송</button>

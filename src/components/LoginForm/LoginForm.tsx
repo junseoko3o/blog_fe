@@ -12,7 +12,7 @@ const LoginForm = () => {
   return (
     <>
       <div className={styles.container}>
-          <img src={logo} alt="" className={styles.image} />
+        <img src={logo} alt="" className={styles.image} />
           <h2 className={styles.title}>Login</h2>
           <form className={styles.loginForm} name="login" onSubmit={handledLogin}>
             <div className={styles.email}>
@@ -31,6 +31,7 @@ const LoginForm = () => {
                 type={showPassword ? 'text' : 'password'}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                onKeyDown={handleKeyPress}
                 required
               />
               <span
@@ -42,7 +43,7 @@ const LoginForm = () => {
             </div>
 
             <div className={styles.buttonContainer}>
-              <Button type="primary" onClick={handledLogin} className={styles.loginButton} onKeyPress={handleKeyPress}>
+              <Button type="primary" onClick={handledLogin} className={styles.loginButton}>
                 Login
               </Button>
               <Button type="primary" onClick={signUp} className={styles.signUpButton}>
