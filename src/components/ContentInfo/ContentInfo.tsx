@@ -21,7 +21,7 @@ const ContentInfo = () => {
   return (
     <>
       <div className={styles.infoContainer}>
-        <Title level={2}>{contentInfo?.title}</Title>
+        <h1>{contentInfo?.title}</h1>
         <Text className={styles.content} style={{ whiteSpace: 'pre-wrap' }}>{contentInfo?.content}</Text>
         <Divider />
         <Space>

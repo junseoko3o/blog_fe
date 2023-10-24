@@ -1,26 +1,41 @@
 .container {
-  max-width: 200px;
+  width: 400px;
+  max-width: 600px;
 }
 
-.div {
-  width: 100%;
+.inputContainer {
+  display: flex;
+  align-items: center;
 }
 
-.updateButton {
-  background-color: navy;
+.inputField {
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  box-sizing: border-box;
 }
 
-.deleteButton {
-  background-color: darkred;
-  margin-left: 10px;
+.postButton {
+  cursor: pointer;
+  font-size: 16px;
+  margin-bottom: 10px;
 }
 
-.comment {
-  font-size: medium;
-  font-weight: bold;
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+@media (max-width: 768px) {
+  .inputField {
+    width: 70%;
+  }
 }
 
-.info {
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+@media (max-width: 480px) {
+  .inputField {
+    width: 60%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .inputField {
+    width: 90%;
+  }
 }

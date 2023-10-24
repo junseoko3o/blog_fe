@@ -1,47 +1,63 @@
-.header {
-  color: white;
-}
-
-.content {
-  margin: 16px 16px 16px 16px;
-}
-
 .layout {
-  min-height: 100vh;
+  background-color: #f0f2f5;
+}
+
+.header {
+  background-color: #001529;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+  height: 80px;
+}
+
+.headerContent {
+  display: flex;
+  align-items: center;
 }
 
 .image {
-  width: 90px;
+  width: 70px;
+  height: 70px;
+  margin-right: 35px;
+}
+
+.userName {
+  color: #ffffff;
+  margin-right: 16px;
+  font-size: 18px;
 }
 
 .logoutButton {
-  background-color: #080942; 
-  color: white; 
-  border: none; 
-  padding: 10px 10px;
-  border-radius: 5px;
+  background: none;
+  border: none;
   cursor: pointer;
-  float: right;
-  margin: 15px 20px;
+  color: #ffffff;
+  font-size: 16px;
 }
 
-.logoutButton:hover {
-  background-color: #082b50;
+.menuList {
+  margin-left: auto;
+}
+
+.content {
+  flex: 1;
+  padding: 24px;
+  background: #ffffff;
 }
 
 @media (max-width: 768px) {
-  .content {
-    margin: 10px;
+  .headerContent {
+    flex-direction: column;
+    align-items: flex-start;
   }
-  
-  .logoutButton {
-    margin: 10px 0;
-    float: none;
-  }
-}
 
-@media (min-width: 769px) {
-  .content {
-    margin: 20px;
+  .image {
+    margin-bottom: 8px;
+  }
+
+  .userName {
+    margin-right: 0;
+    margin-bottom: 8px;
   }
 }

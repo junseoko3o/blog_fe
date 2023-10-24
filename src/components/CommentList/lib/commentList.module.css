@@ -1,32 +1,83 @@
-.div {
-  width: 100%;
+.commentList {
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.commentItem {
+  margin-bottom: 20px;
+}
+
+.commentText {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.info {
+  font-size: 14px;
+  color: #888;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
 }
 
 .updateButton {
   background-color: navy;
+  color: white;
 }
 
 .deleteButton {
   background-color: darkred;
+  color: white;
   margin-left: 10px;
 }
 
-.comment {
-  font-size: medium;
-  font-weight: bold;
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+.updateButtonn {
+  margin-top: 10px;
+  background-color: navy;
+  color: white;
 }
 
-.info {
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+.cancelButton {
+  margin-top: 10px;
+  background-color: darkred;
+  color: white;
 }
 
-.loadMoreButtonContainer {
-  display: flex;
-  justify-content: center;
-  margin-top: 16px;
+
+.loadMoreButton {
+  margin-top: 20px;
+  width: 100%;
 }
 
-.loadMoreButtonContainer button {
-  margin: 0 8px;
+@media (max-width: 768px) {
+  .commentList {
+    padding: 10px;
+    max-width: 100%;
+  }
+
+  .commentText {
+    font-size: 14px;
+  }
+
+  .info {
+    font-size: 12px;
+  }
+
+  .buttonContainer {
+    flex-direction: column;
+  }
+
+  .updateButton,
+  .deleteButton {
+    width: 100%;
+    margin: 5px 0;
+  }
 }

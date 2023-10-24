@@ -11,21 +11,18 @@ const CommentPost = () => {
 
   return (
     <div className={styles.container}>
-      <Row gutter={16}>
-        <Col span={18}>
-          <Input
-            type='text'
-            value={comment}
-            onChange={e => setComment(e.target.value)}
-            placeholder="Add a new comment"
-          />
-        </Col>
-        <Col span={6}>
-          <Button type="primary" onClick={handleCreatePost} className={styles.postButton}>
-            Add Comment
-          </Button>
-        </Col>
-      </Row>
+      <div className={styles.inputContainer}>
+        <input
+          type="text"
+          value={comment}
+          onChange={(e) => setComment(e.target.value)}
+          placeholder="Add a new comment"
+          className={styles.inputField}
+        />
+        <Button type='primary' onClick={handleCreatePost} className={styles.postButton}>
+        Post
+        </Button>
+      </div>
     </div>
   );
 };

@@ -1,9 +1,12 @@
-import { EditOutlined, HomeOutlined, MessageOutlined, UserOutlined } from "@ant-design/icons";
+import { EditOutlined, HomeOutlined, LogoutOutlined, MessageOutlined, UserOutlined } from "@ant-design/icons";
 import { Menu } from "antd";
 import { Link } from "react-router-dom";
 import styles from './lib/menu.module.css';
+import useLogout from "hooks/useUser/logout";
 
 const AppMenu = () => {
+  const { handleLogout } = useLogout();
+
   const data = [
     {
       title: 'Home',
@@ -24,24 +27,23 @@ const AppMenu = () => {
       title: 'Chat',
       link: '/chat',
       icon: <MessageOutlined />
-    }
+    },
   ];
   
   return (
     <>
-      <Menu
-        theme="dark"
-        items={data.map((e, i) => ({
-          key: i, 
-          icon: e.icon,
-          label: <Link to={e.link}>{e.title}</Link>
-        }))}
-        mode="inline"
-        className={styles.menu}
-      >
+      <Menu theme="dark" mode="horizontal" className={styles.menu}>
+        {data.map((e, i) => (
+          <Menu.Item key={i} icon={e.icon}>
+            <Link to={e.link}>{e.title}</Link>
+          </Menu.Item>
+        ))}
+        <Menu.Item key="logout" icon={<LogoutOutlined />} onClick={handleLogout}>
+          Logout
+        </Menu.Item>
       </Menu>
     </>
-  )
+  );
 }
 
 export default AppMenu;

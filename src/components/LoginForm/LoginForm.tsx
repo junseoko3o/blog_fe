@@ -42,7 +42,7 @@ const LoginForm = () => {
             </div>
 
             <div className={styles.buttonContainer}>
-              <Button type="primary" className={styles.loginButton}>
+              <Button type="primary" onClick={handledLogin} className={styles.loginButton}>
                 Login
               </Button>
               <Button type="primary" onClick={signUp} className={styles.signUpButton}>

@@ -1,5 +1,8 @@
 .menu {
-  text-align: center;
+  background: #001529;
+  color: #ffffff;
+  display: flex;
+  width: 100px;
 }
 
 @media (max-width: 768px) {
@@ -7,9 +10,5 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
-
-  .ant-menu-item {
-    margin: 10px 0;
   }
 }

@@ -1,39 +1,27 @@
-import React, { useState } from "react";
-import { Layout, Modal } from "antd";
-import { LogoutOutlined } from "@ant-design/icons";
+import React from "react";
+import { Layout } from "antd";
 import kuromi from './lib/kuromi.png';
 import styles from './lib/appLayout.module.css';
 import AppMenu from "components/AppMenu/AppMenu";
-import useLogout from "hooks/useUser/logout/useLogout";
 
-const { Sider, Content, Header } = Layout;
+const { Content, Header } = Layout;
 
-const AppLayout = ({ children }: { children: React.ReactNode }) => {
-  const [collapsed, setCollapsed] = useState<boolean>(false);
-  const { handleLogout } = useLogout();
-  
-  const toggleMenu = () => {
-    setCollapsed(!collapsed);
-  };
-
+const AppLayout = ({ children }: { children: React.ReactNode }) => {  
   return (
     <>
       <Layout className={styles.layout}>
-        <Sider collapsible collapsed={collapsed} onCollapse={toggleMenu} className={styles.sider}>
-          <div>
-            <img src={kuromi} className={styles.image}></img>
+        <Header className={styles.header}>
+          <div className={styles.headerContent}>
+            <img src={kuromi} className={styles.image} alt="kuromi"></img>
+            <span className={styles.userName}>Lee Jae Gyeong</span>
+            <div className={styles.menuList}>
+              <AppMenu />
+            </div>
           </div>
-          <AppMenu />
-        </Sider>
-        <Layout>
-          <Header className={styles.header}>
-            Lee Jae Gyeong
-            <button onClick={handleLogout} className={styles.logoutButton}> <LogoutOutlined /></button>
-          </Header>
-          <Content className={styles.content}>
-            {children}
-          </Content>
-        </Layout>
+        </Header>
+        <Content className={styles.content}>
+          {children}
+        </Content>
       </Layout>
     </>
   );
