@@ -4,7 +4,8 @@ import { message } from 'antd';
 import { useNavigate } from 'react-router';
 import { loginCheck, userState } from 'hooks/store/store';
 import io from 'socket.io-client';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { LoginUser } from './lib/interface';
 
 const socketApi = process.env.REACT_APP_SERVER_API || '';
 const socket = io(socketApi);
@@ -12,6 +13,8 @@ const socket = io(socketApi);
 const useLogin = () => {
   const [user, setUser] = useRecoilState(userState);
   const [logined, setLogined] = useRecoilState(loginCheck);
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,11 +27,18 @@ const useLogin = () => {
     });
   }, []);
 
-  const login = async (email: string, password: string) => {
+  const login = async () => {
+    const loginUser: LoginUser = {
+      user_email: email,
+      password,
+    };
+
     try {
-      await api.post('/auth/login', { user_email: email, password })
+      await api.post('/auth/login', loginUser)
         .then((res) => {
           const data = res.data;
+          setEmail('');
+          setPassword('');
           setUser(data);
           navigate('/home');
           return user;
@@ -46,16 +56,15 @@ const useLogin = () => {
       }
   }
 
-  const handledLogin = async (values: { email: string, password: string }) => {
-    const { email, password } = values;
+  const handledLogin = async () => {
     socket.emit('login', user);
-    await login(email, password);
+    await login();
   };
 
   const signUp = () => {
     navigate('/signup');
   }
-  return { login, signUp, handledLogin };
+  return { email, setEmail, password, setPassword, login, signUp, handledLogin };
 }
 
-export default useLogin
+export default useLogin;

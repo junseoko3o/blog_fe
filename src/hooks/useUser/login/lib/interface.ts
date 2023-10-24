@@ -5,3 +5,8 @@ export interface UserProfile {
   access_token?: string;
   refresh_token?: string;
 }
+
+export interface LoginUser {
+  user_email: string;
+  password: string;
+}

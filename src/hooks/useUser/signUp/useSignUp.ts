@@ -8,6 +8,7 @@ const useSignUp = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [name, setName] = useState<string>('');
+  const [passwordError, setPasswordError] = useState<string | undefined>('');
   const [confirmPassword, setConfirmPassword] = useState<string>(''); 
   const navigate = useNavigate();
 
@@ -48,7 +49,7 @@ const useSignUp = () => {
     navigate('/');
   }
 
-  return { email, setEmail, password, setPassword, name, setName, signUp, confirmPassword, setConfirmPassword, validatePassword, backLogin }
+  return { email, setEmail, password, setPassword, passwordError, setPasswordError, name, setName, signUp, confirmPassword, setConfirmPassword, validatePassword, backLogin }
 }
 
 export default useSignUp;

@@ -1,75 +1,50 @@
-import React, { useState } from 'react';
-import { Form, Input, Button, Typography, Row, Col } from 'antd';
+import React from 'react';
 import logo from './lib/kuromi.svg'
 import styles from './lib/login.module.css';
 import useLogin from 'hooks/useUser/login/useLogin';
 
-const { Title } = Typography;
 
 const LoginForm = () => {
-  const { handledLogin, signUp } = useLogin();
-  const [loading, setLoading] = useState(false);
+  const { email, setEmail, password, setPassword, handledLogin, signUp } = useLogin();
 
   return (
     <>
-    <div className={styles.container}>
-      <Row justify="center" align="middle">
-        <Col span={8} className={styles.col}>
+      <div className={styles.container}>
+        <div>
           <img src={logo} alt="" className={styles.image} />
-          <Title level={2} className={styles.title}>Login</Title>
-        <Form name="login" onFinish={handledLogin}>
-            <Form.Item
-              name="email"
-              label="Email"
-              rules={[
-                {
-                  required: true,
-                  type: 'email',
-                  message: 'Please enter a valid email address',
-                },
-              ]}
-            >
-              <Input />
-            </Form.Item>
+          <h2 className={styles.title}>Login</h2>
+          <form name="login" onSubmit={handledLogin}>
+            <div>
+              <label>Email</label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
 
-            <Form.Item
-              name="password"
-              label="Password"
-              rules={[
-                {
-                  required: true,
-                  message: 'Please enter your password',
-                },
-              ]} 
-            >
-              <Input.Password />
-            </Form.Item>
+            <div>
+              <label>Password</label>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
 
-            <Form.Item>
-              <div className={styles.buttonContainer}>
-                <Button
-                  type="primary"
-                  htmlType="submit"
-                  loading={loading}
-                  className={styles.loginButton}
-                >
-                  Login
-                </Button>
-                <Button
-                  type="primary"
-                  htmlType="submit"
-                  loading={loading}
-                  onClick={signUp}
-                  className={styles.signUpButton}
-                >
-                  SignUp
-                </Button>
-              </div>
-            </Form.Item>
-          </Form>
-        </Col>
-      </Row>
-    </div>
+            <div className={styles.buttonContainer}>
+              <button type="submit" className={styles.loginButton}>
+                Login
+              </button>
+              <button type="button" onClick={signUp} className={styles.signUpButton}>
+                SignUp
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
     </>
   );
 };

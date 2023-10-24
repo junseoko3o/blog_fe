@@ -1,5 +1,4 @@
 import React from 'react';
-import { Form, Input, Button, Row, Col } from 'antd';
 import styles from './lib/signUp.module.css'
 import melody from './lib/melody.png';
 import useSignUp from 'hooks/useUser/signUp';
@@ -12,6 +11,8 @@ const SignUpForm = () => {
     setPassword,
     name,
     setName,
+    passwordError,
+    setPasswordError,
     signUp,
     confirmPassword,
     setConfirmPassword,
@@ -19,100 +20,52 @@ const SignUpForm = () => {
     backLogin,
   } = useSignUp();
 
+  
   return (
     <div className={styles.container}>
-    <Row justify="center" align="middle">
-      <Col span={8}>
-        <img src={melody} alt="" className={styles.image} />
-        <h1 className={styles.title}>SignUp</h1>
-        <Form className={styles.layout} onFinish={signUp}>
-          <Form.Item
-            label="Email"
-            name="email"
-            rules={[
-              {
-                required: true,
-                message: 'Please enter a valid email address.',
-              },
-              {
-                type: 'email',
-                message: 'Please enter a valid email address.',
-              },
-            ]}
-          >
-            <Input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)} />
-          </Form.Item>
+      <img src={melody} alt="" className={styles.image} />
+      <h1 className="title">SignUp</h1>
+      <form className="layout" onSubmit={signUp}>
+        <label>Email</label>
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
 
-          <Form.Item
-            label="Name"
-            name="name"
-            rules={[
-              {
-                required: true,
-                message: 'Please enter your name.',
-              },
-            ]}
-          >
-            <Input
-              value={name}
-              onChange={(e) => setName(e.target.value)} />
-          </Form.Item>
+        <label>Name</label>
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
 
-          <Form.Item
-            label="Password"
-            name="password"
-            rules={[
-              {
-                required: true,
-                message: 'Please enter your password.',
-              },
-              {
-                min: 6,
-                message: 'Password must be at least 6 characters long.',
-              },
-            ]}
-          >
-            <Input.Password
-              value={password}
-              onChange={(e) => setPassword(e.target.value)} />
-          </Form.Item>
+        <label>Password</label>
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
 
-          <Form.Item
-            label="ConfirmPw"
-            name="confirmPassword"
-            rules={[
-              {
-                required: true,
-                message: 'Please re-enter your password.',
-              },
-              {
-                validator: validatePassword,
-                message: 'Passwords do not match.',
-              },
-            ]}
-          >
-            <Input.Password
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)} />
-          </Form.Item>
-          <Form.Item>
-          <div className={styles.buttonContainer}>
-            <Button type="primary" htmlType="submit" className={styles.signUpButton}>
-              SignUp
-            </Button>
-            <Button type="primary" htmlType="submit" className={styles.backButton} onClick={backLogin}>
-              Back
-            </Button>
-          </div>
-          </Form.Item>
-        </Form>
-        </Col>
-    </Row>
+        <label>Confirm Password</label>
+        <input
+          type="password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          required
+          onBlur={(e) => validatePassword(null, e.target.value, setPasswordError)}
+        />
+          {passwordError && <p className={styles.error}>{passwordError}</p>}  
+        <div className={styles.buttonContainer}>
+          <button type="submit" className={styles.signUpButton}>SignUp</button>
+          <button type="button" className={styles.backButton} onClick={backLogin}>Back</button>
+        </div>
+      </form>
     </div>
   );
-}
+};
 
 export default SignUpForm;
