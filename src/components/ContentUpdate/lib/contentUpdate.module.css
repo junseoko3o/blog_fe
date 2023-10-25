@@ -1,3 +1,12 @@
+.container {
+  margin: 20px;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .button {
   background: navy;
   border-color: navy;

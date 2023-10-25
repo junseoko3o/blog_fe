@@ -1,7 +1,9 @@
 .container {
   margin: 20px;
-  padding: 5px;
+  padding: 20px;
+  border: 1px solid #ccc;
   border-radius: 10px;
+  max-width: 600px;
   margin-left: auto;
   margin-right: auto;
 }
