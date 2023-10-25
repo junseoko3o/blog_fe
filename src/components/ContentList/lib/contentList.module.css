@@ -37,6 +37,10 @@ th {
   width: 10px;
 }
 
+.updateAt {
+  width: 200px;
+}
+
 .link {
   color: black;
   text-decoration: none;
