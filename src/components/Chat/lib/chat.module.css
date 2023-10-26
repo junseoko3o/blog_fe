@@ -1,3 +1,11 @@
+.container {
+  margin: 20px;
+  padding: 20px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .chatContainer {
   display: flex;
   flex-direction: column;
@@ -57,11 +65,13 @@
 }
 
 .inputContainer {
+  display: flex;
   align-items: center;
-  width: 100%;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: 300px;
+  justify-content: center;
+}
+
+.inputButton {
+  margin-bottom: 10px;
 }
 
 input {
