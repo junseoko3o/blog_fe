@@ -32,7 +32,7 @@ const AppMenu = () => {
   
   return (
     <>
-      <Menu theme="dark" mode="horizontal" className={styles.menu}>
+      <Menu theme="light" mode="horizontal" className={styles.menu}>
         {data.map((e, i) => (
           <Menu.Item key={i} icon={e.icon}>
             <Link to={e.link}>{e.title}</Link>
