@@ -121,6 +121,7 @@ th {
   .table {
     width: 100%;
     overflow-x: auto;
+    display: block;
   }
 
   .title {
@@ -128,7 +129,12 @@ th {
   }
 
   .searchInput {
-    width: 100%;
+    width: calc(100% - 18px);
     margin-right: 8px;
+  }
+
+  th, td {
+    font-size: 12px;
+    padding: 8px;
   }
 }
