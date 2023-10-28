@@ -1,10 +1,10 @@
 .container {
   margin: 20px;
   padding: 20px;
-  border: 1px solid #ccc;
   border-radius: 10px;
-  max-width: 600px;
+  max-width: 100%;
   margin-left: auto;
+  box-sizing: border-box;
   margin-right: auto;
 }
 
@@ -18,8 +18,8 @@
 }
 
 .title {
-  width: 700px;
-  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 th, td {
