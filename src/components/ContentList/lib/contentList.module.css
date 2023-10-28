@@ -6,15 +6,18 @@
   margin-left: auto;
   box-sizing: border-box;
   margin-right: auto;
+  overflow-x: auto;
 }
 
 .Text {
-  padding-left: 500px;
+  padding-left: 16px;
 }
 
 .table {
   width: 100%;
   border-collapse: collapse;
+  overflow-x: auto;
+  display: block;
 }
 
 .title {
@@ -23,9 +26,10 @@
 }
 
 th, td {
-  padding: 10px;
+  font-size: 12px;
+  padding: 8px;
   border-bottom: 1px solid #ddd;
-  text-align: center; 
+  text-align: center;
 }
 
 th {
@@ -44,7 +48,7 @@ th {
 .link {
   color: black;
   text-decoration: none;
-  font-size: 18px;
+  font-size: 14px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -67,7 +71,7 @@ th {
 
 .date {
   color: #555;
-  font-size: 16px;
+  font-size: 12px;
 }
 
 .pagination {
@@ -80,7 +84,7 @@ th {
   background-color: navy;
   color: #ffffff;
   border: none;
-  padding: 5px 20px;
+  padding: 5px 12px;
   margin-right: 10px;
   cursor: pointer;
   border-radius: 5px;
@@ -93,10 +97,10 @@ th {
 }
 
 .pagination span {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: bold;
   color: #333;
-  margin-right: 10px; 
+  margin-right: 10px;
 }
 
 .search {
@@ -109,28 +113,14 @@ th {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  width: 200px;
+  width: calc(100% - 18px);
   font-size: 14px;
+  margin-right: 8px;
 }
 
 @media screen and (max-width: 480px) {
   .Text {
     padding-left: 16px;
-  }
-
-  .table {
-    width: 100%;
-    overflow-x: auto;
-    display: block;
-  }
-
-  .title {
-    width: 100%;
-  }
-
-  .searchInput {
-    width: calc(100% - 18px);
-    margin-right: 8px;
   }
 
   th, td {
