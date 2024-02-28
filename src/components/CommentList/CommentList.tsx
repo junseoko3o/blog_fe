@@ -7,6 +7,7 @@ import useCommentUpdate from "hooks/useComment/commentUpdate";
 import useCommentDelete from "hooks/useComment/commentDelete";
 import styles from './lib/commentList.module.css';
 import { Button } from "antd";
+import LikeButton from "components/LikeButton";
 
 const CommentList = () => {
   const { id } = useParams() as { id: string };
@@ -72,6 +73,7 @@ const CommentList = () => {
               <>
                 <p className={styles.commentText}>{comment.comment}</p>
                 <p className={styles.info}>작성자: {comment.user_name} 작성시간: {moment(comment.updated_at).format('YYYY-MM-DD HH:mm:ss')}</p>
+                <LikeButton />
                 {user.id === comment.created_user_id && (
                   <div className={styles.buttonContainer}>
                     <Button
