@@ -17,7 +17,7 @@ const useCommentPost = (contentId: number) => {
       created_user_id: user.id,
     };
 
-    await api.post("/comment", commentPost)
+    const response = await api.post("/comment", commentPost)
     .then(response => {
       setComment("");
       message.success('생성이 완료되었습니다.');
@@ -26,6 +26,11 @@ const useCommentPost = (contentId: number) => {
     })
     .catch(err => {
       message.error('생성 실패');
+    })
+    await api.post("/heart/comment", {
+      comment_id: response.data.id,
+      like: false,
+      user_id: user.id,
     })
  };
 
