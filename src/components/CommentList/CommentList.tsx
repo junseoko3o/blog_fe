@@ -73,7 +73,7 @@ const CommentList = () => {
               <>
                 <p className={styles.commentText}>{comment.comment}</p>
                 <p className={styles.info}>작성자: {comment.user_name} 작성시간: {moment(comment.updated_at).format('YYYY-MM-DD HH:mm:ss')}</p>
-                <LikeButton />
+                <LikeButton comment_id={comment.id}/>
                 {user.id === comment.created_user_id && (
                   <div className={styles.buttonContainer}>
                     <Button

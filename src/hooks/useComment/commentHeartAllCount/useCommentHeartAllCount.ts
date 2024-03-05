@@ -6,12 +6,11 @@ const useCommentHeartAllCount = (comment_id: number) => {
   const [count, setCount] = useState(0);
   useEffect(() => {
     const heartCount = async () => {
-      const response = await api.get(`/heart/comment/count${comment_id}`);
+      const response = await api.get(`/heart/comment/${comment_id}`);
       try {
         if (response.data) {
-          mutate(`/heart/comment/count${comment_id}`);
-          setCount(response.data)
-          console.log(response.data.like_count)
+          mutate(`/heart/comment/count/${comment_id}`);
+          setCount(response.data.like_count)
           return response.data;
         }
       } catch (err) {
