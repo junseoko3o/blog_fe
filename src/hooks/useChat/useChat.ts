@@ -7,12 +7,12 @@ import io from 'socket.io-client';
 
 const api = process.env.REACT_APP_SERVER_API || '';
 const socket = io(api);
-
 const useChat = () => {
   const user = useRecoilValue(authenticatedUserState);
   const [messages, setMessages] = useState<Message[]>([]);
   const [message, setMessage] = useState('');
   const { data, error } = useSwr(`/chat/list`);
+
   useEffect(() => {
     if (data) {
       setMessages(data);
