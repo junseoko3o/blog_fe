@@ -11,6 +11,15 @@ const useCommentHeart = (comment_id: number) => {
     try {
       const newLike = !like;
       setLike(newLike);
+      if (newLike === true) {
+        const response = await api.post(`/heart/comment`, {
+          comment_id,
+          user_id: user.id,
+          like: newLike,
+        });
+        mutate(`/heart/comment/count/${comment_id}`);
+        return response.data;
+      }
       const response = await api.post(`/heart/comment/update`, {
         comment_id,
         user_id: user.id,
