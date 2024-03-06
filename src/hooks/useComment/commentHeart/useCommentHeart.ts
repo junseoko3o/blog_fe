@@ -1,33 +1,32 @@
 import api from "api/api";
-import { useEffect, useState } from "react";
 import { LikeButtonProps } from "./lib/interface";
 import useCommentHeartInfo from "../commentHeartInfo/useCommentHeartInfo";
+import { useSWRConfig } from "swr";
 
-const useCommentHeart = ({comment_id, user_id }: LikeButtonProps) => {
-  const info = useCommentHeartInfo(comment_id, user_id);
-  const [like, setLike] = useState(false);
+const useCommentHeart = ({ comment_id, user_id }: LikeButtonProps) => {
+  const infoLike = useCommentHeartInfo(comment_id, user_id);
+  const { mutate } = useSWRConfig();
   
   const heart = async () => {
+    const newLike = !infoLike.infoLike;
     try {
-      const newLike = !like;
-      setLike(newLike);
       const response = await api.post(`/heart/comment`, {
         comment_id,
         user_id,
         like: newLike,
       });
-      console.log(response.data)
+      window.location.reload();
       return response.data;
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      console.error('Error occurred while updating like:', error);
     }
   };
 
   const handleLikeClick = async () => {
     await heart();
   };
-
-  return { like, handleLikeClick };
+  
+  return { heart, handleLikeClick };
 };
 
 export default useCommentHeart;
