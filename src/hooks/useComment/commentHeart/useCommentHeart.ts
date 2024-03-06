@@ -1,31 +1,22 @@
 import api from "api/api";
-import { mutate } from "swr";
-import { useState } from "react";
-import { useRecoilValue } from "recoil";
-import { authenticatedUserState } from "hooks/store/store";
+import { useEffect, useState } from "react";
+import { LikeButtonProps } from "./lib/interface";
+import useCommentHeartInfo from "../commentHeartInfo/useCommentHeartInfo";
 
-const useCommentHeart = (comment_id: number) => {
+const useCommentHeart = ({comment_id, user_id }: LikeButtonProps) => {
+  const info = useCommentHeartInfo(comment_id, user_id);
   const [like, setLike] = useState(false);
-  const user = useRecoilValue(authenticatedUserState)
+  
   const heart = async () => {
     try {
       const newLike = !like;
       setLike(newLike);
-      if (newLike === true) {
-        const response = await api.post(`/heart/comment`, {
-          comment_id,
-          user_id: user.id,
-          like: newLike,
-        });
-        mutate(`/heart/comment/count/${comment_id}`);
-        return response.data;
-      }
-      const response = await api.post(`/heart/comment/update`, {
+      const response = await api.post(`/heart/comment`, {
         comment_id,
-        user_id: user.id,
+        user_id,
         like: newLike,
       });
-      mutate(`/heart/comment/count/${comment_id}`);
+      console.log(response.data)
       return response.data;
     } catch (err) {
       console.log(err);
