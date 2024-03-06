@@ -4,19 +4,15 @@ import heart from "./lib/like.png";
 import unheart from "./lib/unlike.png";
 import useCommentHeartAllCount from "hooks/useComment/commentHeartAllCount/useCommentHeartAllCount";
 import { LikeButtonProps } from "./lib/interface";
+import useCommentHeart from "hooks/useComment/commentHeart/useCommentHeart";
 
 const LikeButton = ({ comment_id }: LikeButtonProps)=> {
-  const [liked, setLiked] = useState(false);
   const { count } = useCommentHeartAllCount(comment_id);
-  console.log(count)
-  const handleLikeClick = () => {
-    setLiked(prevLiked => !prevLiked);
-  };
-
+  const { like, handleLikeClick  } = useCommentHeart(comment_id);
   return (
     <div>
       <div onClick={handleLikeClick}>
-        <img src={liked ? heart : unheart} alt="Like Button" className={styles.likeButton} />
+        <img src={like ? heart : unheart} alt="Like Button" className={styles.likeButton} />
       </div>
       <div>{count}</div>
     </div>

@@ -1,6 +1,5 @@
 import api from "api/api";
 import { useEffect, useState } from "react";
-import { mutate } from "swr";
 
 const useCommentHeartAllCount = (comment_id: number) => {
   const [count, setCount] = useState(0);
@@ -9,7 +8,6 @@ const useCommentHeartAllCount = (comment_id: number) => {
       const response = await api.get(`/heart/comment/${comment_id}`);
       try {
         if (response.data) {
-          mutate(`/heart/comment/count/${comment_id}`);
           setCount(response.data.like_count)
           return response.data;
         }
