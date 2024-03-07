@@ -15,7 +15,7 @@ const useCommentHeart = ({ comment_id, user_id }: LikeButtonProps) => {
         user_id,
         like: newLike,
       });
-      window.location.reload();
+      // window.location.reload();
       return response.data;
     } catch (error) {
       console.error('Error occurred while updating like:', error);
