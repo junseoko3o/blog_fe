@@ -21,12 +21,12 @@
 }
 
 .title {
-  width: 700px;
+  width: 600px;
   box-sizing: border-box;
 }
 
 th, td {
-  font-size: 12px;
+  font-size: 14px;
   padding: 8px;
   border-bottom: 1px solid #ddd;
   text-align: center;
@@ -67,7 +67,7 @@ th {
 }
 
 .pagination {
-  display: flex;
+  display: inline-flex;
   justify-content: flex-end;
   margin-top: 20px;
 }
