@@ -9,6 +9,9 @@ export default function setupProxy() {
       createProxyMiddleware({
         target: process.env.REACT_APP_SERVER_API,
         changeOrigin: true,
+           pathRewrite: {
+          '^/api': '',
+        },
       })
     );
   };
