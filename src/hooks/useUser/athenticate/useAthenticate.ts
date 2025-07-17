@@ -11,15 +11,6 @@ const useUserAuthenticate = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const refreshToken = async () => {
-  try {
-    const response = await api.get('/auth/refresh');
-    return response.status === 200;
-  } catch (e) {
-    return false;
-  }
-};
-
 
   const authenticateUser = async () => {
     try {
@@ -28,8 +19,6 @@ const useUserAuthenticate = () => {
         setUser(response.data);
       }
     } catch (error) {
-      const refreshed = await refreshToken();
-      if (refreshed) {
         try {
           const retryResponse = await api.get<UserAuthentication>('/auth/authenticate');
           if (retryResponse.status === 200) {
@@ -37,7 +26,6 @@ const useUserAuthenticate = () => {
             return;
           }
         } catch (e) {}
-      }
       message.error('토큰이 만료되었습니다.');
       navigate('/');
     }
