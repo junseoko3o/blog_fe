@@ -34,27 +34,25 @@ const useLogin = () => {
     };
 
     try {
-      await api.post('/auth/login', loginUser)
-        .then((res) => {
-          const data = res.data;
-          setEmail('');
-          setPassword('');
-          setUser(data);
-          navigate('/home');
-          return user;
-        })
-        .catch((error) => {
-          if (error.response.status === 400) {
-            message.error('비번틀림');
-          }
-          if (error.response.status === 404) {
-            message.error('이메일 틀림');
-          };
-        });
-      } catch (err) {
+      const res = await api.post('/auth/login', loginUser);
+      const data = res.data;
+
+      setEmail('');
+      setPassword('');
+      setUser(data);
+
+      navigate('/home');
+    } catch (error: any) {
+      if (error.response?.status === 400) {
+        message.error('비번틀림');
+      } else if (error.response?.status === 404) {
+        message.error('이메일 틀림');
+      } else {
         message.error('로그인 실패');
       }
+    }
   }
+
 
   const handledLogin = async () => {
     socket.emit('login', user);
