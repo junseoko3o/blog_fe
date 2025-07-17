@@ -30,7 +30,6 @@ const useLogin = () => {
           setPassword('');
           setUser(data);
           navigate('/home');
-          setLogined(data);
 
           const socket = io(socketApi);
           socket.connect();
@@ -41,7 +40,9 @@ const useLogin = () => {
               setLogined(data);
             }
           });
-          
+          return () => {
+            socket.disconnect();
+          };
         })
         .catch((error) => {
           if (error.response.status === 400) {
