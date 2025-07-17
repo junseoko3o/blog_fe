@@ -15,8 +15,8 @@ import ProfileUpdate from 'components/ProfileUpdate/ProfileUpdate';
 import Chat from 'components/Chat/Chat';
 
 const App = () => {
-  // useUserAuthenticate();
-  // useRefreshToken();
+  useUserAuthenticate();
+  useRefreshToken();
   return (
     <GlobalConfigProvider>
       <Routes>
