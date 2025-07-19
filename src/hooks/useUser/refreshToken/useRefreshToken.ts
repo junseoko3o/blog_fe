@@ -21,7 +21,7 @@ export const useRefreshToken = () => {
         })
       };
     }
-      const intervalId = setInterval(refreshAccessToken, 5400000);
+      const intervalId = setInterval(refreshAccessToken, 54000);
     return () => clearInterval(intervalId);
   }, []);
 
