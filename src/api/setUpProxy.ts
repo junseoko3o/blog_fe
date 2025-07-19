@@ -13,8 +13,13 @@ export default function setupProxy() {
           '^/api/': '/'
         },
         logLevel: 'error',
-        cookieDomainRewrite: {
-          '*': 'localhost'
+        onProxyReq(proxyReq, req, res) {
+          if (req.headers.cookie) {
+            console.log(111111111111111,req.headers.cookie)
+            proxyReq.setHeader('Cookie', req.headers.cookie);
+          } else {
+            console.log('No cookies found in the request');
+          }
         }
       })
     );
