@@ -12,10 +12,14 @@ export default function setupProxy() {
         pathRewrite: {
           '^/api/': '/'
         },
-        logLevel: 'error',
+        logLevel: 'debug',
         onProxyReq(proxyReq, req, res) {
+          console.log("Proxy Request:", req.headers);
+          console.log(111, res.getHeader("access_token"))
+          console.log(112, res.getHeader("refresh_token"))
+
           if (req.headers.cookie) {
-            console.log(111111111111111,req.headers.cookie)
+            console.log('Cookies found:', req.headers.cookie);
             proxyReq.setHeader('Cookie', req.headers.cookie);
           } else {
             console.log('No cookies found in the request');
