@@ -20,7 +20,7 @@ const useUserAuthenticate = () => {
       }
     } catch (error) {
         try {
-          const retryResponse = await api.get<UserAuthentication>('/auth/authenticate');
+          const retryResponse = await api.get<UserAuthentication>('/auth/authenticate', { withCredentials:true });
           if (retryResponse.status === 200) {
             setUser(retryResponse.data);
             return;
