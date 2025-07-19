@@ -13,6 +13,9 @@ export default function setupProxy() {
           '^/api/': '/'
         },
         logLevel: 'debug',
+        onProxyRes(proxyRes, req, res) {
+          console.log("Proxy Response Headers:", proxyRes.headers);
+        },
         onProxyReq(proxyReq, req, res) {
           console.log("Proxy Request:", req.headers);
           console.log(111, res.getHeader("access_token"))
